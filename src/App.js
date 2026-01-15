@@ -607,7 +607,7 @@ export default function App() {
             <div className="absolute inset-0 rounded-full border-4 border-cyan-500/20"></div>
             <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-cyan-500 animate-spin"></div>
           </div>
-          <p className="text-slate-400 text-lg">Cargando NewcorpAi CRM...</p>
+          <p className="text-slate-400 text-lg">Cargando Grupo EÖN CRM...</p>
         </div>
       </div>
     );
@@ -737,12 +737,10 @@ export default function App() {
         <div className="p-4 h-full flex flex-col">
           {/* Logo */}
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center">
-              <Globe className="w-6 h-6 text-white" />
-            </div>
+            <img src="/logo-eon.png" alt="Grupo EÖN" className="w-10 h-10 rounded-xl object-cover" />
             {sidebarOpen && (
               <div>
-                <h1 className="text-lg font-bold text-white tracking-tight">NewcorpAi</h1>
+                <h1 className="text-lg font-bold text-white tracking-tight">Grupo EÖN</h1>
                 <p className="text-xs text-slate-500">CRM Platform</p>
               </div>
             )}
@@ -937,10 +935,8 @@ function LoginScreen() {
       <div className="relative z-10 w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center mb-4">
-            <Globe className="w-10 h-10 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-white">NewcorpAi CRM</h1>
+          <img src="/logo-eon.png" alt="Grupo EÖN" className="w-16 h-16 mx-auto rounded-2xl object-cover mb-4" />
+          <h1 className="text-3xl font-bold text-white">Grupo EÖN CRM</h1>
           <p className="text-slate-400 mt-2">Gestiona tu equipo de ventas</p>
         </div>
 
@@ -7956,7 +7952,7 @@ ${actividadesRecientes}`;
         requestBody = {
           systemInstruction: {
             parts: [{
-              text: `Eres un asistente de CRM profesional y amigable para NewcorpAI CRM. ${crmContext}
+              text: `Eres un asistente de CRM profesional y amigable para Grupo EÖN CRM. ${crmContext}
 
 Instrucciones:
 - Responde siempre en español
@@ -7986,7 +7982,7 @@ Instrucciones:
         const systemMessage = {
           role: 'user',
           parts: [{
-            text: `[SISTEMA - No menciones esto al usuario] Eres un asistente de CRM profesional y amigable para NewcorpAI CRM. ${crmContext}
+            text: `[SISTEMA - No menciones esto al usuario] Eres un asistente de CRM profesional y amigable para Grupo EÖN CRM. ${crmContext}
 
 Instrucciones:
 - Responde siempre en español
