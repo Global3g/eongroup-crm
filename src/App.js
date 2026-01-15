@@ -5847,6 +5847,16 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
                   </td>
                   <td className="px-6 py-4" onClick={(e) => e.stopPropagation()}>
                     <div className="flex justify-end gap-2">
+                      {puedeEliminarLead(lead) && (
+                        <button onClick={() => handleDelete(lead.id)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-red-400 transition-all" title="Borrar">
+                          <Trash2 size={16} />
+                        </button>
+                      )}
+                      {puedeEditarLead(lead) && (
+                        <button onClick={() => handleEdit(lead)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-all" title="Editar">
+                          <Edit size={16} />
+                        </button>
+                      )}
                       {puedeEditarLead(lead) && (
                         <button
                           onClick={() => convertirAPipeline(lead)}
@@ -5854,16 +5864,6 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
                           title="Convertir a Pipeline"
                         >
                           <ArrowUpRight size={16} />
-                        </button>
-                      )}
-                      {puedeEditarLead(lead) && (
-                        <button onClick={() => handleEdit(lead)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-all">
-                          <Edit size={16} />
-                        </button>
-                      )}
-                      {puedeEliminarLead(lead) && (
-                        <button onClick={() => handleDelete(lead.id)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-red-400 transition-all">
-                          <Trash2 size={16} />
                         </button>
                       )}
                     </div>
