@@ -2262,12 +2262,12 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   // Usuarios activos para asignar
   const usuariosActivos = (usuarios || []).filter(u => u.activo !== false);
 
-  // Permisos del usuario actual para clientes
+  // Permisos del usuario actual para clientes (fallback a permisos básicos, no admin)
   // Nueva estructura: ver/editar/eliminar pueden ser 'todos', 'propios', o false
-  const permisos = currentUser?.permisos?.clientes || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
-  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
-  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
-  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  const permisos = currentUser?.permisos?.clientes || { ver: 'todos', crear: true, editar: 'propios', eliminar: false };
+  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'propios', crear: true, editar: 'propios', eliminar: false };
+  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' };
+  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' };
 
   const puedeCrear = permisos.crear === true;
   const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
@@ -2275,6 +2275,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   // Función para verificar si puede editar un cliente específico
   const puedeEditarCliente = (cliente) => {
     if (!cliente) return false;
+    // Admin siempre puede editar
+    if (esAdmin) return true;
     // Permitir si tiene permisos de editar todos o legacy true
     if (permisos.editar === 'todos' || permisos.editar === true) return true;
     // Si es 'propios', verificar que el cliente sea suyo
@@ -2288,6 +2290,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   // Función para verificar si puede eliminar un cliente específico
   const puedeEliminarCliente = (cliente) => {
     if (!cliente) return false;
+    // Admin siempre puede eliminar
+    if (esAdmin) return true;
     // Permitir si tiene permisos de eliminar todos o legacy true
     if (permisos.eliminar === 'todos' || permisos.eliminar === true) return true;
     // Si es 'propios', verificar que el cliente sea suyo
@@ -3611,11 +3615,11 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   // Usuarios activos para asignar
   const usuariosActivos = (usuarios || []).filter(u => u.activo !== false);
 
-  // Permisos del usuario actual para pipeline
-  const permisosPipeline = currentUser?.permisos?.pipeline || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
-  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
-  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
-  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  // Permisos del usuario actual para pipeline (fallback a permisos básicos, no admin)
+  const permisosPipeline = currentUser?.permisos?.pipeline || { ver: 'todos', crear: true, editar: 'propios', eliminar: false };
+  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'propios', crear: true, editar: 'propios', eliminar: false };
+  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' };
+  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' };
 
   const puedeCrear = permisosPipeline.crear === true;
   const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
@@ -3623,6 +3627,8 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   // Función para verificar si puede editar un prospecto específico
   const puedeEditarProspecto = (prospecto) => {
     if (!prospecto) return false;
+    // Admin siempre puede editar
+    if (esAdmin) return true;
     // Permitir si tiene permisos de editar todos o legacy true
     if (permisosPipeline.editar === 'todos' || permisosPipeline.editar === true) return true;
     // Si es 'propios', verificar que el prospecto sea suyo
@@ -3636,6 +3642,8 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   // Función para verificar si puede eliminar un prospecto específico
   const puedeEliminarProspecto = (prospecto) => {
     if (!prospecto) return false;
+    // Admin siempre puede eliminar
+    if (esAdmin) return true;
     // Permitir si tiene permisos de eliminar todos o legacy true
     if (permisosPipeline.eliminar === 'todos' || permisosPipeline.eliminar === true) return true;
     // Si es 'propios', verificar que el prospecto sea suyo
@@ -5331,9 +5339,9 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   const leadActividades = selectedLead ? actividades.filter(a => a.leadId === selectedLead.id) : [];
   const usuariosActivos = usuarios.filter(u => u.activo !== false);
 
-  // Permisos del usuario actual para leads
-  const permisosLeads = currentUser?.permisos?.leads || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
-  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  // Permisos del usuario actual para leads (fallback a permisos básicos, no admin)
+  const permisosLeads = currentUser?.permisos?.leads || { ver: 'todos', crear: true, editar: 'propios', eliminar: false };
+  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'propios', crear: true, editar: 'propios', eliminar: false };
 
   const puedeCrear = permisosLeads.crear === true;
   const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
@@ -5341,6 +5349,8 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   // Función para verificar si puede editar un lead específico
   const puedeEditarLead = (lead) => {
     if (!lead) return false;
+    // Admin siempre puede editar
+    if (esAdmin) return true;
     // Permitir si tiene permisos de editar todos o legacy true
     if (permisosLeads.editar === 'todos' || permisosLeads.editar === true) return true;
     // Si es 'propios', verificar que el lead sea suyo
@@ -5354,6 +5364,8 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   // Función para verificar si puede eliminar un lead específico
   const puedeEliminarLead = (lead) => {
     if (!lead) return false;
+    // Admin siempre puede eliminar
+    if (esAdmin) return true;
     // Permitir si tiene permisos de eliminar todos o legacy true
     if (permisosLeads.eliminar === 'todos' || permisosLeads.eliminar === true) return true;
     // Si es 'propios', verificar que el lead sea suyo
