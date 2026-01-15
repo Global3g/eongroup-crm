@@ -2275,7 +2275,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   // Función para verificar si puede editar un cliente específico
   const puedeEditarCliente = (cliente) => {
     if (!cliente) return false;
-    if (permisos.editar === 'todos') return true;
+    if (permisos.editar === 'todos' || permisos.editar === true) return true;
     if (permisos.editar === 'propios') {
       return cliente.asignadoA === currentUser?.id || cliente.creadoPor === currentUser?.id;
     }
@@ -2285,7 +2285,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   // Función para verificar si puede eliminar un cliente específico
   const puedeEliminarCliente = (cliente) => {
     if (!cliente) return false;
-    if (permisos.eliminar === 'todos') return true;
+    if (permisos.eliminar === 'todos' || permisos.eliminar === true) return true;
     if (permisos.eliminar === 'propios') {
       return cliente.asignadoA === currentUser?.id || cliente.creadoPor === currentUser?.id;
     }
@@ -2294,7 +2294,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   // Funciones para actividades
   const puedeVerActividad = (actividad) => {
-    if (permisosActividades.ver === 'todos') return true;
+    if (permisosActividades.ver === 'todos' || permisosActividades.ver === true) return true;
     if (permisosActividades.ver === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
     }
@@ -2303,7 +2303,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEditarActividad = (actividad) => {
     if (!actividad) return false;
-    if (permisosActividades.editar === 'todos') return true;
+    if (permisosActividades.editar === 'todos' || permisosActividades.editar === true) return true;
     if (permisosActividades.editar === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
     }
@@ -2312,7 +2312,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEliminarActividad = (actividad) => {
     if (!actividad) return false;
-    if (permisosActividades.eliminar === 'todos') return true;
+    if (permisosActividades.eliminar === 'todos' || permisosActividades.eliminar === true) return true;
     if (permisosActividades.eliminar === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
     }
@@ -2321,7 +2321,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   // Funciones para tareas
   const puedeVerTarea = (tarea) => {
-    if (permisosTareas.ver === 'todos') return true;
+    if (permisosTareas.ver === 'todos' || permisosTareas.ver === true) return true;
     if (permisosTareas.ver === 'propios') {
       return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
     }
@@ -2330,7 +2330,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEditarTarea = (tarea) => {
     if (!tarea) return false;
-    if (permisosTareas.editar === 'todos') return true;
+    if (permisosTareas.editar === 'todos' || permisosTareas.editar === true) return true;
     if (permisosTareas.editar === 'propios') {
       return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
     }
@@ -2339,7 +2339,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEliminarTarea = (tarea) => {
     if (!tarea) return false;
-    if (permisosTareas.eliminar === 'todos') return true;
+    if (permisosTareas.eliminar === 'todos' || permisosTareas.eliminar === true) return true;
     if (permisosTareas.eliminar === 'propios') {
       return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
     }
@@ -2348,7 +2348,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   // Funciones para recordatorios
   const puedeVerRecordatorio = (recordatorio) => {
-    if (permisosRecordatorios.ver === 'todos') return true;
+    if (permisosRecordatorios.ver === 'todos' || permisosRecordatorios.ver === true) return true;
     if (permisosRecordatorios.ver === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
     }
@@ -2357,7 +2357,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEditarRecordatorio = (recordatorio) => {
     if (!recordatorio) return false;
-    if (permisosRecordatorios.editar === 'todos') return true;
+    if (permisosRecordatorios.editar === 'todos' || permisosRecordatorios.editar === true) return true;
     if (permisosRecordatorios.editar === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
     }
@@ -2366,7 +2366,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEliminarRecordatorio = (recordatorio) => {
     if (!recordatorio) return false;
-    if (permisosRecordatorios.eliminar === 'todos') return true;
+    if (permisosRecordatorios.eliminar === 'todos' || permisosRecordatorios.eliminar === true) return true;
     if (permisosRecordatorios.eliminar === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
     }
@@ -3587,7 +3587,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   // Función para verificar si puede editar un prospecto específico
   const puedeEditarProspecto = (prospecto) => {
     if (!prospecto) return false;
-    if (permisosPipeline.editar === 'todos') return true;
+    if (permisosPipeline.editar === 'todos' || permisosPipeline.editar === true) return true;
     if (permisosPipeline.editar === 'propios') {
       return prospecto.asignadoA === currentUser?.id || prospecto.creadoPor === currentUser?.id;
     }
@@ -3597,7 +3597,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   // Función para verificar si puede eliminar un prospecto específico
   const puedeEliminarProspecto = (prospecto) => {
     if (!prospecto) return false;
-    if (permisosPipeline.eliminar === 'todos') return true;
+    if (permisosPipeline.eliminar === 'todos' || permisosPipeline.eliminar === true) return true;
     if (permisosPipeline.eliminar === 'propios') {
       return prospecto.asignadoA === currentUser?.id || prospecto.creadoPor === currentUser?.id;
     }
@@ -3606,7 +3606,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   // Funciones para actividades en pipeline
   const puedeVerActividad = (actividad) => {
-    if (permisosActividades.ver === 'todos') return true;
+    if (permisosActividades.ver === 'todos' || permisosActividades.ver === true) return true;
     if (permisosActividades.ver === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
     }
@@ -3615,7 +3615,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   const puedeEditarActividad = (actividad) => {
     if (!actividad) return false;
-    if (permisosActividades.editar === 'todos') return true;
+    if (permisosActividades.editar === 'todos' || permisosActividades.editar === true) return true;
     if (permisosActividades.editar === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
     }
@@ -3624,7 +3624,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   const puedeEliminarActividad = (actividad) => {
     if (!actividad) return false;
-    if (permisosActividades.eliminar === 'todos') return true;
+    if (permisosActividades.eliminar === 'todos' || permisosActividades.eliminar === true) return true;
     if (permisosActividades.eliminar === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
     }
@@ -3633,7 +3633,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   // Funciones para tareas en pipeline
   const puedeVerTarea = (tarea) => {
-    if (permisosTareas.ver === 'todos') return true;
+    if (permisosTareas.ver === 'todos' || permisosTareas.ver === true) return true;
     if (permisosTareas.ver === 'propios') {
       return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
     }
@@ -3642,7 +3642,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   const puedeEditarTarea = (tarea) => {
     if (!tarea) return false;
-    if (permisosTareas.editar === 'todos') return true;
+    if (permisosTareas.editar === 'todos' || permisosTareas.editar === true) return true;
     if (permisosTareas.editar === 'propios') {
       return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
     }
@@ -3651,7 +3651,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   const puedeEliminarTarea = (tarea) => {
     if (!tarea) return false;
-    if (permisosTareas.eliminar === 'todos') return true;
+    if (permisosTareas.eliminar === 'todos' || permisosTareas.eliminar === true) return true;
     if (permisosTareas.eliminar === 'propios') {
       return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
     }
@@ -3660,7 +3660,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   // Funciones para recordatorios en pipeline
   const puedeVerRecordatorio = (recordatorio) => {
-    if (permisosRecordatorios.ver === 'todos') return true;
+    if (permisosRecordatorios.ver === 'todos' || permisosRecordatorios.ver === true) return true;
     if (permisosRecordatorios.ver === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
     }
@@ -3669,7 +3669,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   const puedeEditarRecordatorio = (recordatorio) => {
     if (!recordatorio) return false;
-    if (permisosRecordatorios.editar === 'todos') return true;
+    if (permisosRecordatorios.editar === 'todos' || permisosRecordatorios.editar === true) return true;
     if (permisosRecordatorios.editar === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
     }
@@ -3678,7 +3678,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   const puedeEliminarRecordatorio = (recordatorio) => {
     if (!recordatorio) return false;
-    if (permisosRecordatorios.eliminar === 'todos') return true;
+    if (permisosRecordatorios.eliminar === 'todos' || permisosRecordatorios.eliminar === true) return true;
     if (permisosRecordatorios.eliminar === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
     }
@@ -5279,7 +5279,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   // Función para verificar si puede editar un lead específico
   const puedeEditarLead = (lead) => {
     if (!lead) return false;
-    if (permisosLeads.editar === 'todos') return true;
+    if (permisosLeads.editar === 'todos' || permisosLeads.editar === true) return true;
     if (permisosLeads.editar === 'propios') {
       return lead.asignadoA === currentUser?.id || lead.creadoPor === currentUser?.id;
     }
@@ -5289,7 +5289,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   // Función para verificar si puede eliminar un lead específico
   const puedeEliminarLead = (lead) => {
     if (!lead) return false;
-    if (permisosLeads.eliminar === 'todos') return true;
+    if (permisosLeads.eliminar === 'todos' || permisosLeads.eliminar === true) return true;
     if (permisosLeads.eliminar === 'propios') {
       return lead.asignadoA === currentUser?.id || lead.creadoPor === currentUser?.id;
     }
@@ -5298,7 +5298,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
 
   // Funciones para actividades en leads
   const puedeVerActividad = (actividad) => {
-    if (permisosActividades.ver === 'todos') return true;
+    if (permisosActividades.ver === 'todos' || permisosActividades.ver === true) return true;
     if (permisosActividades.ver === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
     }
@@ -5307,7 +5307,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
 
   const puedeEditarActividad = (actividad) => {
     if (!actividad) return false;
-    if (permisosActividades.editar === 'todos') return true;
+    if (permisosActividades.editar === 'todos' || permisosActividades.editar === true) return true;
     if (permisosActividades.editar === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
     }
@@ -5316,7 +5316,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
 
   const puedeEliminarActividad = (actividad) => {
     if (!actividad) return false;
-    if (permisosActividades.eliminar === 'todos') return true;
+    if (permisosActividades.eliminar === 'todos' || permisosActividades.eliminar === true) return true;
     if (permisosActividades.eliminar === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
     }
