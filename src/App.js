@@ -110,6 +110,9 @@ const ROLES = [
 ];
 
 // ============== PERMISOS POR DEFECTO ==============
+// Valores posibles para ver/editar/eliminar: 'todos', 'propios', false (no puede)
+// Valores posibles para crear/subir: true, false
+
 const PERMISOS_ADMIN = {
   modulos: {
     dashboard: true,
@@ -123,12 +126,13 @@ const PERMISOS_ADMIN = {
     auditlog: true,
     equipo: true
   },
-  clientes: { ver: true, crear: true, editar: true, eliminar: true },
-  pipeline: { ver: true, crear: true, editar: true, eliminar: true },
-  leads: { ver: true, crear: true, editar: true, eliminar: true },
-  tareas: { ver: true, crear: true, editar: true, eliminar: true },
-  archivos: { ver: true, subir: true, eliminar: true },
-  alcance: 'todos'
+  clientes: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+  pipeline: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+  leads: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+  actividades: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+  tareas: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+  recordatorios: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+  archivos: { ver: 'todos', subir: true, eliminar: 'todos' }
 };
 
 const PERMISOS_BASICOS = {
@@ -144,12 +148,13 @@ const PERMISOS_BASICOS = {
     auditlog: false,
     equipo: false
   },
-  clientes: { ver: true, crear: true, editar: true, eliminar: false },
-  pipeline: { ver: true, crear: true, editar: true, eliminar: false },
-  leads: { ver: true, crear: true, editar: true, eliminar: false },
-  tareas: { ver: true, crear: true, editar: true, eliminar: false },
-  archivos: { ver: true, subir: true, eliminar: false },
-  alcance: 'propios'
+  clientes: { ver: 'todos', crear: true, editar: 'propios', eliminar: false },
+  pipeline: { ver: 'todos', crear: true, editar: 'propios', eliminar: false },
+  leads: { ver: 'todos', crear: true, editar: 'propios', eliminar: false },
+  actividades: { ver: 'propios', crear: true, editar: 'propios', eliminar: false },
+  tareas: { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' },
+  recordatorios: { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' },
+  archivos: { ver: 'todos', subir: true, eliminar: false }
 };
 
 // ============== ROLES PREDEFINIDOS ==============
@@ -162,44 +167,47 @@ const ROLES_PREDEFINIDOS = [
     icon: Shield,
     permisos: {
       modulos: { dashboard: true, clientes: true, pipeline: true, leads: true, calendario: true, tareas: true, reportes: true, archivos: true, auditlog: true, equipo: true },
-      clientes: { ver: true, crear: true, editar: true, eliminar: true },
-      pipeline: { ver: true, crear: true, editar: true, eliminar: true },
-      leads: { ver: true, crear: true, editar: true, eliminar: true },
-      tareas: { ver: true, crear: true, editar: true, eliminar: true },
-      archivos: { ver: true, subir: true, eliminar: true },
-      alcance: 'todos'
+      clientes: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+      pipeline: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+      leads: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+      actividades: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+      tareas: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+      recordatorios: { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' },
+      archivos: { ver: 'todos', subir: true, eliminar: 'todos' }
     }
   },
   {
     id: 'gerente',
     nombre: 'Gerente',
-    descripcion: 'Ve todo, gestiona equipo, sin eliminar',
+    descripcion: 'Ve todo, edita solo lo suyo',
     color: 'from-cyan-500 to-blue-600',
     icon: Users,
     permisos: {
       modulos: { dashboard: true, clientes: true, pipeline: true, leads: true, calendario: true, tareas: true, reportes: true, archivos: true, auditlog: true, equipo: false },
-      clientes: { ver: true, crear: true, editar: true, eliminar: false },
-      pipeline: { ver: true, crear: true, editar: true, eliminar: false },
-      leads: { ver: true, crear: true, editar: true, eliminar: false },
-      tareas: { ver: true, crear: true, editar: true, eliminar: false },
-      archivos: { ver: true, subir: true, eliminar: false },
-      alcance: 'todos'
+      clientes: { ver: 'todos', crear: true, editar: 'todos', eliminar: false },
+      pipeline: { ver: 'todos', crear: true, editar: 'todos', eliminar: false },
+      leads: { ver: 'todos', crear: true, editar: 'todos', eliminar: false },
+      actividades: { ver: 'todos', crear: true, editar: 'propios', eliminar: false },
+      tareas: { ver: 'todos', crear: true, editar: 'propios', eliminar: 'propios' },
+      recordatorios: { ver: 'todos', crear: true, editar: 'propios', eliminar: 'propios' },
+      archivos: { ver: 'todos', subir: true, eliminar: false }
     }
   },
   {
     id: 'vendedor',
     nombre: 'Vendedor',
-    descripcion: 'Solo sus clientes y prospectos',
+    descripcion: 'Ve clientes/pipeline, edita solo lo suyo',
     color: 'from-emerald-500 to-green-600',
     icon: UserPlus,
     permisos: {
       modulos: { dashboard: true, clientes: true, pipeline: true, leads: true, calendario: true, tareas: true, reportes: false, archivos: true, auditlog: false, equipo: false },
-      clientes: { ver: true, crear: true, editar: true, eliminar: false },
-      pipeline: { ver: true, crear: true, editar: true, eliminar: false },
-      leads: { ver: true, crear: true, editar: true, eliminar: false },
-      tareas: { ver: true, crear: true, editar: true, eliminar: false },
-      archivos: { ver: true, subir: true, eliminar: false },
-      alcance: 'propios'
+      clientes: { ver: 'todos', crear: true, editar: 'propios', eliminar: false },
+      pipeline: { ver: 'todos', crear: true, editar: 'propios', eliminar: false },
+      leads: { ver: 'todos', crear: true, editar: 'propios', eliminar: false },
+      actividades: { ver: 'propios', crear: true, editar: 'propios', eliminar: false },
+      tareas: { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' },
+      recordatorios: { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' },
+      archivos: { ver: 'todos', subir: true, eliminar: false }
     }
   },
   {
@@ -210,12 +218,13 @@ const ROLES_PREDEFINIDOS = [
     icon: MessageSquare,
     permisos: {
       modulos: { dashboard: true, clientes: true, pipeline: false, leads: false, calendario: true, tareas: true, reportes: false, archivos: true, auditlog: false, equipo: false },
-      clientes: { ver: true, crear: false, editar: true, eliminar: false },
+      clientes: { ver: 'todos', crear: false, editar: 'propios', eliminar: false },
       pipeline: { ver: false, crear: false, editar: false, eliminar: false },
       leads: { ver: false, crear: false, editar: false, eliminar: false },
-      tareas: { ver: true, crear: true, editar: true, eliminar: false },
-      archivos: { ver: true, subir: true, eliminar: false },
-      alcance: 'todos'
+      actividades: { ver: 'propios', crear: true, editar: 'propios', eliminar: false },
+      tareas: { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' },
+      recordatorios: { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' },
+      archivos: { ver: 'todos', subir: true, eliminar: false }
     }
   },
   {
@@ -226,12 +235,13 @@ const ROLES_PREDEFINIDOS = [
     icon: Eye,
     permisos: {
       modulos: { dashboard: true, clientes: true, pipeline: true, leads: true, calendario: true, tareas: true, reportes: true, archivos: true, auditlog: false, equipo: false },
-      clientes: { ver: true, crear: false, editar: false, eliminar: false },
-      pipeline: { ver: true, crear: false, editar: false, eliminar: false },
-      leads: { ver: true, crear: false, editar: false, eliminar: false },
-      tareas: { ver: true, crear: false, editar: false, eliminar: false },
-      archivos: { ver: true, subir: false, eliminar: false },
-      alcance: 'todos'
+      clientes: { ver: 'todos', crear: false, editar: false, eliminar: false },
+      pipeline: { ver: 'todos', crear: false, editar: false, eliminar: false },
+      leads: { ver: 'todos', crear: false, editar: false, eliminar: false },
+      actividades: { ver: 'todos', crear: false, editar: false, eliminar: false },
+      tareas: { ver: 'todos', crear: false, editar: false, eliminar: false },
+      recordatorios: { ver: 'todos', crear: false, editar: false, eliminar: false },
+      archivos: { ver: 'todos', subir: false, eliminar: false }
     }
   }
 ];
@@ -1607,10 +1617,10 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
         </div>
       )}
 
-      {/* Permisos Modal - Customizable con vista de matriz */}
+      {/* Permisos Modal - Nueva versión con alcance por acción */}
       {showPermisosModal && editingUser && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowPermisosModal(false)}>
-          <div className="bg-slate-900 rounded-2xl border border-slate-700 w-full max-w-2xl max-h-[90vh] overflow-hidden" onClick={e => e.stopPropagation()}>
+          <div className="bg-slate-900 rounded-2xl border border-slate-700 w-full max-w-4xl max-h-[90vh] overflow-hidden" onClick={e => e.stopPropagation()}>
             <div className="p-6 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                 <Shield className="w-5 h-5 text-violet-400" />
@@ -1621,26 +1631,6 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
               </button>
             </div>
             <div className="p-6 space-y-5 overflow-y-auto max-h-[65vh]">
-
-              {/* Alcance de datos - Toggle grande y claro */}
-              <div className="bg-slate-800/50 rounded-xl p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-white font-medium">Alcance de datos</p>
-                    <p className="text-xs text-slate-400 mt-1">
-                      {formData.permisos?.alcance === 'todos'
-                        ? 'Ve clientes, pipeline y leads de TODOS'
-                        : 'Solo ve lo asignado a él/ella'}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => togglePermiso('alcance', null)}
-                    className={`relative w-14 h-7 rounded-full transition-colors ${formData.permisos?.alcance === 'todos' ? 'bg-cyan-500' : 'bg-slate-600'}`}
-                  >
-                    <div className={`absolute top-1 w-5 h-5 bg-white rounded-full transition-transform ${formData.permisos?.alcance === 'todos' ? 'translate-x-8' : 'translate-x-1'}`}></div>
-                  </button>
-                </div>
-              </div>
 
               {/* Módulos - Pills clickeables */}
               <div>
@@ -1663,110 +1653,195 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                 </div>
               </div>
 
-              {/* Permisos CRUD - Tabla compacta */}
+              {/* Leyenda */}
+              <div className="bg-slate-800/30 rounded-xl p-4">
+                <p className="text-sm text-slate-400 mb-2">Valores de permisos:</p>
+                <div className="flex flex-wrap gap-4 text-xs">
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-emerald-500"></span> Todos = puede con registros de cualquier usuario</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-amber-500"></span> Propios = solo registros que creó o tiene asignados</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-slate-600"></span> No = no tiene este permiso</span>
+                </div>
+              </div>
+
+              {/* Permisos por módulo - Nueva tabla con dropdowns */}
               <div>
-                <p className="text-white font-medium mb-3">Permisos por módulo</p>
+                <p className="text-white font-medium mb-3">Permisos detallados</p>
                 <div className="bg-slate-800/30 rounded-xl overflow-hidden">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-slate-700">
                         <th className="text-left p-3 text-slate-400 font-medium">Módulo</th>
-                        <th className="text-center p-3 text-slate-400 font-medium w-16">Ver</th>
-                        <th className="text-center p-3 text-slate-400 font-medium w-16">Crear</th>
-                        <th className="text-center p-3 text-slate-400 font-medium w-16">Editar</th>
-                        <th className="text-center p-3 text-slate-400 font-medium w-16">Eliminar</th>
-                        <th className="text-center p-3 text-slate-400 font-medium w-20">Todos</th>
+                        <th className="text-center p-3 text-slate-400 font-medium">Ver</th>
+                        <th className="text-center p-3 text-slate-400 font-medium">Crear</th>
+                        <th className="text-center p-3 text-slate-400 font-medium">Editar</th>
+                        <th className="text-center p-3 text-slate-400 font-medium">Eliminar</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {['clientes', 'pipeline', 'leads', 'tareas'].map(modulo => {
-                        const permisos = formData.permisos?.[modulo] || {};
-                        const allChecked = permisos.ver && permisos.crear && permisos.editar && permisos.eliminar;
+                      {[
+                        { id: 'clientes', name: 'Clientes' },
+                        { id: 'pipeline', name: 'Pipeline' },
+                        { id: 'leads', name: 'Leads' },
+                        { id: 'actividades', name: 'Actividades' },
+                        { id: 'tareas', name: 'Tareas' },
+                        { id: 'recordatorios', name: 'Recordatorios' }
+                      ].map(modulo => {
+                        const permisos = formData.permisos?.[modulo.id] || {};
                         return (
-                          <tr key={modulo} className="border-b border-slate-800 hover:bg-slate-800/50">
-                            <td className="p-3 text-white capitalize">{modulo}</td>
-                            {['ver', 'crear', 'editar', 'eliminar'].map(accion => (
-                              <td key={accion} className="text-center p-3">
-                                <button
-                                  onClick={() => togglePermiso(modulo, accion)}
-                                  className={`w-6 h-6 rounded flex items-center justify-center transition-all ${formData.permisos?.[modulo]?.[accion] ? 'bg-cyan-500 text-white' : 'bg-slate-700 text-slate-500 hover:bg-slate-600'}`}
-                                >
-                                  {formData.permisos?.[modulo]?.[accion] && <CheckCircle size={14} />}
-                                </button>
-                              </td>
-                            ))}
-                            <td className="text-center p-3">
-                              <button
-                                onClick={() => {
-                                  const newVal = !allChecked;
-                                  setFormData(prev => ({
-                                    ...prev,
-                                    permisos: {
-                                      ...prev.permisos,
-                                      [modulo]: { ver: newVal, crear: newVal, editar: newVal, eliminar: newVal }
-                                    }
-                                  }));
-                                }}
-                                className={`px-2 py-1 rounded text-xs transition-all ${allChecked ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
+                          <tr key={modulo.id} className="border-b border-slate-800 hover:bg-slate-800/50">
+                            <td className="p-3 text-white">{modulo.name}</td>
+                            {/* Ver */}
+                            <td className="text-center p-2">
+                              <select
+                                value={permisos.ver || false}
+                                onChange={(e) => setFormData(prev => ({
+                                  ...prev,
+                                  permisos: {
+                                    ...prev.permisos,
+                                    [modulo.id]: { ...prev.permisos?.[modulo.id], ver: e.target.value === 'false' ? false : e.target.value }
+                                  }
+                                }))}
+                                className={`px-2 py-1.5 rounded-lg text-xs font-medium border-0 cursor-pointer ${
+                                  permisos.ver === 'todos' ? 'bg-emerald-500/20 text-emerald-400' :
+                                  permisos.ver === 'propios' ? 'bg-amber-500/20 text-amber-400' :
+                                  'bg-slate-700 text-slate-400'
+                                }`}
                               >
-                                {allChecked ? 'Full' : 'Dar todo'}
+                                <option value="todos">Todos</option>
+                                <option value="propios">Propios</option>
+                                <option value="false">No</option>
+                              </select>
+                            </td>
+                            {/* Crear */}
+                            <td className="text-center p-2">
+                              <button
+                                onClick={() => setFormData(prev => ({
+                                  ...prev,
+                                  permisos: {
+                                    ...prev.permisos,
+                                    [modulo.id]: { ...prev.permisos?.[modulo.id], crear: !prev.permisos?.[modulo.id]?.crear }
+                                  }
+                                }))}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                                  permisos.crear ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'
+                                }`}
+                              >
+                                {permisos.crear ? 'Sí' : 'No'}
                               </button>
+                            </td>
+                            {/* Editar */}
+                            <td className="text-center p-2">
+                              <select
+                                value={permisos.editar || false}
+                                onChange={(e) => setFormData(prev => ({
+                                  ...prev,
+                                  permisos: {
+                                    ...prev.permisos,
+                                    [modulo.id]: { ...prev.permisos?.[modulo.id], editar: e.target.value === 'false' ? false : e.target.value }
+                                  }
+                                }))}
+                                className={`px-2 py-1.5 rounded-lg text-xs font-medium border-0 cursor-pointer ${
+                                  permisos.editar === 'todos' ? 'bg-emerald-500/20 text-emerald-400' :
+                                  permisos.editar === 'propios' ? 'bg-amber-500/20 text-amber-400' :
+                                  'bg-slate-700 text-slate-400'
+                                }`}
+                              >
+                                <option value="todos">Todos</option>
+                                <option value="propios">Propios</option>
+                                <option value="false">No</option>
+                              </select>
+                            </td>
+                            {/* Eliminar */}
+                            <td className="text-center p-2">
+                              <select
+                                value={permisos.eliminar || false}
+                                onChange={(e) => setFormData(prev => ({
+                                  ...prev,
+                                  permisos: {
+                                    ...prev.permisos,
+                                    [modulo.id]: { ...prev.permisos?.[modulo.id], eliminar: e.target.value === 'false' ? false : e.target.value }
+                                  }
+                                }))}
+                                className={`px-2 py-1.5 rounded-lg text-xs font-medium border-0 cursor-pointer ${
+                                  permisos.eliminar === 'todos' ? 'bg-emerald-500/20 text-emerald-400' :
+                                  permisos.eliminar === 'propios' ? 'bg-amber-500/20 text-amber-400' :
+                                  'bg-slate-700 text-slate-400'
+                                }`}
+                              >
+                                <option value="todos">Todos</option>
+                                <option value="propios">Propios</option>
+                                <option value="false">No</option>
+                              </select>
                             </td>
                           </tr>
                         );
                       })}
-                      {/* Archivos */}
+                      {/* Archivos - caso especial */}
                       <tr className="hover:bg-slate-800/50">
                         <td className="p-3 text-white">Archivos</td>
-                        <td className="text-center p-3">
-                          <button
-                            onClick={() => togglePermiso('archivos', 'ver')}
-                            className={`w-6 h-6 rounded flex items-center justify-center transition-all ${formData.permisos?.archivos?.ver ? 'bg-cyan-500 text-white' : 'bg-slate-700 text-slate-500 hover:bg-slate-600'}`}
+                        <td className="text-center p-2">
+                          <select
+                            value={formData.permisos?.archivos?.ver || false}
+                            onChange={(e) => setFormData(prev => ({
+                              ...prev,
+                              permisos: {
+                                ...prev.permisos,
+                                archivos: { ...prev.permisos?.archivos, ver: e.target.value === 'false' ? false : e.target.value }
+                              }
+                            }))}
+                            className={`px-2 py-1.5 rounded-lg text-xs font-medium border-0 cursor-pointer ${
+                              formData.permisos?.archivos?.ver === 'todos' ? 'bg-emerald-500/20 text-emerald-400' :
+                              formData.permisos?.archivos?.ver === 'propios' ? 'bg-amber-500/20 text-amber-400' :
+                              'bg-slate-700 text-slate-400'
+                            }`}
                           >
-                            {formData.permisos?.archivos?.ver && <CheckCircle size={14} />}
+                            <option value="todos">Todos</option>
+                            <option value="propios">Propios</option>
+                            <option value="false">No</option>
+                          </select>
+                        </td>
+                        <td className="text-center p-2">
+                          <button
+                            onClick={() => setFormData(prev => ({
+                              ...prev,
+                              permisos: {
+                                ...prev.permisos,
+                                archivos: { ...prev.permisos?.archivos, subir: !prev.permisos?.archivos?.subir }
+                              }
+                            }))}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                              formData.permisos?.archivos?.subir ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'
+                            }`}
+                          >
+                            {formData.permisos?.archivos?.subir ? 'Sí' : 'No'}
                           </button>
                         </td>
-                        <td className="text-center p-3">
-                          <button
-                            onClick={() => togglePermiso('archivos', 'subir')}
-                            className={`w-6 h-6 rounded flex items-center justify-center transition-all ${formData.permisos?.archivos?.subir ? 'bg-cyan-500 text-white' : 'bg-slate-700 text-slate-500 hover:bg-slate-600'}`}
+                        <td className="text-center p-2 text-slate-600">-</td>
+                        <td className="text-center p-2">
+                          <select
+                            value={formData.permisos?.archivos?.eliminar || false}
+                            onChange={(e) => setFormData(prev => ({
+                              ...prev,
+                              permisos: {
+                                ...prev.permisos,
+                                archivos: { ...prev.permisos?.archivos, eliminar: e.target.value === 'false' ? false : e.target.value }
+                              }
+                            }))}
+                            className={`px-2 py-1.5 rounded-lg text-xs font-medium border-0 cursor-pointer ${
+                              formData.permisos?.archivos?.eliminar === 'todos' ? 'bg-emerald-500/20 text-emerald-400' :
+                              formData.permisos?.archivos?.eliminar === 'propios' ? 'bg-amber-500/20 text-amber-400' :
+                              'bg-slate-700 text-slate-400'
+                            }`}
                           >
-                            {formData.permisos?.archivos?.subir && <CheckCircle size={14} />}
-                          </button>
-                        </td>
-                        <td className="text-center p-3 text-slate-600">-</td>
-                        <td className="text-center p-3">
-                          <button
-                            onClick={() => togglePermiso('archivos', 'eliminar')}
-                            className={`w-6 h-6 rounded flex items-center justify-center transition-all ${formData.permisos?.archivos?.eliminar ? 'bg-cyan-500 text-white' : 'bg-slate-700 text-slate-500 hover:bg-slate-600'}`}
-                          >
-                            {formData.permisos?.archivos?.eliminar && <CheckCircle size={14} />}
-                          </button>
-                        </td>
-                        <td className="text-center p-3">
-                          <button
-                            onClick={() => {
-                              const archivos = formData.permisos?.archivos || {};
-                              const allChecked = archivos.ver && archivos.subir && archivos.eliminar;
-                              const newVal = !allChecked;
-                              setFormData(prev => ({
-                                ...prev,
-                                permisos: {
-                                  ...prev.permisos,
-                                  archivos: { ver: newVal, subir: newVal, eliminar: newVal }
-                                }
-                              }));
-                            }}
-                            className={`px-2 py-1 rounded text-xs transition-all ${formData.permisos?.archivos?.ver && formData.permisos?.archivos?.subir && formData.permisos?.archivos?.eliminar ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}
-                          >
-                            {formData.permisos?.archivos?.ver && formData.permisos?.archivos?.subir && formData.permisos?.archivos?.eliminar ? 'Full' : 'Dar todo'}
-                          </button>
+                            <option value="todos">Todos</option>
+                            <option value="propios">Propios</option>
+                            <option value="false">No</option>
+                          </select>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <p className="text-xs text-slate-500 mt-2">* Para Archivos: Ver, Subir, -, Eliminar</p>
               </div>
 
               {/* Acciones rápidas */}
@@ -1775,23 +1850,24 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                   onClick={() => setFormData({ ...formData, permisos: { ...PERMISOS_ADMIN } })}
                   className="px-3 py-2 bg-violet-500/20 text-violet-400 rounded-lg text-xs hover:bg-violet-500/30"
                 >
-                  Dar acceso total
+                  Dar acceso total (Admin)
                 </button>
                 <button
                   onClick={() => setFormData({ ...formData, permisos: { ...PERMISOS_BASICOS } })}
-                  className="px-3 py-2 bg-slate-700 text-slate-300 rounded-lg text-xs hover:bg-slate-600"
+                  className="px-3 py-2 bg-amber-500/20 text-amber-400 rounded-lg text-xs hover:bg-amber-500/30"
                 >
-                  Permisos básicos
+                  Vendedor (ve todo, edita propios)
                 </button>
                 <button
                   onClick={() => setFormData({ ...formData, permisos: {
                     modulos: { dashboard: true, clientes: true, pipeline: true, leads: true, calendario: true, tareas: true, reportes: true, archivos: true, auditlog: false, equipo: false },
-                    clientes: { ver: true, crear: false, editar: false, eliminar: false },
-                    pipeline: { ver: true, crear: false, editar: false, eliminar: false },
-                    leads: { ver: true, crear: false, editar: false, eliminar: false },
-                    tareas: { ver: true, crear: false, editar: false, eliminar: false },
-                    archivos: { ver: true, subir: false, eliminar: false },
-                    alcance: 'todos'
+                    clientes: { ver: 'todos', crear: false, editar: false, eliminar: false },
+                    pipeline: { ver: 'todos', crear: false, editar: false, eliminar: false },
+                    leads: { ver: 'todos', crear: false, editar: false, eliminar: false },
+                    actividades: { ver: 'todos', crear: false, editar: false, eliminar: false },
+                    tareas: { ver: 'todos', crear: false, editar: false, eliminar: false },
+                    recordatorios: { ver: 'todos', crear: false, editar: false, eliminar: false },
+                    archivos: { ver: 'todos', subir: false, eliminar: false }
                   }})}
                   className="px-3 py-2 bg-slate-700 text-slate-300 rounded-lg text-xs hover:bg-slate-600"
                 >
@@ -2191,19 +2267,114 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   const usuariosActivos = (usuarios || []).filter(u => u.activo !== false);
 
   // Permisos del usuario actual para clientes
-  const permisos = currentUser?.permisos?.clientes || { ver: true, crear: true, editar: true, eliminar: true };
-  const puedeCrear = permisos.crear;
-  const puedeEditar = permisos.editar;
-  const puedeEliminar = permisos.eliminar;
-  const alcance = currentUser?.permisos?.alcance || 'todos';
+  // Nueva estructura: ver/editar/eliminar pueden ser 'todos', 'propios', o false
+  const permisos = currentUser?.permisos?.clientes || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+
+  const puedeCrear = permisos.crear === true;
   const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
 
   // Función para verificar si puede editar un cliente específico
   const puedeEditarCliente = (cliente) => {
     if (!cliente) return false;
-    if (esAdmin) return puedeEditar; // Admin puede editar si tiene permiso general
-    // Si no es admin, solo puede editar si está asignado a él
-    return puedeEditar && (cliente.asignadoA === currentUser?.id || cliente.creadoPor === currentUser?.id);
+    if (permisos.editar === 'todos') return true;
+    if (permisos.editar === 'propios') {
+      return cliente.asignadoA === currentUser?.id || cliente.creadoPor === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Función para verificar si puede eliminar un cliente específico
+  const puedeEliminarCliente = (cliente) => {
+    if (!cliente) return false;
+    if (permisos.eliminar === 'todos') return true;
+    if (permisos.eliminar === 'propios') {
+      return cliente.asignadoA === currentUser?.id || cliente.creadoPor === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Funciones para actividades
+  const puedeVerActividad = (actividad) => {
+    if (permisosActividades.ver === 'todos') return true;
+    if (permisosActividades.ver === 'propios') {
+      return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEditarActividad = (actividad) => {
+    if (!actividad) return false;
+    if (permisosActividades.editar === 'todos') return true;
+    if (permisosActividades.editar === 'propios') {
+      return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEliminarActividad = (actividad) => {
+    if (!actividad) return false;
+    if (permisosActividades.eliminar === 'todos') return true;
+    if (permisosActividades.eliminar === 'propios') {
+      return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Funciones para tareas
+  const puedeVerTarea = (tarea) => {
+    if (permisosTareas.ver === 'todos') return true;
+    if (permisosTareas.ver === 'propios') {
+      return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEditarTarea = (tarea) => {
+    if (!tarea) return false;
+    if (permisosTareas.editar === 'todos') return true;
+    if (permisosTareas.editar === 'propios') {
+      return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEliminarTarea = (tarea) => {
+    if (!tarea) return false;
+    if (permisosTareas.eliminar === 'todos') return true;
+    if (permisosTareas.eliminar === 'propios') {
+      return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Funciones para recordatorios
+  const puedeVerRecordatorio = (recordatorio) => {
+    if (permisosRecordatorios.ver === 'todos') return true;
+    if (permisosRecordatorios.ver === 'propios') {
+      return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEditarRecordatorio = (recordatorio) => {
+    if (!recordatorio) return false;
+    if (permisosRecordatorios.editar === 'todos') return true;
+    if (permisosRecordatorios.editar === 'propios') {
+      return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEliminarRecordatorio = (recordatorio) => {
+    if (!recordatorio) return false;
+    if (permisosRecordatorios.eliminar === 'todos') return true;
+    if (permisosRecordatorios.eliminar === 'propios') {
+      return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
+    }
+    return false;
   };
 
   // Manejar agregar nueva industria
@@ -2640,19 +2811,22 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
     setRecordatoriosNuevos(recordatoriosNuevos.filter(r => r.id !== id));
   };
 
-  // Obtener actividades del cliente seleccionado
+  // Obtener actividades del cliente seleccionado (filtradas por permisos)
   const actividadesCliente = actividades
     .filter(a => a.clienteId === selectedCliente)
+    .filter(a => puedeVerActividad(a))
     .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
 
-  // Obtener recordatorios del cliente seleccionado
+  // Obtener recordatorios del cliente seleccionado (filtrados por permisos)
   const recordatoriosCliente = recordatorios
     .filter(r => r.clienteId === selectedCliente)
+    .filter(r => puedeVerRecordatorio(r))
     .sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
-  // Obtener tareas del cliente seleccionado
+  // Obtener tareas del cliente seleccionado (filtradas por permisos)
   const tareasCliente = (tareas || [])
     .filter(t => t.clienteId === selectedCliente)
+    .filter(t => puedeVerTarea(t))
     .sort((a, b) => new Date(a.fechaCompromiso) - new Date(b.fechaCompromiso));
 
   // Timeline: combinar actividades y cambios de pipeline
@@ -2961,8 +3135,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
                             <span className="text-slate-500 text-xs">{formatDate(a.fecha)}</span>
                           </div>
                           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button onClick={(e) => { e.stopPropagation(); handleEditActividad(a); }} className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-700 rounded-lg"><Edit size={14} /></button>
-                            <button onClick={(e) => { e.stopPropagation(); handleDeleteActividad(a.id); }} className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg"><Trash2 size={14} /></button>
+                            {puedeEditarActividad(a) && <button onClick={(e) => { e.stopPropagation(); handleEditActividad(a); }} className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-700 rounded-lg"><Edit size={14} /></button>}
+                            {puedeEliminarActividad(a) && <button onClick={(e) => { e.stopPropagation(); handleDeleteActividad(a.id); }} className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg"><Trash2 size={14} /></button>}
                           </div>
                         </div>
                         <p className="text-white font-medium">{a.titulo}</p>
@@ -3058,8 +3232,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
                         {tarea.fechaCreacion && <p className="text-xs text-slate-500 mt-1">Creada: {new Date(tarea.fechaCreacion).toLocaleDateString('es-MX')}</p>}
                       </div>
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onClick={() => handleEditTarea(tarea)} className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-700 rounded-lg"><Edit size={14} /></button>
-                        <button onClick={() => handleDeleteTarea(tarea.id)} className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg"><Trash2 size={14} /></button>
+                        {puedeEditarTarea(tarea) && <button onClick={() => handleEditTarea(tarea)} className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-700 rounded-lg"><Edit size={14} /></button>}
+                        {puedeEliminarTarea(tarea) && <button onClick={() => handleDeleteTarea(tarea.id)} className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg"><Trash2 size={14} /></button>}
                       </div>
                     </div>
                   );
@@ -3130,8 +3304,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
                           {esHoy && !r.completado && <span className="text-xs text-amber-400">Hoy</span>}
                         </div>
                         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => handleEditRecordatorio(r)} className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-700 rounded-lg"><Edit size={14} /></button>
-                          <button onClick={() => handleDeleteRecordatorio(r.id)} className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg"><Trash2 size={14} /></button>
+                          {puedeEditarRecordatorio(r) && <button onClick={() => handleEditRecordatorio(r)} className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-700 rounded-lg"><Edit size={14} /></button>}
+                          {puedeEliminarRecordatorio(r) && <button onClick={() => handleDeleteRecordatorio(r.id)} className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg"><Trash2 size={14} /></button>}
                         </div>
                       </div>
                     </div>
@@ -3303,7 +3477,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
                     <Edit size={16} />
                   </button>
                 )}
-                {(esAdmin ? puedeEliminar : puedeEliminar && (cliente.asignadoA === currentUser?.id || cliente.creadoPor === currentUser?.id)) && (
+                {puedeEliminarCliente(cliente) && (
                   <button onClick={() => handleDelete(cliente.id)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-red-400">
                     <Trash2 size={16} />
                   </button>
@@ -3406,18 +3580,113 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   const usuariosActivos = (usuarios || []).filter(u => u.activo !== false);
 
   // Permisos del usuario actual para pipeline
-  const permisosPipeline = currentUser?.permisos?.pipeline || { ver: true, crear: true, editar: true, eliminar: true };
-  const puedeCrear = permisosPipeline.crear;
-  const puedeEditar = permisosPipeline.editar;
-  const puedeEliminar = permisosPipeline.eliminar;
-  const alcance = currentUser?.permisos?.alcance || 'todos';
+  const permisosPipeline = currentUser?.permisos?.pipeline || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+
+  const puedeCrear = permisosPipeline.crear === true;
   const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
 
   // Función para verificar si puede editar un prospecto específico
   const puedeEditarProspecto = (prospecto) => {
     if (!prospecto) return false;
-    if (esAdmin) return puedeEditar;
-    return puedeEditar && (prospecto.asignadoA === currentUser?.id || prospecto.creadoPor === currentUser?.id);
+    if (permisosPipeline.editar === 'todos') return true;
+    if (permisosPipeline.editar === 'propios') {
+      return prospecto.asignadoA === currentUser?.id || prospecto.creadoPor === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Función para verificar si puede eliminar un prospecto específico
+  const puedeEliminarProspecto = (prospecto) => {
+    if (!prospecto) return false;
+    if (permisosPipeline.eliminar === 'todos') return true;
+    if (permisosPipeline.eliminar === 'propios') {
+      return prospecto.asignadoA === currentUser?.id || prospecto.creadoPor === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Funciones para actividades en pipeline
+  const puedeVerActividad = (actividad) => {
+    if (permisosActividades.ver === 'todos') return true;
+    if (permisosActividades.ver === 'propios') {
+      return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEditarActividad = (actividad) => {
+    if (!actividad) return false;
+    if (permisosActividades.editar === 'todos') return true;
+    if (permisosActividades.editar === 'propios') {
+      return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEliminarActividad = (actividad) => {
+    if (!actividad) return false;
+    if (permisosActividades.eliminar === 'todos') return true;
+    if (permisosActividades.eliminar === 'propios') {
+      return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Funciones para tareas en pipeline
+  const puedeVerTarea = (tarea) => {
+    if (permisosTareas.ver === 'todos') return true;
+    if (permisosTareas.ver === 'propios') {
+      return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEditarTarea = (tarea) => {
+    if (!tarea) return false;
+    if (permisosTareas.editar === 'todos') return true;
+    if (permisosTareas.editar === 'propios') {
+      return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEliminarTarea = (tarea) => {
+    if (!tarea) return false;
+    if (permisosTareas.eliminar === 'todos') return true;
+    if (permisosTareas.eliminar === 'propios') {
+      return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Funciones para recordatorios en pipeline
+  const puedeVerRecordatorio = (recordatorio) => {
+    if (permisosRecordatorios.ver === 'todos') return true;
+    if (permisosRecordatorios.ver === 'propios') {
+      return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEditarRecordatorio = (recordatorio) => {
+    if (!recordatorio) return false;
+    if (permisosRecordatorios.editar === 'todos') return true;
+    if (permisosRecordatorios.editar === 'propios') {
+      return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEliminarRecordatorio = (recordatorio) => {
+    if (!recordatorio) return false;
+    if (permisosRecordatorios.eliminar === 'todos') return true;
+    if (permisosRecordatorios.eliminar === 'propios') {
+      return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
+    }
+    return false;
   };
 
   // Manejar agregar nuevo servicio
@@ -5005,25 +5274,64 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   const usuariosActivos = usuarios.filter(u => u.activo !== false);
 
   // Permisos del usuario actual para leads
-  const permisosLeads = currentUser?.permisos?.leads || { ver: true, crear: true, editar: true, eliminar: true };
-  const puedeCrear = permisosLeads.crear;
-  const puedeEditar = permisosLeads.editar;
-  const puedeEliminar = permisosLeads.eliminar;
-  const alcance = currentUser?.permisos?.alcance || 'todos';
+  const permisosLeads = currentUser?.permisos?.leads || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
+
+  const puedeCrear = permisosLeads.crear === true;
   const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
 
   // Función para verificar si puede editar un lead específico
   const puedeEditarLead = (lead) => {
     if (!lead) return false;
-    if (esAdmin) return puedeEditar;
-    return puedeEditar && (lead.asignadoA === currentUser?.id || lead.creadoPor === currentUser?.id);
+    if (permisosLeads.editar === 'todos') return true;
+    if (permisosLeads.editar === 'propios') {
+      return lead.asignadoA === currentUser?.id || lead.creadoPor === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Función para verificar si puede eliminar un lead específico
+  const puedeEliminarLead = (lead) => {
+    if (!lead) return false;
+    if (permisosLeads.eliminar === 'todos') return true;
+    if (permisosLeads.eliminar === 'propios') {
+      return lead.asignadoA === currentUser?.id || lead.creadoPor === currentUser?.id;
+    }
+    return false;
+  };
+
+  // Funciones para actividades en leads
+  const puedeVerActividad = (actividad) => {
+    if (permisosActividades.ver === 'todos') return true;
+    if (permisosActividades.ver === 'propios') {
+      return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEditarActividad = (actividad) => {
+    if (!actividad) return false;
+    if (permisosActividades.editar === 'todos') return true;
+    if (permisosActividades.editar === 'propios') {
+      return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
+    }
+    return false;
+  };
+
+  const puedeEliminarActividad = (actividad) => {
+    if (!actividad) return false;
+    if (permisosActividades.eliminar === 'todos') return true;
+    if (permisosActividades.eliminar === 'propios') {
+      return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
+    }
+    return false;
   };
 
   // Abrir WhatsApp
   const abrirWhatsApp = (telefono, nombreContacto) => {
     if (!telefono) return;
     const numero = telefono.replace(/\D/g, '');
-    const mensaje = encodeURIComponent(`Hola ${nombreContacto || ''}, me comunico de NewcorpAI...`);
+    const mensaje = encodeURIComponent(`Hola ${nombreContacto || ''}, me comunico de Grupo EÖN...`);
     window.open(`https://wa.me/${numero}?text=${mensaje}`, '_blank');
   };
 
@@ -5557,7 +5865,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
                           <Edit size={16} />
                         </button>
                       )}
-                      {(esAdmin ? puedeEliminar : puedeEliminar && (lead.asignadoA === currentUser?.id || lead.creadoPor === currentUser?.id)) && (
+                      {puedeEliminarLead(lead) && (
                         <button onClick={() => handleDelete(lead.id)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-red-400 transition-all">
                           <Trash2 size={16} />
                         </button>
