@@ -309,12 +309,8 @@ const INDUSTRIAS = [
 
 // ============== SERVICIOS ==============
 const SERVICIOS = [
-  'Optimización de Nube',
-  'IA Predictiva',
-  'Consultoría Cloud',
-  'Migración a la Nube',
-  'Seguridad Cloud',
-  'Otro'
+  'Supercompany',
+  'Alicloud'
 ];
 
 // ============== FIREBASE CONFIG ==============
