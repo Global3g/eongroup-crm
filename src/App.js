@@ -2857,8 +2857,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
     return eventos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
   };
 
-  // Filtrar por alcance primero
-  const clientesPorAlcance = alcance === 'propios'
+  // Filtrar por alcance de visualización
+  const clientesPorAlcance = permisos.ver === 'propios'
     ? clientes.filter(c => c.asignadoA === currentUser?.id || c.creadoPor === currentUser?.id)
     : clientes;
 
@@ -5159,8 +5159,8 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
       <div className="overflow-x-auto pb-4">
         <div className="flex gap-4 min-w-max">
           {PIPELINE_STAGES.map(stage => {
-            // Filtrar por alcance primero
-            const pipelinePorAlcance = alcance === 'propios'
+            // Filtrar por alcance de visualización
+            const pipelinePorAlcance = permisosPipeline.ver === 'propios'
               ? pipeline.filter(p => p.asignadoA === currentUser?.id || p.creadoPor === currentUser?.id)
               : pipeline;
             const items = pipelinePorAlcance.filter(p => p.etapa === stage.id);
@@ -5632,8 +5632,8 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
     );
   };
 
-  // Filtrar por alcance primero
-  const leadsPorAlcance = alcance === 'propios'
+  // Filtrar por alcance de visualización
+  const leadsPorAlcance = permisosLeads.ver === 'propios'
     ? leads.filter(l => l.asignadoA === currentUser?.id || l.creadoPor === currentUser?.id)
     : leads;
 
@@ -6875,10 +6875,10 @@ function Tareas({ tareas, setTareas, clientes, pipeline, leads, actividades, usu
 
   const hoy = getFechaLocal();
   const usuariosActivos = usuarios.filter(u => u.activo);
-  const alcance = currentUser?.permisos?.alcance || 'todos';
+  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'todos', crear: true, editar: 'todos', eliminar: 'todos' };
 
-  // Filtrar por alcance primero (solo ve sus tareas si alcance es 'propios')
-  const tareasPorAlcance = alcance === 'propios'
+  // Filtrar por alcance de visualización
+  const tareasPorAlcance = permisosTareas.ver === 'propios'
     ? tareas.filter(t => t.responsableId === currentUser?.id || t.creadoPor === currentUser?.id)
     : tareas;
 
