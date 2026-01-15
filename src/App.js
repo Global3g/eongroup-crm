@@ -7627,6 +7627,8 @@ function Archivos({ archivos, setArchivos, clientes }) {
   const [subiendo, setSubiendo] = useState(false);
   const [filtroCategoria, setFiltroCategoria] = useState('todos');
   const [busqueda, setBusqueda] = useState('');
+  const [editingArchivo, setEditingArchivo] = useState(null);
+  const [viewingArchivo, setViewingArchivo] = useState(null);
   const [form, setForm] = useState({
     nombre: '', categoria: 'propuestas', clienteId: '', descripcion: '', archivo: null
   });
@@ -7634,6 +7636,35 @@ function Archivos({ archivos, setArchivos, clientes }) {
   const resetForm = () => {
     setForm({ nombre: '', categoria: 'propuestas', clienteId: '', descripcion: '', archivo: null });
     setShowForm(false);
+    setEditingArchivo(null);
+  };
+
+  const handleEdit = (archivo) => {
+    setForm({
+      nombre: archivo.nombre,
+      categoria: archivo.categoria,
+      clienteId: archivo.clienteId || '',
+      descripcion: archivo.descripcion || '',
+      archivo: null
+    });
+    setEditingArchivo(archivo);
+    setShowForm(true);
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    if (!editingArchivo) return;
+
+    const cliente = clientes.find(c => c.id === form.clienteId);
+    setArchivos(archivos.map(a => a.id === editingArchivo.id ? {
+      ...a,
+      nombre: form.nombre,
+      categoria: form.categoria,
+      clienteId: form.clienteId,
+      clienteNombre: cliente?.empresa || '',
+      descripcion: form.descripcion
+    } : a));
+    resetForm();
   };
 
   const handleFileChange = (e) => {
@@ -7752,21 +7783,32 @@ function Archivos({ archivos, setArchivos, clientes }) {
       {/* Formulario */}
       {showForm && (
         <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
-          <h2 className="text-xl font-bold text-white mb-6">Subir Archivo</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="border-2 border-dashed border-slate-700 rounded-xl p-8 text-center hover:border-cyan-500/50 transition-all">
-              <input
-                type="file"
-                onChange={handleFileChange}
-                className="hidden"
-                id="file-upload"
-              />
-              <label htmlFor="file-upload" className="cursor-pointer">
-                <Upload size={40} className="mx-auto text-slate-500 mb-4" />
-                <p className="text-white mb-2">{form.archivo ? form.archivo.name : 'Clic para seleccionar archivo'}</p>
-                <p className="text-slate-500 text-sm">PDF, Word, Excel, Imágenes</p>
-              </label>
-            </div>
+          <h2 className="text-xl font-bold text-white mb-6">{editingArchivo ? 'Editar Archivo' : 'Subir Archivo'}</h2>
+          <form onSubmit={editingArchivo ? handleUpdate : handleSubmit} className="space-y-4">
+            {!editingArchivo && (
+              <div className="border-2 border-dashed border-slate-700 rounded-xl p-8 text-center hover:border-cyan-500/50 transition-all">
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  id="file-upload"
+                />
+                <label htmlFor="file-upload" className="cursor-pointer">
+                  <Upload size={40} className="mx-auto text-slate-500 mb-4" />
+                  <p className="text-white mb-2">{form.archivo ? form.archivo.name : 'Clic para seleccionar archivo'}</p>
+                  <p className="text-slate-500 text-sm">PDF, Word, Excel, Imágenes</p>
+                </label>
+              </div>
+            )}
+            {editingArchivo && (
+              <div className="bg-slate-800/50 rounded-xl p-4 flex items-center gap-3">
+                <FileText size={24} className="text-cyan-400" />
+                <div>
+                  <p className="text-white font-medium">{editingArchivo.nombreArchivo}</p>
+                  <p className="text-slate-500 text-sm">{formatFileSize(editingArchivo.tamano)}</p>
+                </div>
+              </div>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input type="text" placeholder="Nombre del archivo" value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
               <select value={form.categoria} onChange={(e) => setForm({ ...form, categoria: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:border-cyan-500/50">
@@ -7784,8 +7826,8 @@ function Archivos({ archivos, setArchivos, clientes }) {
                 disabled={subiendo}
                 className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-xl hover:opacity-90 transition-all font-medium disabled:opacity-50"
               >
-                {subiendo ? <Loader size={20} className="animate-spin" /> : <Upload size={20} />}
-                {subiendo ? 'Subiendo...' : 'Subir'}
+                {subiendo ? <Loader size={20} className="animate-spin" /> : <Save size={20} />}
+                {subiendo ? 'Subiendo...' : editingArchivo ? 'Guardar' : 'Subir'}
               </button>
               <button type="button" onClick={resetForm} className="flex items-center gap-2 bg-slate-800 text-slate-300 px-5 py-3 rounded-xl hover:bg-slate-700 transition-all font-medium">
                 <X size={20} /> Cancelar
@@ -7801,7 +7843,7 @@ function Archivos({ archivos, setArchivos, clientes }) {
           const categoria = CATEGORIAS_ARCHIVOS.find(c => c.id === archivo.categoria);
           const esImagen = archivo.tipo?.startsWith('image/');
           return (
-            <div key={archivo.id} className="group bg-slate-900/50 backdrop-blur-sm rounded-2xl p-5 border-2 border-slate-400 hover:border-slate-700 transition-all">
+            <div key={archivo.id} onClick={() => setViewingArchivo(archivo)} className="group bg-slate-900/50 backdrop-blur-sm rounded-2xl p-5 border-2 border-slate-400 hover:border-cyan-500/50 transition-all cursor-pointer">
               <div className="flex items-start gap-4">
                 <div className={`w-12 h-12 rounded-xl ${categoria?.color} bg-opacity-20 flex items-center justify-center flex-shrink-0`}>
                   {esImagen ? <Image size={24} className="text-white" /> : <FileText size={24} className="text-white" />}
@@ -7818,16 +7860,20 @@ function Archivos({ archivos, setArchivos, clientes }) {
                 <span className={`text-xs px-2 py-1 rounded-lg ${categoria?.color} bg-opacity-20 text-white`}>
                   {categoria?.name}
                 </span>
-                <div className="flex gap-2">
+                <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+                  <button onClick={() => handleEdit(archivo)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-all" title="Editar">
+                    <Edit size={16} />
+                  </button>
                   <a
                     href={archivo.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 hover:bg-slate-800 rounded-lg text-cyan-400 transition-all"
+                    title="Descargar"
                   >
                     <Download size={16} />
                   </a>
-                  <button onClick={() => handleDelete(archivo.id)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-red-400 transition-all">
+                  <button onClick={() => handleDelete(archivo.id)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-red-400 transition-all" title="Eliminar">
                     <Trash2 size={16} />
                   </button>
                 </div>
@@ -7841,6 +7887,99 @@ function Archivos({ archivos, setArchivos, clientes }) {
         <div className="text-center py-12">
           <FolderOpen className="w-16 h-16 text-slate-700 mx-auto mb-4" />
           <p className="text-slate-500">No hay archivos</p>
+        </div>
+      )}
+
+      {/* Modal de Resumen del Archivo */}
+      {viewingArchivo && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setViewingArchivo(null)}>
+          <div className="bg-slate-900 rounded-2xl border-2 border-slate-400 w-full max-w-2xl max-h-[90vh] overflow-hidden" onClick={e => e.stopPropagation()}>
+            {/* Header */}
+            <div className="p-6 border-b border-slate-700 flex items-start justify-between">
+              <div className="flex items-center gap-4">
+                <div className={`w-14 h-14 rounded-xl ${CATEGORIAS_ARCHIVOS.find(c => c.id === viewingArchivo.categoria)?.color} bg-opacity-20 flex items-center justify-center`}>
+                  {viewingArchivo.tipo?.startsWith('image/') ? <Image size={28} className="text-white" /> : <FileText size={28} className="text-white" />}
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-white">{viewingArchivo.nombre}</h2>
+                  <p className="text-slate-400 text-sm">{viewingArchivo.nombreArchivo}</p>
+                </div>
+              </div>
+              <button onClick={() => setViewingArchivo(null)} className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-all">
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Contenido */}
+            <div className="p-6 space-y-6">
+              {/* Preview de imagen */}
+              {viewingArchivo.tipo?.startsWith('image/') && (
+                <div className="bg-slate-800/50 rounded-xl p-4 flex items-center justify-center">
+                  <img src={viewingArchivo.url} alt={viewingArchivo.nombre} className="max-h-64 rounded-lg object-contain" />
+                </div>
+              )}
+
+              {/* Información del archivo */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <p className="text-slate-500 text-sm mb-1">Categoría</p>
+                  <span className={`inline-flex items-center px-3 py-1 rounded-lg text-sm ${CATEGORIAS_ARCHIVOS.find(c => c.id === viewingArchivo.categoria)?.color} bg-opacity-20 text-white`}>
+                    {CATEGORIAS_ARCHIVOS.find(c => c.id === viewingArchivo.categoria)?.name}
+                  </span>
+                </div>
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <p className="text-slate-500 text-sm mb-1">Tamaño</p>
+                  <p className="text-white font-medium">{formatFileSize(viewingArchivo.tamano)}</p>
+                </div>
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <p className="text-slate-500 text-sm mb-1">Tipo de archivo</p>
+                  <p className="text-white font-medium">{viewingArchivo.tipo || 'Desconocido'}</p>
+                </div>
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <p className="text-slate-500 text-sm mb-1">Fecha de subida</p>
+                  <p className="text-white font-medium">{formatDate(viewingArchivo.fecha)}</p>
+                </div>
+                {viewingArchivo.clienteNombre && (
+                  <div className="bg-slate-800/50 rounded-xl p-4 col-span-2">
+                    <p className="text-slate-500 text-sm mb-1">Cliente asociado</p>
+                    <p className="text-cyan-400 font-medium flex items-center gap-2">
+                      <Building size={16} /> {viewingArchivo.clienteNombre}
+                    </p>
+                  </div>
+                )}
+                {viewingArchivo.descripcion && (
+                  <div className="bg-slate-800/50 rounded-xl p-4 col-span-2">
+                    <p className="text-slate-500 text-sm mb-1">Descripción</p>
+                    <p className="text-white">{viewingArchivo.descripcion}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Acciones */}
+              <div className="flex gap-3 pt-4 border-t border-slate-700">
+                <a
+                  href={viewingArchivo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-xl hover:opacity-90 transition-all font-medium"
+                >
+                  <Download size={18} /> Descargar
+                </a>
+                <button
+                  onClick={() => { setViewingArchivo(null); handleEdit(viewingArchivo); }}
+                  className="flex items-center gap-2 bg-slate-800 text-slate-300 px-5 py-3 rounded-xl hover:bg-slate-700 transition-all font-medium"
+                >
+                  <Edit size={18} /> Editar
+                </button>
+                <button
+                  onClick={() => { handleDelete(viewingArchivo.id); setViewingArchivo(null); }}
+                  className="flex items-center gap-2 bg-red-500/20 text-red-400 px-5 py-3 rounded-xl hover:bg-red-500/30 transition-all font-medium"
+                >
+                  <Trash2 size={18} /> Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
