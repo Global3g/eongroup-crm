@@ -3115,7 +3115,17 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
         {/* Tab Content: Actividades */}
         {activeTab === 'actividades' && (
           <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
-            <h3 className="text-lg font-semibold text-white mb-4">Historial de Actividades</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-white">Historial de Actividades</h3>
+              {puedeEditarCliente(cliente) && (
+                <button
+                  onClick={() => { setEditingActividad(null); setActividadForm({ tipo: 'llamada', titulo: '', descripcion: '', fecha: getFechaLocal(), responsableId: '' }); setTareasNuevas([]); setRecordatoriosNuevos([]); setActividadArchivo(null); setShowActividadForm(true); }}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-violet-500/20 text-violet-400 rounded-lg text-sm hover:bg-violet-500/30 transition-all"
+                >
+                  <Plus size={14} /> Nueva Actividad
+                </button>
+              )}
+            </div>
             {actividadesCliente.length === 0 ? (
               <p className="text-slate-500 text-center py-8">No hay actividades registradas</p>
             ) : (
@@ -3207,7 +3217,17 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
         {/* Tab Content: Tareas */}
         {activeTab === 'tareas' && (
           <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
-            <h3 className="text-lg font-semibold text-white mb-4">Tareas y Compromisos</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-white">Tareas y Compromisos</h3>
+              {puedeEditarCliente(cliente) && (
+                <button
+                  onClick={() => { setEditingTarea(null); setTareaFormData({ descripcion: '', fechaCompromiso: getFechaLocal(), prioridad: 'media', responsableId: '' }); setShowTareaForm(true); }}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-cyan-500/20 text-cyan-400 rounded-lg text-sm hover:bg-cyan-500/30 transition-all"
+                >
+                  <Plus size={14} /> Nueva Tarea
+                </button>
+              )}
+            </div>
             {tareasCliente.length === 0 ? (
               <p className="text-slate-500 text-center py-8">No hay tareas para este cliente</p>
             ) : (
@@ -3277,7 +3297,17 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
         {/* Tab Content: Recordatorios */}
         {activeTab === 'recordatorios' && (
           <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
-            <h3 className="text-lg font-semibold text-white mb-4">Recordatorios</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-white">Recordatorios</h3>
+              {puedeEditarCliente(cliente) && (
+                <button
+                  onClick={() => { setEditingRecordatorio(null); setRecordatorioForm({ titulo: '', fecha: '', descripcion: '', responsableId: '' }); setShowRecordatorioForm(true); }}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-amber-500/20 text-amber-400 rounded-lg text-sm hover:bg-amber-500/30 transition-all"
+                >
+                  <Plus size={14} /> Nuevo Recordatorio
+                </button>
+              )}
+            </div>
             {recordatoriosCliente.length === 0 ? (
               <p className="text-slate-500 text-center py-8">No hay recordatorios</p>
             ) : (
@@ -4797,7 +4827,17 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
         {/* Tab: Actividades */}
         {activeTab === 'actividades' && (
           <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
-            <h3 className="text-lg font-semibold text-white mb-4">Historial de Actividades</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-white">Historial de Actividades</h3>
+              {puedeEditarProspecto(prospecto) && (
+                <button
+                  onClick={() => { setEditingActividad(null); setActividadForm({ tipo: 'llamada', titulo: '', descripcion: '', fecha: getFechaLocal(), responsableId: '' }); setTareasNuevas([]); setRecordatoriosNuevos([]); setActividadArchivo(null); setShowActividadForm(true); }}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-violet-500/20 text-violet-400 rounded-lg text-sm hover:bg-violet-500/30 transition-all"
+                >
+                  <Plus size={14} /> Nueva Actividad
+                </button>
+              )}
+            </div>
             {actividadesProspecto.length === 0 ? (
               <p className="text-slate-500 text-center py-8">No hay actividades registradas</p>
             ) : (
@@ -5019,7 +5059,17 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
         {/* Tab: Recordatorios */}
         {activeTab === 'recordatorios' && (
           <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
-            <h3 className="text-lg font-semibold text-white mb-4">Recordatorios</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-white">Recordatorios</h3>
+              {puedeEditarProspecto(prospecto) && (
+                <button
+                  onClick={() => { setEditingRecordatorio(null); setRecordatorioForm({ titulo: '', fecha: '', descripcion: '', responsableId: '' }); setShowRecordatorioForm(true); }}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-amber-500/20 text-amber-400 rounded-lg text-sm hover:bg-amber-500/30 transition-all"
+                >
+                  <Plus size={14} /> Nuevo Recordatorio
+                </button>
+              )}
+            </div>
             {recordatoriosProspecto.length === 0 ? (
               <p className="text-slate-500 text-center py-8">No hay recordatorios</p>
             ) : (
