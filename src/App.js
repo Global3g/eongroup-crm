@@ -2275,7 +2275,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   // Función para verificar si puede editar un cliente específico
   const puedeEditarCliente = (cliente) => {
     if (!cliente) return false;
-    if (permisos.editar === 'todos' || permisos.editar === true) return true;
+    // Si no hay permisos definidos o editar es undefined, permitir por defecto
+    if (permisos.editar === undefined || permisos.editar === 'todos' || permisos.editar === true) return true;
     if (permisos.editar === 'propios') {
       return cliente.asignadoA === currentUser?.id || cliente.creadoPor === currentUser?.id;
     }
@@ -2285,7 +2286,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   // Función para verificar si puede eliminar un cliente específico
   const puedeEliminarCliente = (cliente) => {
     if (!cliente) return false;
-    if (permisos.eliminar === 'todos' || permisos.eliminar === true) return true;
+    // Si no hay permisos definidos o eliminar es undefined, permitir por defecto
+    if (permisos.eliminar === undefined || permisos.eliminar === 'todos' || permisos.eliminar === true) return true;
     if (permisos.eliminar === 'propios') {
       return cliente.asignadoA === currentUser?.id || cliente.creadoPor === currentUser?.id;
     }
@@ -3587,7 +3589,8 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   // Función para verificar si puede editar un prospecto específico
   const puedeEditarProspecto = (prospecto) => {
     if (!prospecto) return false;
-    if (permisosPipeline.editar === 'todos' || permisosPipeline.editar === true) return true;
+    // Si no hay permisos definidos o editar es undefined, permitir por defecto
+    if (permisosPipeline.editar === undefined || permisosPipeline.editar === 'todos' || permisosPipeline.editar === true) return true;
     if (permisosPipeline.editar === 'propios') {
       return prospecto.asignadoA === currentUser?.id || prospecto.creadoPor === currentUser?.id;
     }
@@ -3597,7 +3600,8 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   // Función para verificar si puede eliminar un prospecto específico
   const puedeEliminarProspecto = (prospecto) => {
     if (!prospecto) return false;
-    if (permisosPipeline.eliminar === 'todos' || permisosPipeline.eliminar === true) return true;
+    // Si no hay permisos definidos o eliminar es undefined, permitir por defecto
+    if (permisosPipeline.eliminar === undefined || permisosPipeline.eliminar === 'todos' || permisosPipeline.eliminar === true) return true;
     if (permisosPipeline.eliminar === 'propios') {
       return prospecto.asignadoA === currentUser?.id || prospecto.creadoPor === currentUser?.id;
     }
@@ -5279,7 +5283,8 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   // Función para verificar si puede editar un lead específico
   const puedeEditarLead = (lead) => {
     if (!lead) return false;
-    if (permisosLeads.editar === 'todos' || permisosLeads.editar === true) return true;
+    // Si no hay permisos definidos o editar es undefined, permitir por defecto
+    if (permisosLeads.editar === undefined || permisosLeads.editar === 'todos' || permisosLeads.editar === true) return true;
     if (permisosLeads.editar === 'propios') {
       return lead.asignadoA === currentUser?.id || lead.creadoPor === currentUser?.id;
     }
@@ -5289,7 +5294,8 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   // Función para verificar si puede eliminar un lead específico
   const puedeEliminarLead = (lead) => {
     if (!lead) return false;
-    if (permisosLeads.eliminar === 'todos' || permisosLeads.eliminar === true) return true;
+    // Si no hay permisos definidos o eliminar es undefined, permitir por defecto
+    if (permisosLeads.eliminar === undefined || permisosLeads.eliminar === 'todos' || permisosLeads.eliminar === true) return true;
     if (permisosLeads.eliminar === 'propios') {
       return lead.asignadoA === currentUser?.id || lead.creadoPor === currentUser?.id;
     }
