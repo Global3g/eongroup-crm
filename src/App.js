@@ -2226,7 +2226,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   const [activeTab, setActiveTab] = useState('info');
   const [form, setForm] = useState({
     empresa: '', contacto: '', cargo: '', email: '', telefono: '',
-    industria: '', servicio: '', sitioWeb: '', direccion: '', notas: '', gastoCloud: '', tags: [], asignadoA: '',
+    industria: '', servicio: '', sitioWeb: '', direccion: '', notas: '', numeroEmpleados: '', tags: [], asignadoA: '',
     fuente: '', referidoPor: '', esComisionista: false
   });
   const [actividadForm, setActividadForm] = useState({
@@ -2265,9 +2265,9 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   // Permisos del usuario actual para clientes (fallback a permisos básicos, no admin)
   // Nueva estructura: ver/editar/eliminar pueden ser 'todos', 'propios', o false
   const permisos = currentUser?.permisos?.clientes || { ver: 'todos', crear: true, editar: 'propios', eliminar: false };
-  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'propios', crear: true, editar: 'propios', eliminar: false };
-  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' };
-  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' };
+  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'todos', crear: true, editar: 'propios', eliminar: false };
+  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'todos', crear: true, editar: 'propios', eliminar: 'propios' };
+  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'todos', crear: true, editar: 'propios', eliminar: 'propios' };
 
   const puedeCrear = permisos.crear === true;
   const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
@@ -2304,6 +2304,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   // Funciones para actividades
   const puedeVerActividad = (actividad) => {
+    if (esAdmin) return true;
     if (permisosActividades.ver === 'todos' || permisosActividades.ver === true) return true;
     if (permisosActividades.ver === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
@@ -2313,6 +2314,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEditarActividad = (actividad) => {
     if (!actividad) return false;
+    if (esAdmin) return true;
     if (permisosActividades.editar === 'todos' || permisosActividades.editar === true) return true;
     if (permisosActividades.editar === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
@@ -2322,6 +2324,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEliminarActividad = (actividad) => {
     if (!actividad) return false;
+    if (esAdmin) return true;
     if (permisosActividades.eliminar === 'todos' || permisosActividades.eliminar === true) return true;
     if (permisosActividades.eliminar === 'propios') {
       return actividad.creadoPor === currentUser?.id || actividad.responsableId === currentUser?.id;
@@ -2331,6 +2334,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   // Funciones para tareas
   const puedeVerTarea = (tarea) => {
+    if (esAdmin) return true;
     if (permisosTareas.ver === 'todos' || permisosTareas.ver === true) return true;
     if (permisosTareas.ver === 'propios') {
       return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
@@ -2340,6 +2344,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEditarTarea = (tarea) => {
     if (!tarea) return false;
+    if (esAdmin) return true;
     if (permisosTareas.editar === 'todos' || permisosTareas.editar === true) return true;
     if (permisosTareas.editar === 'propios') {
       return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
@@ -2349,6 +2354,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEliminarTarea = (tarea) => {
     if (!tarea) return false;
+    if (esAdmin) return true;
     if (permisosTareas.eliminar === 'todos' || permisosTareas.eliminar === true) return true;
     if (permisosTareas.eliminar === 'propios') {
       return tarea.creadoPor === currentUser?.id || tarea.responsableId === currentUser?.id;
@@ -2358,6 +2364,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   // Funciones para recordatorios
   const puedeVerRecordatorio = (recordatorio) => {
+    if (esAdmin) return true;
     if (permisosRecordatorios.ver === 'todos' || permisosRecordatorios.ver === true) return true;
     if (permisosRecordatorios.ver === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
@@ -2367,6 +2374,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEditarRecordatorio = (recordatorio) => {
     if (!recordatorio) return false;
+    if (esAdmin) return true;
     if (permisosRecordatorios.editar === 'todos' || permisosRecordatorios.editar === true) return true;
     if (permisosRecordatorios.editar === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
@@ -2376,6 +2384,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
   const puedeEliminarRecordatorio = (recordatorio) => {
     if (!recordatorio) return false;
+    if (esAdmin) return true;
     if (permisosRecordatorios.eliminar === 'todos' || permisosRecordatorios.eliminar === true) return true;
     if (permisosRecordatorios.eliminar === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
@@ -2402,7 +2411,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   };
 
   const resetForm = () => {
-    setForm({ empresa: '', contacto: '', cargo: '', email: '', telefono: '', industria: '', servicio: '', sitioWeb: '', direccion: '', notas: '', gastoCloud: '', tags: [], fuente: '', referidoPor: '', esComisionista: false });
+    setForm({ empresa: '', contacto: '', cargo: '', email: '', telefono: '', industria: '', servicio: '', sitioWeb: '', direccion: '', notas: '', numeroEmpleados: '', tags: [], fuente: '', referidoPor: '', esComisionista: false });
     setShowForm(false);
     setEditingId(null);
     setShowNewIndustria(false);
@@ -2425,7 +2434,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
       sitioWeb: form.sitioWeb || '',
       direccion: form.direccion || '',
       notas: form.notas || '',
-      gastoCloud: form.gastoCloud || '',
+      numeroEmpleados: form.numeroEmpleados || '',
       tags: form.tags || [],
       fuente: form.fuente || '',
       referidoPor: form.referidoPor || '',
@@ -2455,7 +2464,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
       sitioWeb: cliente.sitioWeb || '',
       direccion: cliente.direccion || '',
       notas: cliente.notas || '',
-      gastoCloud: cliente.gastoCloud || '',
+      numeroEmpleados: cliente.numeroEmpleados || '',
       tags: cliente.tags || [],
       asignadoA: cliente.asignadoA || '',
       fuente: cliente.fuente || '',
@@ -2817,22 +2826,21 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
     setRecordatoriosNuevos(recordatoriosNuevos.filter(r => r.id !== id));
   };
 
-  // Obtener actividades del cliente seleccionado (filtradas por permisos)
+  // Obtener actividades del cliente seleccionado (todos pueden ver, solo filtrar por cliente)
   const actividadesCliente = actividades
     .filter(a => a.clienteId === selectedCliente)
-    .filter(a => puedeVerActividad(a))
     .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
 
-  // Obtener recordatorios del cliente seleccionado (filtrados por permisos)
+  // Obtener recordatorios del cliente seleccionado (solo propios o si el cliente es suyo)
   const recordatoriosCliente = recordatorios
     .filter(r => r.clienteId === selectedCliente)
-    .filter(r => puedeVerRecordatorio(r))
+    .filter(r => esAdmin || r.creadoPor === currentUser?.id || r.responsableId === currentUser?.id)
     .sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
-  // Obtener tareas del cliente seleccionado (filtradas por permisos)
+  // Obtener tareas del cliente seleccionado (solo propias o si el cliente es suyo)
   const tareasCliente = (tareas || [])
     .filter(t => t.clienteId === selectedCliente)
-    .filter(t => puedeVerTarea(t))
+    .filter(t => esAdmin || t.creadoPor === currentUser?.id || t.responsableId === currentUser?.id)
     .sort((a, b) => new Date(a.fechaCompromiso) - new Date(b.fechaCompromiso));
 
   // Timeline: combinar actividades y cambios de pipeline
@@ -3092,7 +3100,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
                 <div><p className="text-slate-500 text-sm">Email</p><p className="text-cyan-400">{cliente?.email || '-'}</p></div>
                 <div><p className="text-slate-500 text-sm">Teléfono</p><p className="text-white">{cliente?.telefono || '-'}</p></div>
                 <div><p className="text-slate-500 text-sm">Sitio Web</p><p className="text-cyan-400">{cliente?.sitioWeb ? (<a href={cliente.sitioWeb.startsWith('http') ? cliente.sitioWeb : `https://${cliente.sitioWeb}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{cliente.sitioWeb}</a>) : '-'}</p></div>
-                <div><p className="text-slate-500 text-sm">Gasto Cloud Estimado</p><p className="text-emerald-400 font-semibold">{cliente?.gastoCloud ? `$${cliente.gastoCloud}/mes` : '-'}</p></div>
+                <div><p className="text-slate-500 text-sm">Número de Empleados</p><p className="text-cyan-400 font-semibold">{cliente?.numeroEmpleados || '-'}</p></div>
                 <div><p className="text-slate-500 text-sm">Servicio</p><p className="text-cyan-400">{cliente?.servicio || '-'}</p></div>
                 <div><p className="text-slate-500 text-sm">Fuente</p><p className="text-white">{cliente?.fuente || '-'}</p></div>
                 {cliente?.fuente === 'Referido' && cliente?.referidoPor && (
@@ -3444,7 +3452,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
               )}
             </div>
             <input type="url" placeholder="Sitio Web" value={form.sitioWeb} onChange={(e) => setForm({ ...form, sitioWeb: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-            <input type="number" placeholder="Gasto Cloud Mensual (USD)" value={form.gastoCloud} onChange={(e) => setForm({ ...form, gastoCloud: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="number" placeholder="Número de empleados" value={form.numeroEmpleados} onChange={(e) => setForm({ ...form, numeroEmpleados: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             {/* Fuente */}
             <select value={form.fuente || ''} onChange={(e) => setForm({ ...form, fuente: e.target.value, referidoPor: e.target.value !== 'Referido' ? '' : form.referidoPor, esComisionista: e.target.value !== 'Referido' ? false : form.esComisionista })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:border-cyan-500/50">
               <option value="">Fuente del cliente</option>
@@ -3553,8 +3561,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
             )}
             <div className="flex items-center justify-between">
               <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded-lg">{cliente.industria || 'Sin industria'}</span>
-              {cliente.gastoCloud && (
-                <span className="text-emerald-400 text-sm font-medium">${cliente.gastoCloud}/mes</span>
+              {cliente.numeroEmpleados && (
+                <span className="text-cyan-400 text-sm font-medium">{cliente.numeroEmpleados} empleados</span>
               )}
             </div>
           </div>
@@ -3584,8 +3592,8 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   const [actividadArchivo, setActividadArchivo] = useState(null);
   const [subiendoActividad, setSubiendoActividad] = useState(false);
   const [form, setForm] = useState({
-    nombre: '', empresa: '', contacto: '', email: '', telefono: '', paginaWeb: '', clienteId: '', etapa: 'prospecto', valorEstimado: '', servicio: '', notas: '', fechaSeguimiento: '', notaRapida: '', asignadoA: '',
-    fuente: '', referidoPor: '', esComisionista: false
+    nombre: '', empresa: '', contacto: '', cargo: '', email: '', telefono: '', paginaWeb: '', clienteId: '', etapa: 'prospecto', valorEstimado: '', servicio: '', notas: '', fechaSeguimiento: '', notaRapida: '', asignadoA: '',
+    fuente: '', referidoPor: '', esComisionista: false, numeroEmpleados: ''
   });
   const [actividadForm, setActividadForm] = useState({
     tipo: 'llamada', titulo: '', descripcion: '', fecha: getFechaLocal(), responsableId: ''
@@ -3617,9 +3625,9 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   // Permisos del usuario actual para pipeline (fallback a permisos básicos, no admin)
   const permisosPipeline = currentUser?.permisos?.pipeline || { ver: 'todos', crear: true, editar: 'propios', eliminar: false };
-  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'propios', crear: true, editar: 'propios', eliminar: false };
-  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' };
-  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'propios', crear: true, editar: 'propios', eliminar: 'propios' };
+  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'todos', crear: true, editar: 'propios', eliminar: false };
+  const permisosTareas = currentUser?.permisos?.tareas || { ver: 'todos', crear: true, editar: 'propios', eliminar: 'propios' };
+  const permisosRecordatorios = currentUser?.permisos?.recordatorios || { ver: 'todos', crear: true, editar: 'propios', eliminar: 'propios' };
 
   const puedeCrear = permisosPipeline.crear === true;
   const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
@@ -3728,6 +3736,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
 
   const puedeEliminarRecordatorio = (recordatorio) => {
     if (!recordatorio) return false;
+    if (esAdmin) return true;
     if (permisosRecordatorios.eliminar === 'todos' || permisosRecordatorios.eliminar === true) return true;
     if (permisosRecordatorios.eliminar === 'propios') {
       return recordatorio.creadoPor === currentUser?.id || recordatorio.responsableId === currentUser?.id;
@@ -3745,7 +3754,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   };
 
   const resetForm = () => {
-    setForm({ nombre: '', empresa: '', contacto: '', email: '', telefono: '', paginaWeb: '', clienteId: '', etapa: 'prospecto', valorEstimado: '', servicio: '', notas: '', fechaSeguimiento: '', notaRapida: '', fuente: '', referidoPor: '', esComisionista: false });
+    setForm({ nombre: '', empresa: '', contacto: '', cargo: '', email: '', telefono: '', paginaWeb: '', clienteId: '', etapa: 'prospecto', valorEstimado: '', servicio: '', notas: '', fechaSeguimiento: '', notaRapida: '', fuente: '', referidoPor: '', esComisionista: false, numeroEmpleados: '' });
     setShowForm(false);
     setEditingId(null);
     setShowNewServicio(false);
@@ -3755,11 +3764,13 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
   const handleSubmit = (e) => {
     e.preventDefault();
     const cliente = clientes.find(c => c.id === form.clienteId);
+    const empresaNombre = form.empresa || cliente?.empresa || '';
     // Asegurar que no haya valores undefined
     const cleanForm = {
-      nombre: form.nombre || '',
-      empresa: form.empresa || cliente?.empresa || '',
+      nombre: form.nombre || empresaNombre,
+      empresa: empresaNombre,
       contacto: form.contacto || '',
+      cargo: form.cargo || '',
       email: form.email || '',
       telefono: form.telefono || '',
       paginaWeb: form.paginaWeb || '',
@@ -3772,7 +3783,8 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
       notaRapida: form.notaRapida || '',
       fuente: form.fuente || '',
       referidoPor: form.referidoPor || '',
-      esComisionista: form.esComisionista || false
+      esComisionista: form.esComisionista || false,
+      numeroEmpleados: form.numeroEmpleados || ''
     };
     if (editingId) {
       setPipeline(pipeline.map(p => p.id === editingId ? { ...p, ...cleanForm, asignadoA: form.asignadoA || p.asignadoA || currentUser?.id } : p));
@@ -3805,6 +3817,7 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
       nombre: item.nombre || '',
       empresa: item.empresa || '',
       contacto: item.contacto || '',
+      cargo: item.cargo || '',
       email: item.email || '',
       telefono: item.telefono || '',
       paginaWeb: item.paginaWeb || '',
@@ -3818,7 +3831,8 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
       asignadoA: item.asignadoA || '',
       fuente: item.fuente || '',
       referidoPor: item.referidoPor || '',
-      esComisionista: item.esComisionista || false
+      esComisionista: item.esComisionista || false,
+      numeroEmpleados: item.numeroEmpleados || ''
     });
     setEditingId(item.id);
     setShowForm(true);
@@ -4114,9 +4128,12 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
     setShowRecordatorioForm(false);
   };
 
+  // Actividades: todos pueden ver todas
   const actividadesProspecto = actividades.filter(a => a.pipelineId === selectedProspecto).sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
-  const recordatoriosProspecto = recordatorios.filter(r => r.pipelineId === selectedProspecto).sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
-  const tareasProspecto = (tareas || []).filter(t => t.pipelineId === selectedProspecto);
+  // Recordatorios: solo propios (admin ve todos)
+  const recordatoriosProspecto = recordatorios.filter(r => r.pipelineId === selectedProspecto).filter(r => esAdmin || r.creadoPor === currentUser?.id || r.responsableId === currentUser?.id).sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+  // Tareas: solo propias (admin ve todas)
+  const tareasProspecto = (tareas || []).filter(t => t.pipelineId === selectedProspecto).filter(t => esAdmin || t.creadoPor === currentUser?.id || t.responsableId === currentUser?.id);
 
   // Funciones para editar/eliminar actividades
   const handleEditActividad = (actividad) => {
@@ -5148,12 +5165,13 @@ function Pipeline({ pipeline, setPipeline, clientes, setClientes, actividades, s
         <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
           <h2 className="text-xl font-bold text-white mb-6">{editingId ? 'Editar Oportunidad' : 'Nueva Oportunidad'}</h2>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" placeholder="Nombre del proyecto *" value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
             <input type="text" placeholder="Empresa / Cliente *" value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
             <input type="text" placeholder="Nombre del contacto" value={form.contacto} onChange={(e) => setForm({ ...form, contacto: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="text" placeholder="Cargo" value={form.cargo} onChange={(e) => setForm({ ...form, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             <input type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             <input type="tel" placeholder="Teléfono" value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             <input type="url" placeholder="Página Web" value={form.paginaWeb || ''} onChange={(e) => setForm({ ...form, paginaWeb: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="number" placeholder="Número de empleados" value={form.numeroEmpleados} onChange={(e) => setForm({ ...form, numeroEmpleados: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             <select value={form.clienteId} onChange={(e) => setForm({ ...form, clienteId: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:border-cyan-500/50">
               <option value="">Vincular a cliente existente (opcional)</option>
               {clientes.map(c => <option key={c.id} value={c.id}>{c.empresa}</option>)}
@@ -5316,7 +5334,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   const [form, setForm] = useState({
     empresa: '', contacto: '', cargo: '', email: '', telefono: '', paginaWeb: '',
     industria: '', servicio: '', fuente: '', notas: '', prioridad: 'media', tags: [], asignadoA: '',
-    referidoPor: '', esComisionista: false
+    referidoPor: '', esComisionista: false, numeroEmpleados: ''
   });
 
   // Estados para crear recordatorios y tareas en el modal
@@ -5333,18 +5351,21 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   const [actividadArchivo, setActividadArchivo] = useState(null);
   const [subiendoActividad, setSubiendoActividad] = useState(false);
 
-  // Obtener datos del lead seleccionado
-  const leadRecordatorios = selectedLead ? recordatorios.filter(r => r.leadId === selectedLead.id) : [];
-  const leadTareas = selectedLead ? tareas.filter(t => t.leadId === selectedLead.id) : [];
-  const leadActividades = selectedLead ? actividades.filter(a => a.leadId === selectedLead.id) : [];
-  const usuariosActivos = usuarios.filter(u => u.activo !== false);
-
   // Permisos del usuario actual para leads (fallback a permisos básicos, no admin)
   const permisosLeads = currentUser?.permisos?.leads || { ver: 'todos', crear: true, editar: 'propios', eliminar: false };
-  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'propios', crear: true, editar: 'propios', eliminar: false };
+  const permisosActividades = currentUser?.permisos?.actividades || { ver: 'todos', crear: true, editar: 'propios', eliminar: false };
 
   const puedeCrear = permisosLeads.crear === true;
   const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
+
+  // Obtener datos del lead seleccionado
+  // Actividades: todos pueden ver todas
+  const leadActividades = selectedLead ? actividades.filter(a => a.leadId === selectedLead.id) : [];
+  // Recordatorios: solo propios (admin ve todos)
+  const leadRecordatorios = selectedLead ? recordatorios.filter(r => r.leadId === selectedLead.id).filter(r => esAdmin || r.creadoPor === currentUser?.id || r.responsableId === currentUser?.id) : [];
+  // Tareas: solo propias (admin ve todas)
+  const leadTareas = selectedLead ? tareas.filter(t => t.leadId === selectedLead.id).filter(t => esAdmin || t.creadoPor === currentUser?.id || t.responsableId === currentUser?.id) : [];
+  const usuariosActivos = usuarios.filter(u => u.activo !== false);
 
   // Función para verificar si puede editar un lead específico
   const puedeEditarLead = (lead) => {
@@ -5604,7 +5625,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   };
 
   const resetForm = () => {
-    setForm({ empresa: '', contacto: '', cargo: '', email: '', telefono: '', paginaWeb: '', industria: '', servicio: '', fuente: '', notas: '', prioridad: 'media', tags: [], asignadoA: '', referidoPor: '', esComisionista: false });
+    setForm({ empresa: '', contacto: '', cargo: '', email: '', telefono: '', paginaWeb: '', industria: '', servicio: '', fuente: '', notas: '', prioridad: 'media', tags: [], asignadoA: '', referidoPor: '', esComisionista: false, numeroEmpleados: '' });
     setShowForm(false);
     setEditingId(null);
     setShowNewIndustria(false);
@@ -5627,7 +5648,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
   };
 
   const handleEdit = (lead) => {
-    setForm({ ...lead, asignadoA: lead.asignadoA || '', paginaWeb: lead.paginaWeb || '', referidoPor: lead.referidoPor || '', esComisionista: lead.esComisionista || false });
+    setForm({ ...lead, asignadoA: lead.asignadoA || '', paginaWeb: lead.paginaWeb || '', referidoPor: lead.referidoPor || '', esComisionista: lead.esComisionista || false, numeroEmpleados: lead.numeroEmpleados || '' });
     setEditingId(lead.id);
     setShowForm(true);
   };
@@ -5659,6 +5680,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
       fuente: lead.fuente || '',
       referidoPor: lead.referidoPor || '',
       esComisionista: lead.esComisionista || false,
+      numeroEmpleados: lead.numeroEmpleados || '',
       leadOrigenId: lead.id // Referencia al lead original
     };
     setPipeline(prev => [...prev, nuevoProyecto]);
@@ -5759,6 +5781,7 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
             <input type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             <input type="tel" placeholder="Teléfono" value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             <input type="url" placeholder="Página Web" value={form.paginaWeb || ''} onChange={(e) => setForm({ ...form, paginaWeb: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="number" placeholder="Número de empleados" value={form.numeroEmpleados || ''} onChange={(e) => setForm({ ...form, numeroEmpleados: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             {/* Selector de industria con opción de agregar nueva */}
             <div className="relative">
               {!showNewIndustria ? (
@@ -6199,32 +6222,34 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
               {/* Tab: Tareas */}
               {modalTab === 'tareas' && (
                 <div className="space-y-4">
-                  {/* Formulario para crear tarea */}
-                  <div className="bg-slate-800/50 rounded-xl p-4">
-                    <p className="text-white font-medium mb-3">Nueva Tarea</p>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                      <input
-                        type="text"
-                        placeholder="Descripción *"
-                        value={newTarea.descripcion}
-                        onChange={(e) => setNewTarea({ ...newTarea, descripcion: e.target.value })}
-                        className="md:col-span-2 px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm placeholder-slate-500"
-                      />
-                      <input
-                        type="date"
-                        value={newTarea.fechaCompromiso}
-                        onChange={(e) => setNewTarea({ ...newTarea, fechaCompromiso: e.target.value })}
-                        className="px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm"
-                      />
-                      <button
-                        onClick={crearTareaLead}
-                        disabled={!newTarea.descripcion || !newTarea.fechaCompromiso}
-                        className="px-4 py-2 bg-violet-500 hover:bg-violet-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-all text-sm"
-                      >
-                        Crear Tarea
-                      </button>
+                  {/* Formulario para crear tarea - solo si puede editar el lead */}
+                  {puedeEditarLead(selectedLead) && (
+                    <div className="bg-slate-800/50 rounded-xl p-4">
+                      <p className="text-white font-medium mb-3">Nueva Tarea</p>
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <input
+                          type="text"
+                          placeholder="Descripción *"
+                          value={newTarea.descripcion}
+                          onChange={(e) => setNewTarea({ ...newTarea, descripcion: e.target.value })}
+                          className="md:col-span-2 px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm placeholder-slate-500"
+                        />
+                        <input
+                          type="date"
+                          value={newTarea.fechaCompromiso}
+                          onChange={(e) => setNewTarea({ ...newTarea, fechaCompromiso: e.target.value })}
+                          className="px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm"
+                        />
+                        <button
+                          onClick={crearTareaLead}
+                          disabled={!newTarea.descripcion || !newTarea.fechaCompromiso}
+                          className="px-4 py-2 bg-violet-500 hover:bg-violet-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-all text-sm"
+                        >
+                          Crear Tarea
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Lista de tareas */}
                   {leadTareas.length === 0 ? (
@@ -6259,32 +6284,34 @@ function Leads({ leads, setLeads, setPipeline, todasLasIndustrias, addIndustria,
               {/* Tab: Recordatorios */}
               {modalTab === 'recordatorios' && (
                 <div className="space-y-4">
-                  {/* Formulario para crear recordatorio */}
-                  <div className="bg-slate-800/50 rounded-xl p-4">
-                    <p className="text-white font-medium mb-3">Nuevo Recordatorio</p>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                      <input
-                        type="text"
-                        placeholder="Título *"
-                        value={newRecordatorio.titulo}
-                        onChange={(e) => setNewRecordatorio({ ...newRecordatorio, titulo: e.target.value })}
-                        className="md:col-span-2 px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm placeholder-slate-500"
-                      />
-                      <input
-                        type="date"
-                        value={newRecordatorio.fecha}
-                        onChange={(e) => setNewRecordatorio({ ...newRecordatorio, fecha: e.target.value })}
-                        className="px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm"
-                      />
-                      <button
-                        onClick={crearRecordatorioLead}
-                        disabled={!newRecordatorio.titulo || !newRecordatorio.fecha}
-                        className="px-4 py-2 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-all text-sm"
-                      >
-                        Crear
-                      </button>
+                  {/* Formulario para crear recordatorio - solo si puede editar el lead */}
+                  {puedeEditarLead(selectedLead) && (
+                    <div className="bg-slate-800/50 rounded-xl p-4">
+                      <p className="text-white font-medium mb-3">Nuevo Recordatorio</p>
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <input
+                          type="text"
+                          placeholder="Título *"
+                          value={newRecordatorio.titulo}
+                          onChange={(e) => setNewRecordatorio({ ...newRecordatorio, titulo: e.target.value })}
+                          className="md:col-span-2 px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm placeholder-slate-500"
+                        />
+                        <input
+                          type="date"
+                          value={newRecordatorio.fecha}
+                          onChange={(e) => setNewRecordatorio({ ...newRecordatorio, fecha: e.target.value })}
+                          className="px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm"
+                        />
+                        <button
+                          onClick={crearRecordatorioLead}
+                          disabled={!newRecordatorio.titulo || !newRecordatorio.fecha}
+                          className="px-4 py-2 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-all text-sm"
+                        >
+                          Crear
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Lista de recordatorios */}
                   {leadRecordatorios.length === 0 ? (
@@ -6378,13 +6405,28 @@ function Calendario({ actividades, recordatorios, tareas, clientes, pipeline, le
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  // En el calendario SIEMPRE mostramos solo las tareas y recordatorios del usuario actual
-  // (independiente del alcance - el calendario es personal)
-  const tareasFiltradas = tareas.filter(t => t.responsableId === currentUser?.id || t.creadoPor === currentUser?.id);
+  // Admin puede ver todo el equipo
+  const esAdmin = currentUser?.permisos?.modulos?.equipo === true;
 
-  const recordatoriosFiltrados = recordatorios.filter(r => r.creadoPor === currentUser?.id || r.usuarioId === currentUser?.id || r.responsableId === currentUser?.id);
+  // Helper para obtener nombre del usuario
+  const getNombreUsuario = (userId) => {
+    if (!userId) return 'Sin asignar';
+    const usuario = usuarios.find(u => u.id === userId);
+    return usuario?.nombre || 'Usuario desconocido';
+  };
 
-  const actividadesFiltradas = actividades.filter(a => a.creadoPor === currentUser?.id || a.responsableId === currentUser?.id);
+  // Si es admin, mostramos todos los eventos; si no, solo los propios
+  const tareasFiltradas = esAdmin
+    ? tareas
+    : tareas.filter(t => t.responsableId === currentUser?.id || t.creadoPor === currentUser?.id);
+
+  const recordatoriosFiltrados = esAdmin
+    ? recordatorios
+    : recordatorios.filter(r => r.creadoPor === currentUser?.id || r.usuarioId === currentUser?.id || r.responsableId === currentUser?.id);
+
+  const actividadesFiltradas = esAdmin
+    ? actividades
+    : actividades.filter(a => a.creadoPor === currentUser?.id || a.responsableId === currentUser?.id);
 
   // Helper functions
   const getMonthName = (date) => {
@@ -6462,7 +6504,11 @@ function Calendario({ actividades, recordatorios, tareas, clientes, pipeline, le
           fecha: rec.fecha,
           completado: rec.completado,
           color: rec.completado ? 'bg-emerald-500' : rec.leadId ? 'bg-violet-500' : 'bg-amber-500',
-          icon: Bell
+          icon: Bell,
+          responsableId: rec.responsableId || rec.usuarioId,
+          responsableNombre: getNombreUsuario(rec.responsableId || rec.usuarioId),
+          creadoPor: rec.creadoPor,
+          creadoPorNombre: getNombreUsuario(rec.creadoPor)
         });
       }
     });
@@ -6505,7 +6551,11 @@ function Calendario({ actividades, recordatorios, tareas, clientes, pipeline, le
           prioridad: tarea.prioridad,
           esLead: !!tarea.leadId,
           color: tarea.completada ? 'bg-emerald-500' : tarea.prioridad === 'alta' ? 'bg-red-500' : tarea.prioridad === 'media' ? 'bg-cyan-500' : 'bg-violet-500',
-          icon: Target
+          icon: Target,
+          responsableId: tarea.responsableId,
+          responsableNombre: getNombreUsuario(tarea.responsableId),
+          creadoPor: tarea.creadoPor,
+          creadoPorNombre: getNombreUsuario(tarea.creadoPor)
         });
       }
     });
@@ -6660,9 +6710,31 @@ function Calendario({ actividades, recordatorios, tareas, clientes, pipeline, le
               {/* Entidad relacionada */}
               <div>
                 <label className="text-xs font-medium text-slate-400 uppercase tracking-wider">
-                  {selectedEvent.tipoEntidad === 'cliente' ? 'Cliente' : 'Prospecto'}
+                  {selectedEvent.tipoEntidad === 'cliente' ? 'Cliente' : selectedEvent.tipoEntidad === 'lead' ? 'Lead' : 'Prospecto'}
                 </label>
                 <p className="text-cyan-400 mt-1 font-medium">{selectedEvent.nombreEntidad}</p>
+              </div>
+
+              {/* Responsable y Creador */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-medium text-slate-400 uppercase tracking-wider">Responsable</label>
+                  <div className="flex items-center gap-2 mt-1">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 flex items-center justify-center text-white text-xs font-bold">
+                      {selectedEvent.responsableNombre?.charAt(0)?.toUpperCase() || '?'}
+                    </div>
+                    <p className="text-white font-medium">{selectedEvent.responsableNombre || 'Sin asignar'}</p>
+                  </div>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-slate-400 uppercase tracking-wider">Creado por</label>
+                  <div className="flex items-center gap-2 mt-1">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 flex items-center justify-center text-white text-xs font-bold">
+                      {selectedEvent.creadoPorNombre?.charAt(0)?.toUpperCase() || '?'}
+                    </div>
+                    <p className="text-slate-300">{selectedEvent.creadoPorNombre || 'Desconocido'}</p>
+                  </div>
+                </div>
               </div>
 
               {/* Estado (solo para recordatorios) */}
@@ -7406,9 +7478,9 @@ function Reportes({ clientes, leads, pipeline, actividades }) {
 
     switch (tipo) {
       case 'clientes':
-        headers = ['Empresa', 'Contacto', 'Cargo', 'Email', 'Teléfono', 'Industria', 'Gasto Cloud', 'Fecha Creación'];
+        headers = ['Empresa', 'Contacto', 'Cargo', 'Email', 'Teléfono', 'Industria', 'Núm. Empleados', 'Fecha Creación'];
         datos = clientes.map(c => [
-          c.empresa, c.contacto, c.cargo, c.email, c.telefono, c.industria, c.gastoCloud, c.fechaCreacion
+          c.empresa, c.contacto, c.cargo, c.email, c.telefono, c.industria, c.numeroEmpleados, c.fechaCreacion
         ]);
         filename = 'clientes_eongroup.csv';
         break;
@@ -8317,7 +8389,7 @@ function EmailComposer({ isOpen, onClose, destinatario, currentUser, onEmailSent
 }
 
 // ============== CHATBOT GEMINI AI ==============
-const GEMINI_API_KEY = 'AIzaSyAaHShm7STgbH_QdlFsfv3jzfIA_ZvgTAM';
+const GEMINI_API_KEY = 'AIzaSyCMuotC_DeFbvn5vEkRC8RoxD-x8VN1mcs';
 
 function GeminiChatbot({ clientes, pipeline, actividades, tareas, recordatorios, currentUser }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -8542,6 +8614,11 @@ Instrucciones:
 
       const data = await response.json();
 
+      if (!response.ok) {
+        console.error('Error de API Gemini:', data);
+        throw new Error(data.error?.message || `Error ${response.status}: ${response.statusText}`);
+      }
+
       if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
         const assistantMessage = {
           role: 'assistant',
@@ -8549,6 +8626,7 @@ Instrucciones:
         };
         setMessages(prev => [...prev, assistantMessage]);
       } else {
+        console.error('Respuesta inesperada de Gemini:', data);
         throw new Error('Respuesta inválida de Gemini');
       }
     } catch (error) {
