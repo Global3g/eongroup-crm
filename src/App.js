@@ -8410,20 +8410,30 @@ function renderMarkdown(text) {
         if (imgMatch[1]) {
           elements.push(<span key={key++}>{imgMatch[1]}</span>);
         }
-        // La imagen
+        // La imagen con fallback a link
         const imgUrl = imgMatch[3];
+        const imgAlt = imgMatch[2] || 'Imagen';
+        const imgKey = key++;
         elements.push(
-          <img
-            key={key++}
-            src={imgUrl}
-            alt={imgMatch[2] || 'Imagen'}
-            className="max-w-full h-auto rounded-lg my-2 max-h-64 object-contain cursor-pointer hover:opacity-90 block"
-            onClick={() => window.open(imgUrl, '_blank')}
-            onError={(e) => {
-              e.target.style.display = 'none';
-              console.log('Error cargando imagen:', imgUrl);
-            }}
-          />
+          <span key={imgKey} className="block my-2">
+            <img
+              src={imgUrl}
+              alt={imgAlt}
+              className="max-w-full h-auto rounded-lg max-h-64 object-contain cursor-pointer hover:opacity-90"
+              onClick={() => window.open(imgUrl, '_blank')}
+              onError={(e) => {
+                // Reemplazar imagen rota con un link
+                const parent = e.target.parentNode;
+                const link = document.createElement('a');
+                link.href = imgUrl;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.className = 'flex items-center gap-2 text-cyan-400 hover:text-cyan-300 underline bg-slate-700/50 px-3 py-2 rounded-lg';
+                link.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Ver imagen: ${imgAlt}`;
+                parent.replaceChild(link, e.target);
+              }}
+            />
+          </span>
         );
         remaining = imgMatch[4] || '';
         continue;
@@ -8640,7 +8650,7 @@ Instrucciones:
 - Si te piden redactar algo, proporciona texto profesional
 - Para análisis de imágenes, describe lo que ves y sugiere cómo registrarlo en el CRM
 - IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa.
-- IMÁGENES OBLIGATORIO: Para mostrar imágenes SIEMPRE usa EXACTAMENTE este formato: ![descripcion](url) - Por ejemplo: ![Logo de Coca Cola](https://url.com/logo.png). NUNCA pongas URLs entre backticks o comillas. NUNCA escribas la URL como texto plano. La interfaz SOLO puede mostrar imágenes si usas el formato ![texto](url) exactamente así.`
+- IMÁGENES OBLIGATORIO: Para mostrar imágenes SIEMPRE usa EXACTAMENTE este formato: ![descripcion](url) - Por ejemplo: ![Logo de Coca Cola](https://url.com/logo.png). NUNCA pongas URLs entre backticks o comillas. NUNCA escribas la URL como texto plano. IMPORTANTE: Prefiere imágenes del sitio web OFICIAL de la empresa (ejemplo: empresa.com/logo.png) en lugar de Wikipedia o Wikimedia, ya que esos sitios bloquean la carga externa de imágenes.`
             }]
           },
           tools: [{ googleSearch: {} }],
@@ -8675,7 +8685,7 @@ Instrucciones:
 - Para correos, incluye saludo, cuerpo y despedida profesional
 - Para actividades, incluye un título claro y descripción detallada
 - IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa combinando datos del CRM con información pública.
-- IMÁGENES OBLIGATORIO: Para mostrar imágenes SIEMPRE usa EXACTAMENTE este formato: ![descripcion](url) - Por ejemplo: ![Logo de Coca Cola](https://url.com/logo.png). NUNCA pongas URLs entre backticks o comillas. NUNCA escribas la URL como texto plano. La interfaz SOLO puede mostrar imágenes si usas el formato ![texto](url) exactamente así.`
+- IMÁGENES OBLIGATORIO: Para mostrar imágenes SIEMPRE usa EXACTAMENTE este formato: ![descripcion](url) - Por ejemplo: ![Logo de Coca Cola](https://url.com/logo.png). NUNCA pongas URLs entre backticks o comillas. NUNCA escribas la URL como texto plano. IMPORTANTE: Prefiere imágenes del sitio web OFICIAL de la empresa (ejemplo: empresa.com/logo.png) en lugar de Wikipedia o Wikimedia, ya que esos sitios bloquean la carga externa de imágenes.`
           }]
         };
 
