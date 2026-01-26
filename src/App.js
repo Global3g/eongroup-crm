@@ -8624,7 +8624,7 @@ Instrucciones:
 - Si te piden redactar algo, proporciona texto profesional
 - Para análisis de imágenes, describe lo que ves y sugiere cómo registrarlo en el CRM
 - IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa.
-- IMÁGENES: Cuando te pidan logos, fotos o imágenes de empresas/productos, busca la URL de la imagen y devuélvela en formato markdown: ![descripción](url_de_imagen). Siempre intenta mostrar imágenes relevantes cuando hables de empresas.`
+- IMÁGENES OBLIGATORIO: Para mostrar imágenes SIEMPRE usa EXACTAMENTE este formato: ![descripcion](url) - Por ejemplo: ![Logo de Coca Cola](https://url.com/logo.png). NUNCA pongas URLs entre backticks o comillas. NUNCA escribas la URL como texto plano. La interfaz SOLO puede mostrar imágenes si usas el formato ![texto](url) exactamente así.`
             }]
           },
           tools: [{ googleSearch: {} }],
@@ -8659,7 +8659,7 @@ Instrucciones:
 - Para correos, incluye saludo, cuerpo y despedida profesional
 - Para actividades, incluye un título claro y descripción detallada
 - IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa combinando datos del CRM con información pública.
-- IMÁGENES: Cuando te pidan logos, fotos o imágenes de empresas/productos, busca la URL de la imagen y devuélvela en formato markdown: ![descripción](url_de_imagen). Siempre intenta mostrar imágenes relevantes cuando hables de empresas.`
+- IMÁGENES OBLIGATORIO: Para mostrar imágenes SIEMPRE usa EXACTAMENTE este formato: ![descripcion](url) - Por ejemplo: ![Logo de Coca Cola](https://url.com/logo.png). NUNCA pongas URLs entre backticks o comillas. NUNCA escribas la URL como texto plano. La interfaz SOLO puede mostrar imágenes si usas el formato ![texto](url) exactamente así.`
           }]
         };
 
