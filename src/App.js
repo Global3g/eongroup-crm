@@ -8389,7 +8389,6 @@ function EmailComposer({ isOpen, onClose, destinatario, currentUser, onEmailSent
 }
 
 // ============== CHATBOT GEMINI AI ==============
-const GEMINI_API_KEY = 'AIzaSyCMuotC_DeFbvn5vEkRC8RoxD-x8VN1mcs';
 
 function GeminiChatbot({ clientes, pipeline, actividades, tareas, recordatorios, currentUser }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -8603,14 +8602,11 @@ Instrucciones:
         };
       }
 
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
-        }
-      );
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+      });
 
       const data = await response.json();
 
