@@ -8553,9 +8553,11 @@ Instrucciones:
 - Sé conciso pero útil
 - Tienes memoria de la conversación, puedes hacer referencia a mensajes anteriores
 - Si te piden redactar algo, proporciona texto profesional
-- Para análisis de imágenes, describe lo que ves y sugiere cómo registrarlo en el CRM`
+- Para análisis de imágenes, describe lo que ves y sugiere cómo registrarlo en el CRM
+- IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa.`
             }]
           },
+          tools: [{ googleSearch: {} }],
           contents: [{
             role: 'user',
             parts: [
@@ -8585,7 +8587,8 @@ Instrucciones:
 - Si te piden redactar algo (actividad, correo, nota), proporciona un texto bien estructurado y profesional
 - Si te preguntan sobre datos del CRM, usa el contexto proporcionado
 - Para correos, incluye saludo, cuerpo y despedida profesional
-- Para actividades, incluye un título claro y descripción detallada`
+- Para actividades, incluye un título claro y descripción detallada
+- IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa combinando datos del CRM con información pública.`
           }]
         };
 
@@ -8598,7 +8601,8 @@ Instrucciones:
         const contents = [systemMessage, modelAck, ...historialMensajes.slice(1)]; // slice(1) para quitar el primer mensaje de bienvenida duplicado
 
         requestBody = {
-          contents: contents
+          contents: contents,
+          tools: [{ googleSearch: {} }]
         };
       }
 
