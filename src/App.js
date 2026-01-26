@@ -8394,69 +8394,85 @@ function EmailComposer({ isOpen, onClose, destinatario, currentUser, onEmailSent
 function renderMarkdown(text) {
   if (!text) return null;
 
-  const parts = [];
-  let remaining = text;
-  let key = 0;
+  // Dividir el texto en líneas para procesar mejor
+  const lines = text.split('\n');
 
-  while (remaining.length > 0) {
-    // Buscar imagen: ![alt](url)
-    const imgMatch = remaining.match(/!\[([^\]]*)\]\(([^)]+)\)/);
-    // Buscar link: [text](url)
-    const linkMatch = remaining.match(/\[([^\]]+)\]\(([^)]+)\)/);
-    // Buscar negrita: **text**
-    const boldMatch = remaining.match(/\*\*([^*]+)\*\*/);
+  return lines.map((line, lineIndex) => {
+    const elements = [];
+    let remaining = line;
+    let key = 0;
 
-    // Encontrar cuál viene primero
-    const matches = [
-      imgMatch ? { type: 'img', match: imgMatch, index: remaining.indexOf(imgMatch[0]) } : null,
-      linkMatch && !imgMatch?.index === linkMatch?.index ? { type: 'link', match: linkMatch, index: remaining.indexOf(linkMatch[0]) } : null,
-      boldMatch ? { type: 'bold', match: boldMatch, index: remaining.indexOf(boldMatch[0]) } : null
-    ].filter(m => m !== null).sort((a, b) => a.index - b.index);
+    while (remaining.length > 0) {
+      // Buscar imagen: ![alt](url) - DEBE ir primero
+      const imgMatch = remaining.match(/^(.*?)!\[([^\]]*)\]\(([^)]+)\)(.*)$/);
+      if (imgMatch) {
+        // Texto antes de la imagen
+        if (imgMatch[1]) {
+          elements.push(<span key={key++}>{imgMatch[1]}</span>);
+        }
+        // La imagen
+        const imgUrl = imgMatch[3];
+        elements.push(
+          <img
+            key={key++}
+            src={imgUrl}
+            alt={imgMatch[2] || 'Imagen'}
+            className="max-w-full h-auto rounded-lg my-2 max-h-64 object-contain cursor-pointer hover:opacity-90 block"
+            onClick={() => window.open(imgUrl, '_blank')}
+            onError={(e) => {
+              e.target.style.display = 'none';
+              console.log('Error cargando imagen:', imgUrl);
+            }}
+          />
+        );
+        remaining = imgMatch[4] || '';
+        continue;
+      }
 
-    if (matches.length === 0) {
-      parts.push(<span key={key++}>{remaining}</span>);
+      // Buscar link: [text](url) - pero no si empieza con !
+      const linkMatch = remaining.match(/^(.*?)(?<!!)\[([^\]]+)\]\(([^)]+)\)(.*)$/);
+      if (linkMatch) {
+        if (linkMatch[1]) {
+          elements.push(<span key={key++}>{linkMatch[1]}</span>);
+        }
+        elements.push(
+          <a
+            key={key++}
+            href={linkMatch[3]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cyan-400 hover:text-cyan-300 underline"
+          >
+            {linkMatch[2]}
+          </a>
+        );
+        remaining = linkMatch[4] || '';
+        continue;
+      }
+
+      // Buscar negrita: **text**
+      const boldMatch = remaining.match(/^(.*?)\*\*([^*]+)\*\*(.*)$/);
+      if (boldMatch) {
+        if (boldMatch[1]) {
+          elements.push(<span key={key++}>{boldMatch[1]}</span>);
+        }
+        elements.push(<strong key={key++}>{boldMatch[2]}</strong>);
+        remaining = boldMatch[3] || '';
+        continue;
+      }
+
+      // No hay más matches, agregar el resto como texto
+      elements.push(<span key={key++}>{remaining}</span>);
       break;
     }
 
-    const first = matches[0];
-
-    // Agregar texto antes del match
-    if (first.index > 0) {
-      parts.push(<span key={key++}>{remaining.substring(0, first.index)}</span>);
+    // Agregar salto de línea entre líneas (excepto la última)
+    if (lineIndex < lines.length - 1) {
+      elements.push(<br key={`br-${lineIndex}`} />);
     }
 
-    // Agregar el elemento
-    if (first.type === 'img') {
-      parts.push(
-        <img
-          key={key++}
-          src={first.match[2]}
-          alt={first.match[1] || 'Imagen'}
-          className="max-w-full h-auto rounded-lg my-2 max-h-64 object-contain cursor-pointer hover:opacity-90"
-          onClick={() => window.open(first.match[2], '_blank')}
-          onError={(e) => { e.target.style.display = 'none'; }}
-        />
-      );
-    } else if (first.type === 'link') {
-      parts.push(
-        <a
-          key={key++}
-          href={first.match[2]}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-cyan-400 hover:text-cyan-300 underline"
-        >
-          {first.match[1]}
-        </a>
-      );
-    } else if (first.type === 'bold') {
-      parts.push(<strong key={key++}>{first.match[1]}</strong>);
-    }
-
-    remaining = remaining.substring(first.index + first.match[0].length);
-  }
-
-  return parts;
+    return <span key={`line-${lineIndex}`}>{elements}</span>;
+  });
 }
 
 function GeminiChatbot({ clientes, pipeline, actividades, tareas, recordatorios, currentUser }) {
