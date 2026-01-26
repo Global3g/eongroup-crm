@@ -8390,11 +8390,80 @@ function EmailComposer({ isOpen, onClose, destinatario, currentUser, onEmailSent
 
 // ============== CHATBOT GEMINI AI ==============
 
+// Función para renderizar markdown simple (imágenes, negritas, links)
+function renderMarkdown(text) {
+  if (!text) return null;
+
+  const parts = [];
+  let remaining = text;
+  let key = 0;
+
+  while (remaining.length > 0) {
+    // Buscar imagen: ![alt](url)
+    const imgMatch = remaining.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+    // Buscar link: [text](url)
+    const linkMatch = remaining.match(/\[([^\]]+)\]\(([^)]+)\)/);
+    // Buscar negrita: **text**
+    const boldMatch = remaining.match(/\*\*([^*]+)\*\*/);
+
+    // Encontrar cuál viene primero
+    const matches = [
+      imgMatch ? { type: 'img', match: imgMatch, index: remaining.indexOf(imgMatch[0]) } : null,
+      linkMatch && !imgMatch?.index === linkMatch?.index ? { type: 'link', match: linkMatch, index: remaining.indexOf(linkMatch[0]) } : null,
+      boldMatch ? { type: 'bold', match: boldMatch, index: remaining.indexOf(boldMatch[0]) } : null
+    ].filter(m => m !== null).sort((a, b) => a.index - b.index);
+
+    if (matches.length === 0) {
+      parts.push(<span key={key++}>{remaining}</span>);
+      break;
+    }
+
+    const first = matches[0];
+
+    // Agregar texto antes del match
+    if (first.index > 0) {
+      parts.push(<span key={key++}>{remaining.substring(0, first.index)}</span>);
+    }
+
+    // Agregar el elemento
+    if (first.type === 'img') {
+      parts.push(
+        <img
+          key={key++}
+          src={first.match[2]}
+          alt={first.match[1] || 'Imagen'}
+          className="max-w-full h-auto rounded-lg my-2 max-h-64 object-contain cursor-pointer hover:opacity-90"
+          onClick={() => window.open(first.match[2], '_blank')}
+          onError={(e) => { e.target.style.display = 'none'; }}
+        />
+      );
+    } else if (first.type === 'link') {
+      parts.push(
+        <a
+          key={key++}
+          href={first.match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-cyan-400 hover:text-cyan-300 underline"
+        >
+          {first.match[1]}
+        </a>
+      );
+    } else if (first.type === 'bold') {
+      parts.push(<strong key={key++}>{first.match[1]}</strong>);
+    }
+
+    remaining = remaining.substring(first.index + first.match[0].length);
+  }
+
+  return parts;
+}
+
 function GeminiChatbot({ clientes, pipeline, actividades, tareas, recordatorios, currentUser }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: '¡Hola! Soy tu asistente de CRM powered by Gemini AI. Puedo ayudarte a:\n\n• Redactar actividades profesionales\n• Analizar imágenes y crear resúmenes\n• Escribir correos para clientes\n• Responder preguntas sobre tu CRM\n\n¿En qué puedo ayudarte?' }
+    { role: 'assistant', content: '¡Hola! Soy tu asistente de CRM powered by Gemini AI. Puedo ayudarte a:\n\n• Buscar información de empresas en internet\n• Mostrar logos e imágenes de empresas\n• Redactar actividades y correos profesionales\n• Analizar imágenes que me envíes\n• Responder preguntas sobre tu CRM\n\n¿En qué puedo ayudarte?' }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -8554,7 +8623,8 @@ Instrucciones:
 - Tienes memoria de la conversación, puedes hacer referencia a mensajes anteriores
 - Si te piden redactar algo, proporciona texto profesional
 - Para análisis de imágenes, describe lo que ves y sugiere cómo registrarlo en el CRM
-- IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa.`
+- IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa.
+- IMÁGENES: Cuando te pidan logos, fotos o imágenes de empresas/productos, busca la URL de la imagen y devuélvela en formato markdown: ![descripción](url_de_imagen). Siempre intenta mostrar imágenes relevantes cuando hables de empresas.`
             }]
           },
           tools: [{ googleSearch: {} }],
@@ -8588,7 +8658,8 @@ Instrucciones:
 - Si te preguntan sobre datos del CRM, usa el contexto proporcionado
 - Para correos, incluye saludo, cuerpo y despedida profesional
 - Para actividades, incluye un título claro y descripción detallada
-- IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa combinando datos del CRM con información pública.`
+- IMPORTANTE: Puedes buscar en internet información sobre empresas, personas, industrias, noticias, etc. Usa esta capacidad cuando te pregunten sobre clientes o prospectos para dar información más completa combinando datos del CRM con información pública.
+- IMÁGENES: Cuando te pidan logos, fotos o imágenes de empresas/productos, busca la URL de la imagen y devuélvela en formato markdown: ![descripción](url_de_imagen). Siempre intenta mostrar imágenes relevantes cuando hables de empresas.`
           }]
         };
 
@@ -8662,7 +8733,7 @@ Instrucciones:
 
   const clearChat = () => {
     setMessages([
-      { role: 'assistant', content: '¡Hola! Soy tu asistente de CRM powered by Gemini AI. ¿En qué puedo ayudarte?' }
+      { role: 'assistant', content: '¡Hola! Soy tu asistente de CRM powered by Gemini AI. Puedo buscar información de empresas, mostrar logos e imágenes, y ayudarte con tu CRM. ¿En qué puedo ayudarte?' }
     ]);
   };
 
@@ -8727,7 +8798,7 @@ Instrucciones:
               {msg.image && (
                 <img src={msg.image} alt="Uploaded" className="max-w-full h-auto rounded-lg mb-2 max-h-48 object-cover" />
               )}
-              <p className="text-white text-sm whitespace-pre-wrap">{msg.content}</p>
+              <div className="text-white text-sm whitespace-pre-wrap">{renderMarkdown(msg.content)}</div>
               {msg.role === 'assistant' && (
                 <button
                   onClick={() => copyToClipboard(msg.content)}
