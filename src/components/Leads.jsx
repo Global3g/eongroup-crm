@@ -1087,11 +1087,15 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                   >
                     {cardScore.score}
                   </div>
+                  {/* Logo banner */}
+                  {lead.logoUrl && (
+                    <div className="w-full h-20 bg-slate-800">
+                      <img src={lead.logoUrl} alt={lead.empresa} className="w-full h-full object-contain bg-white/5 p-2" />
+                    </div>
+                  )}
                   {/* Card header */}
                   <div className="bg-slate-800 px-5 py-4 flex items-center gap-3">
-                    {lead.logoUrl ? (
-                      <img src={lead.logoUrl} alt={lead.empresa} className="w-10 h-10 rounded-lg object-cover border border-slate-300/40 flex-shrink-0" />
-                    ) : (
+                    {!lead.logoUrl && (
                       <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-violet-500/20 flex items-center justify-center flex-shrink-0">
                         <Building size={18} className="text-slate-500" />
                       </div>
