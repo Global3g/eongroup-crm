@@ -1,6 +1,9 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../firebase';
 import { PIPELINE_STAGES } from './constants';
+import { generateId, getFechaLocal } from './helpers';
 
 // ============== COLOR PALETTE ==============
 const COLORS = {
@@ -60,6 +63,29 @@ const loadLogo = () =>
     img.onerror = () => resolve(null);
     img.src = '/logo-eon.png';
   });
+
+// ============== UPLOAD PDF TO FIREBASE ==============
+const uploadPDFToFirebase = async (doc, fileName, docNumber, tipo) => {
+  const pdfBlob = doc.output('blob');
+  const storagePath = `archivos/reportes/${docNumber}_${fileName}`;
+  const storageRef = ref(storage, storagePath);
+  await uploadBytes(storageRef, pdfBlob);
+  const url = await getDownloadURL(storageRef);
+
+  return {
+    id: generateId(),
+    nombre: `Reporte de ${tipo} — ${docNumber}`,
+    categoria: 'reportes',
+    cuentaId: '',
+    cuentaNombre: '',
+    descripcion: `Reporte PDF generado automaticamente`,
+    nombreArchivo: `${fileName}.pdf`,
+    tipo: 'application/pdf',
+    tamano: pdfBlob.size,
+    url,
+    fecha: getFechaLocal()
+  };
+};
 
 // ============== HEADER (Institutional Format) ==============
 const drawHeader = (doc, subtitulo, totalLabel, logoData, companyName, docNumber) => {
@@ -170,6 +196,10 @@ export const exportarPDFCuentas = async (cuentas, companyName = 'Grupo EON CRM')
   });
 
   doc.save(`cuentas_reporte_${docNumber}.pdf`);
+
+  // Upload to Firebase Storage
+  const archivoData = await uploadPDFToFirebase(doc, `cuentas_reporte_${docNumber}`, docNumber, 'Cuentas');
+  return archivoData;
 };
 
 // ============== EXPORT: LEADS ==============
@@ -221,6 +251,9 @@ export const exportarPDFLeads = async (leads, companyName = 'Grupo EON CRM') => 
   });
 
   doc.save(`leads_reporte_${docNumber}.pdf`);
+
+  const archivoData = await uploadPDFToFirebase(doc, `leads_reporte_${docNumber}`, docNumber, 'Leads');
+  return archivoData;
 };
 
 // ============== EXPORT: PIPELINE ==============
@@ -288,4 +321,7 @@ export const exportarPDFPipeline = async (pipeline, companyName = 'Grupo EON CRM
   });
 
   doc.save(`pipeline_reporte_${docNumber}.pdf`);
+
+  const archivoData = await uploadPDFToFirebase(doc, `pipeline_reporte_${docNumber}`, docNumber, 'Pipeline');
+  return archivoData;
 };

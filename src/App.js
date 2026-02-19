@@ -143,7 +143,7 @@ function AppContent() {
       case 'tareas':
         return <Tareas tareas={tareas} setTareas={setTareas} cuentas={cuentas} pipeline={pipeline} leads={leads} actividades={actividades} usuarios={usuarios} currentUser={currentUser} addNotificacion={addNotificacion} />;
       case 'reportes':
-        return <Reportes cuentas={cuentas} leads={leads} pipeline={pipeline} actividades={actividades} usuarios={usuarios} />;
+        return <Reportes cuentas={cuentas} leads={leads} pipeline={pipeline} actividades={actividades} usuarios={usuarios} archivos={archivos} setArchivos={setArchivos} />;
       case 'archivos':
         return <Archivos archivos={archivos} setArchivos={setArchivos} cuentas={cuentas} />;
       case 'auditlog':

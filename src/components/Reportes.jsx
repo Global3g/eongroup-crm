@@ -42,7 +42,7 @@ const ACTIVITY_COLORS_HEX = {
   nota: '#f59e0b'
 };
 
-function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
+function Reportes({ cuentas, leads, pipeline, actividades, usuarios, archivos, setArchivos }) {
   const [activeTab, setActiveTab] = useState('general');
 
   // ========================== CORE METRICS ==========================
@@ -326,13 +326,13 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="flex items-center text-xs text-slate-500 font-medium mr-1">PDF</span>
-            <button onClick={() => exportarPDFCuentas(cuentas, 'Grupo EÖN CRM')} className="flex items-center gap-2 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 text-cyan-300 px-4 py-2 rounded-xl transition-all text-sm">
+            <button onClick={async () => { const a = await exportarPDFCuentas(cuentas, 'Grupo EÖN CRM'); if (a && setArchivos) setArchivos(prev => [...prev, a]); }} className="flex items-center gap-2 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 text-cyan-300 px-4 py-2 rounded-xl transition-all text-sm">
               <FileDown size={16} /> Cuentas
             </button>
-            <button onClick={() => exportarPDFLeads(leads, 'Grupo EÖN CRM')} className="flex items-center gap-2 bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/20 text-violet-300 px-4 py-2 rounded-xl transition-all text-sm">
+            <button onClick={async () => { const a = await exportarPDFLeads(leads, 'Grupo EÖN CRM'); if (a && setArchivos) setArchivos(prev => [...prev, a]); }} className="flex items-center gap-2 bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/20 text-violet-300 px-4 py-2 rounded-xl transition-all text-sm">
               <FileDown size={16} /> Leads
             </button>
-            <button onClick={() => exportarPDFPipeline(pipeline, 'Grupo EÖN CRM')} className="flex items-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-300 px-4 py-2 rounded-xl transition-all text-sm">
+            <button onClick={async () => { const a = await exportarPDFPipeline(pipeline, 'Grupo EÖN CRM'); if (a && setArchivos) setArchivos(prev => [...prev, a]); }} className="flex items-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-300 px-4 py-2 rounded-xl transition-all text-sm">
               <FileDown size={16} /> Pipeline
             </button>
           </div>
