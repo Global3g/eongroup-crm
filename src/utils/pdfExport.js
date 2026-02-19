@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import { PIPELINE_STAGES } from './constants';
 
 // ============== COLOR PALETTE ==============
@@ -110,7 +110,7 @@ export const exportarPDFCuentas = async (cuentas, companyName = 'Grupo EON CRM')
 
   const startY = drawHeader(doc, `${cuentas.length} cuentas`, 'Reporte de Cuentas', logoData, colors, companyName);
 
-  doc.autoTable({
+  autoTable(doc, {
     head: [['#', 'Empresa', 'Industria', 'Servicio', 'Num. Empleados', 'Fecha Creacion']],
     body: cuentas.map((c, i) => [
       i + 1, c.empresa || '—', c.industria || '—', c.servicio || '—',
@@ -147,7 +147,7 @@ export const exportarPDFLeads = async (leads, companyName = 'Grupo EON CRM') => 
 
   const startY = drawHeader(doc, `${leads.length} leads`, 'Reporte de Leads', logoData, colors, companyName);
 
-  doc.autoTable({
+  autoTable(doc, {
     head: [['#', 'Empresa', 'Contacto', 'Cargo', 'Email', 'Telefono', 'Industria', 'Fuente', 'Prioridad', 'Fecha']],
     body: leads.map((l, i) => [
       i + 1, l.empresa || '—', l.contacto || '—', l.cargo || '—',
@@ -207,7 +207,7 @@ export const exportarPDFPipeline = async (pipeline, companyName = 'Grupo EON CRM
 
   const startY = drawHeader(doc, `${pipeline.length} oportunidades`, 'Reporte de Pipeline', logoData, colors, companyName);
 
-  doc.autoTable({
+  autoTable(doc, {
     head: [['#', 'Proyecto', 'Empresa', 'Etapa', 'Valor Estimado', 'Seguimiento', 'Notas', 'Fecha Creacion']],
     body: pipeline.map((p, i) => [
       i + 1, p.nombre || '—', p.empresa || '—',
