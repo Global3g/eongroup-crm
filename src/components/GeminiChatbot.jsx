@@ -4,6 +4,7 @@ import {
   Loader, X
 } from 'lucide-react';
 import { getFechaLocal } from '../utils/helpers';
+import { calcularLeadScore } from '../utils/scoring';
 
 function renderMarkdown(text) {
   if (!text) return null;
@@ -99,7 +100,7 @@ function renderMarkdown(text) {
   });
 }
 
-function GeminiChatbot({ clientes, pipeline, actividades, tareas, recordatorios, currentUser, externalOpen, onExternalOpenHandled }) {
+function GeminiChatbot({ clientes, leads, pipeline, actividades, tareas, recordatorios, currentUser, externalOpen, onExternalOpenHandled }) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Allow external trigger to open chatbot
@@ -144,6 +145,14 @@ function GeminiChatbot({ clientes, pipeline, actividades, tareas, recordatorios,
       `• ${c.empresa || c.nombre} (${c.contacto || 'sin contacto'})`
     ).join('\n') || 'No hay clientes';
 
+    // Leads con score IA (máx 15, ordenados por score desc)
+    const listaLeads = (leads || [])
+      .map(l => ({ ...l, _score: calcularLeadScore(l, actividades, pipeline) }))
+      .sort((a, b) => b._score.score - a._score.score)
+      .slice(0, 15)
+      .map(l => `• ${l.empresa} | Contacto: ${l.contacto || '-'} | Score IA: ${l._score.score} (${l._score.nivel}) | Prioridad: ${l.prioridad || '-'} | Industria: ${l.industria || '-'} | Fuente: ${l.fuente || '-'}`)
+      .join('\n') || 'No hay leads';
+
     // Prospectos (máx 10)
     const listaProspectos = (pipeline || []).slice(0, 10).map(p =>
       `• ${p.empresa || p.nombre} - Etapa: ${p.etapa} - Valor: $${p.valorEstimado || 0}`
@@ -185,7 +194,8 @@ Usuario: ${currentUser?.nombre || 'Usuario'}
 
 📊 RESUMEN:
 - Total clientes: ${(clientes || []).length}
-- Total prospectos: ${(pipeline || []).length}
+- Total leads: ${(leads || []).length}
+- Total prospectos en pipeline: ${(pipeline || []).length}
 - Tareas pendientes: ${(tareas || []).filter(t => !t.completada).length}
 - Recordatorios pendientes: ${(recordatorios || []).filter(r => !r.completado).length}
 
@@ -194,6 +204,9 @@ ${recordatoriosPendientesLista}
 
 ✅ TAREAS PENDIENTES:
 ${tareasPendientesLista}
+
+🎯 LEADS (ordenados por Score IA):
+${listaLeads}
 
 👥 CLIENTES:
 ${listaClientes}

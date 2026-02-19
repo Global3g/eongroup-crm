@@ -256,7 +256,7 @@ function AppContent() {
       {/* Toast de notificación nueva */}
       {toastNotificacion && (
         <div className="fixed bottom-6 right-6 z-50 animate-slide-up">
-          <div className="bg-slate-900 border-2 border-cyan-500/50 rounded-xl shadow-2xl p-4 max-w-sm">
+          <div className="bg-slate-900 border-2 border-cyan-500/50 rounded-2xl shadow-2xl p-4 max-w-sm">
             <div className="flex gap-3 items-start">
               <div className={`w-10 h-10 rounded-xl ${TIPOS_NOTIFICACION[toastNotificacion.tipo]?.color || 'bg-blue-500'} flex items-center justify-center flex-shrink-0`}>
                 <BellRing size={18} className="text-white" />
@@ -355,7 +355,7 @@ function AppContent() {
                   onClick={() => setCurrentModule(module.id)}
                   className={`relative w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all ${
                     isActive
-                      ? 'bg-gradient-to-r from-cyan-500/20 to-violet-500/20 text-white border border-cyan-500/30 shadow-[inset_0_0_20px_rgba(6,182,212,0.05)]'
+                      ? 'bg-gradient-to-r from-cyan-500/30 to-violet-500/30 text-white border border-cyan-500/50 shadow-lg shadow-cyan-500/10 shadow-[inset_0_0_20px_rgba(6,182,212,0.05)]'
                       : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
                   }`}
                 >
@@ -438,7 +438,8 @@ function AppContent() {
 
       {/* Chatbot Gemini AI */}
       <GeminiChatbot
-        cuentas={cuentas}
+        clientes={cuentas}
+        leads={leads}
         pipeline={pipeline}
         actividades={actividades}
         tareas={tareas}
