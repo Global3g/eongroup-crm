@@ -305,12 +305,12 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
       {/* Event Detail Modal */}
       {selectedEvent && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => { setSelectedEvent(null); setEditMode(false); }}>
-          <div className="bg-slate-900 rounded-2xl border border-slate-700 w-full max-w-lg shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
+          <div className="bg-slate-900 rounded-3xl border border-slate-700 w-full max-w-lg shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
             {/* Modal Header */}
-            <div className="p-6 border-b border-slate-800">
+            <div className="p-8 border-b border-slate-800">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`p-3 rounded-xl ${selectedEvent.color}`}>
+                  <div className={`p-3 rounded-2xl ${selectedEvent.color}`}>
                     {(() => {
                       const Icon = selectedEvent.icon;
                       return <Icon className="w-6 h-6 text-white" />;
@@ -332,7 +332,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
 
             {/* Modal Body */}
             {editMode ? (
-              <div className="p-6 space-y-4">
+              <div className="p-8 space-y-4">
                 {/* Edit Form */}
                 {selectedEvent.tipo === 'recordatorio' && (
                   <div>
@@ -341,7 +341,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                       type="text"
                       value={editForm.titulo || ''}
                       onChange={e => setEditForm({...editForm, titulo: e.target.value})}
-                      className="w-full mt-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                      className="w-full mt-1 px-3 py-3 bg-slate-800 border border-slate-700 rounded-2xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
                     />
                   </div>
                 )}
@@ -351,7 +351,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                     value={editForm.descripcion || ''}
                     onChange={e => setEditForm({...editForm, descripcion: e.target.value})}
                     rows={3}
-                    className="w-full mt-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors resize-none"
+                    className="w-full mt-1 px-3 py-3 bg-slate-800 border border-slate-700 rounded-2xl text-white focus:outline-none focus:border-cyan-500 transition-colors resize-none"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -361,7 +361,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                       type="date"
                       value={editForm.fecha || ''}
                       onChange={e => setEditForm({...editForm, fecha: e.target.value})}
-                      className="w-full mt-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                      className="w-full mt-1 px-3 py-3 bg-slate-800 border border-slate-700 rounded-2xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
                     />
                   </div>
                   <div>
@@ -370,7 +370,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                       type="time"
                       value={editForm.hora || ''}
                       onChange={e => setEditForm({...editForm, hora: e.target.value})}
-                      className="w-full mt-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                      className="w-full mt-1 px-3 py-3 bg-slate-800 border border-slate-700 rounded-2xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
                     />
                   </div>
                 </div>
@@ -380,7 +380,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                     <select
                       value={editForm.prioridad || 'media'}
                       onChange={e => setEditForm({...editForm, prioridad: e.target.value})}
-                      className="w-full mt-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                      className="w-full mt-1 px-3 py-3 bg-slate-800 border border-slate-700 rounded-2xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
                     >
                       <option value="alta">Alta</option>
                       <option value="media">Media</option>
@@ -396,7 +396,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                 </div>
               </div>
             ) : (
-              <div className="p-6 space-y-4">
+              <div className="p-8 space-y-4">
                 {/* Título (para recordatorios y tareas) */}
                 {selectedEvent.titulo && (
                   <div>
@@ -515,27 +515,27 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
 
             {/* Modal Footer */}
             {editMode ? (
-              <div className="p-6 border-t border-slate-800 flex gap-3">
+              <div className="p-8 border-t border-slate-800 flex gap-3">
                 <button
                   onClick={handleSaveEdit}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-medium transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-medium transition-colors"
                 >
                   <Save size={18} />
                   Guardar
                 </button>
                 <button
                   onClick={handleCancelEdit}
-                  className="px-4 py-3 bg-slate-800 text-slate-300 rounded-xl font-medium hover:bg-slate-700 transition-colors"
+                  className="px-4 py-3 bg-slate-800 text-slate-300 rounded-2xl font-medium hover:bg-slate-700 transition-colors"
                 >
                   Cancelar
                 </button>
               </div>
             ) : (
-              <div className="p-6 border-t border-slate-800 flex gap-3 flex-wrap">
+              <div className="p-8 border-t border-slate-800 flex gap-3 flex-wrap">
                 {(selectedEvent.tipo === 'tarea' || selectedEvent.tipo === 'recordatorio') && (
                   <button
                     onClick={handleStartEdit}
-                    className="flex items-center justify-center gap-2 px-4 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-medium transition-colors"
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-2xl font-medium transition-colors"
                   >
                     <Edit size={18} />
                     Editar
@@ -543,7 +543,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                 )}
                 <button
                   onClick={() => abrirGoogleCalendar({ titulo: selectedEvent.titulo || selectedEvent.descripcion, descripcion: `${selectedEvent.tipo === 'tarea' ? 'Tarea' : 'Recordatorio'} CRM — ${selectedEvent.nombreEntidad || ''}${selectedEvent.descripcion && selectedEvent.titulo ? '\n' + selectedEvent.descripcion : ''}`, fecha: selectedEvent.fecha, hora: selectedEvent.hora, userEmail: currentUser?.googleEmail || currentUser?.email })}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors"
+                  className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-medium transition-colors"
                   title="Agregar a Google Calendar"
                 >
                   <Calendar size={18} />
@@ -551,14 +551,14 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                 </button>
                 <button
                   onClick={() => handleGoToEntity(selectedEvent)}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-xl font-medium hover:opacity-90 transition-opacity"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-2xl font-medium hover:opacity-90 transition-opacity"
                 >
                   <ArrowUpRight size={18} />
                   Ir a {selectedEvent.tipoEntidad === 'cuenta' ? 'Cuentas' : 'Pipeline'}
                 </button>
                 <button
                   onClick={() => { setSelectedEvent(null); setEditMode(false); }}
-                  className="px-4 py-3 bg-slate-800 text-slate-300 rounded-xl font-medium hover:bg-slate-700 transition-colors"
+                  className="px-4 py-3 bg-slate-800 text-slate-300 rounded-2xl font-medium hover:bg-slate-700 transition-colors"
                 >
                   Cerrar
                 </button>
@@ -576,13 +576,13 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
 
           {/* Month Navigation */}
           <div className="px-5 py-4 flex items-center justify-between">
-            <button onClick={goToPrevMonth} className="p-1.5 hover:bg-slate-700/50 rounded-lg transition-all text-slate-400 hover:text-white">
+            <button onClick={goToPrevMonth} className="p-1.5 hover:bg-slate-700/50 rounded-2xl transition-all text-slate-400 hover:text-white">
               <ChevronRight className="w-4 h-4 rotate-180" />
             </button>
             <h3 className="text-base font-semibold text-white tracking-wide">
               {getMonthName(currentDate)} {currentDate.getFullYear()}
             </h3>
-            <button onClick={goToNextMonth} className="p-1.5 hover:bg-slate-700/50 rounded-lg transition-all text-slate-400 hover:text-white">
+            <button onClick={goToNextMonth} className="p-1.5 hover:bg-slate-700/50 rounded-2xl transition-all text-slate-400 hover:text-white">
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -591,7 +591,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
           <div className="px-4 pb-3">
             <div className="grid grid-cols-7 mb-1">
               {['D','L','M','M','J','V','S'].map((d,i) => (
-                <div key={i} className="text-center text-[11px] font-semibold text-slate-300 py-1">{d}</div>
+                <div key={i} className="text-center text-sm font-bold uppercase tracking-wider text-slate-300 py-1">{d}</div>
               ))}
             </div>
             <div className="grid grid-cols-7">
@@ -613,9 +613,9 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                   >
                     <div className={`w-8 h-8 flex items-center justify-center rounded-full transition-all text-sm
                       ${isSelected
-                        ? 'bg-cyan-500 text-white font-bold shadow-lg shadow-cyan-500/30'
+                        ? 'bg-cyan-500 text-white font-bold shadow-lg shadow-cyan-500/30 scale-105'
                         : isToday
-                          ? 'ring-2 ring-cyan-500/60 text-cyan-400 font-semibold'
+                          ? 'ring-2 ring-cyan-500/60 text-cyan-400 font-semibold scale-105'
                           : 'text-slate-300 group-hover:bg-slate-700/50 font-medium'}
                     `}>
                       {day}
@@ -635,7 +635,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
 
           {/* Today Button */}
           <div className="px-4 pb-3">
-            <button onClick={goToToday} className="w-full py-2 text-sm text-cyan-400 hover:bg-cyan-500/10 rounded-xl transition-all font-medium">
+            <button onClick={goToToday} className="w-full py-2 text-sm text-cyan-400 hover:bg-cyan-500/10 rounded-2xl transition-all font-medium">
               Ir a Hoy
             </button>
           </div>
@@ -711,13 +711,13 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                   d.setDate(d.getDate() - 1);
                   setSelectedDate(formatDateKey(d.getFullYear(), d.getMonth(), d.getDate()));
                 }}
-                className="p-2 hover:bg-slate-700/50 rounded-lg transition-all text-slate-400 hover:text-white"
+                className="p-2 hover:bg-slate-700/50 rounded-2xl transition-all text-slate-400 hover:text-white"
               >
                 <ChevronRight className="w-4 h-4 rotate-180" />
               </button>
               <button
                 onClick={() => setSelectedDate(todayKey)}
-                className="px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-700/50 rounded-lg transition-all font-medium"
+                className="px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-700/50 rounded-2xl transition-all font-medium"
               >
                 Hoy
               </button>
@@ -727,7 +727,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                   d.setDate(d.getDate() + 1);
                   setSelectedDate(formatDateKey(d.getFullYear(), d.getMonth(), d.getDate()));
                 }}
-                className="p-2 hover:bg-slate-700/50 rounded-lg transition-all text-slate-400 hover:text-white"
+                className="p-2 hover:bg-slate-700/50 rounded-2xl transition-all text-slate-400 hover:text-white"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -808,7 +808,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                             <div
                               key={idx}
                               onClick={() => setSelectedEvent(event)}
-                              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer hover:scale-[1.01] transition-all ${event.color} shadow-lg`}
+                              className={`flex items-center gap-3 px-3 py-2.5 rounded-2xl cursor-pointer hover:scale-[1.01] transition-all ${event.color} shadow-lg`}
                             >
                               <button
                                 onClick={(e) => toggleCompletado(event, e)}
@@ -819,15 +819,15 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                               </button>
                               <Icon size={15} className="text-white/90 flex-shrink-0" />
                               <div className="flex-1 min-w-0">
-                                <p className={`text-sm font-semibold text-white truncate ${event.completada || event.completado ? 'line-through opacity-70' : ''}`}>
+                                <p className={`text-base font-bold text-white truncate ${event.completada || event.completado ? 'line-through opacity-70' : ''}`}>
                                   {event.titulo || event.descripcion?.slice(0,40)}
                                 </p>
-                                <p className="text-[11px] text-white/60 truncate">
+                                <p className="text-xs text-white/60 truncate">
                                   {event.hora} · {event.nombreEntidad} · {event.tipo === 'tarea' ? 'Tarea' : 'Recordatorio'}
                                 </p>
                               </div>
                               {event.tipo === 'tarea' && event.prioridad && (
-                                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/15 text-white font-medium uppercase tracking-wider">
+                                <span className="text-xs rounded-full px-3 py-1 bg-white/15 text-white font-medium uppercase tracking-wider">
                                   {event.prioridad}
                                 </span>
                               )}

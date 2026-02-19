@@ -233,11 +233,11 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+          <h2 className="text-4xl font-black tracking-tight text-white flex items-center gap-3">
             <Users className="w-7 h-7 text-cyan-400" />
             Equipo
           </h2>
@@ -245,7 +245,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
         </div>
         <button
           onClick={handleNewUser}
-          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-xl font-medium hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-2xl font-medium hover:opacity-90 transition-opacity"
         >
           <Plus size={18} />
           Nuevo Usuario
@@ -254,9 +254,9 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-xl border border-white/[0.08] p-4">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl border border-white/[0.08] p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-cyan-500/20">
+            <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center">
               <Users className="w-5 h-5 text-cyan-400" />
             </div>
             <div>
@@ -265,9 +265,9 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
             </div>
           </div>
         </div>
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-xl border border-white/[0.08] p-4">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl border border-white/[0.08] p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-emerald-500/20">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center">
               <CheckCircle className="w-5 h-5 text-emerald-400" />
             </div>
             <div>
@@ -285,13 +285,13 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
         </div>
         <div className="divide-y divide-slate-800">
           {usuarios.map(user => (
-            <div key={user.id} className="p-4 hover:bg-slate-800/30 transition-colors">
+            <div key={user.id} className="p-5 hover:bg-slate-800/30 transition-colors">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-6">
                   {user.fotoUrl ? (
-                    <img src={user.fotoUrl} alt={user.nombre} className={`w-12 h-12 rounded-full object-cover border-2 border-cyan-500/30 ${user.activo === false ? 'opacity-50' : ''}`} />
+                    <img src={user.fotoUrl} alt={user.nombre} className={`w-14 h-14 rounded-full object-cover border-2 border-cyan-500/30 ${user.activo === false ? 'opacity-50' : ''}`} />
                   ) : (
-                    <div className={`w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center text-white font-bold text-lg ${user.activo === false ? 'opacity-50' : ''}`}>
+                    <div className={`w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center text-white font-bold text-lg ${user.activo === false ? 'opacity-50' : ''}`}>
                       {user.nombre?.charAt(0).toUpperCase()}
                     </div>
                   )}
@@ -330,13 +330,13 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                   {user.id === currentUser?.id && (
                     <button
                       onClick={() => handleEditUser(user)}
-                      className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-lg text-xs font-medium hover:bg-cyan-500/30 transition-colors flex items-center gap-1"
+                      className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-medium hover:bg-cyan-500/30 transition-colors flex items-center gap-1"
                     >
                       <Edit size={14} /> Editar mi perfil
                     </button>
                   )}
                   {currentUser?.permisos?.modulos?.equipo && user.id !== currentUser.id && (
-                    <div className="flex gap-1">
+                    <div className="flex gap-2">
                       <button
                         onClick={() => handleEditUser(user)}
                         className="p-2 text-slate-400 hover:text-cyan-400 transition-colors"
@@ -377,8 +377,8 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
       {/* Create/Edit User Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setShowModal(false)}>
-          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-md shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
-            <div className="p-6 border-b border-slate-800 flex items-center justify-between">
+          <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-md shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
+            <div className="p-8 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white">
                 {isCreating ? 'Nuevo Usuario' : 'Editar Usuario'}
               </h3>
@@ -386,14 +386,14 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                 <X size={20} />
               </button>
             </div>
-            <div className="p-6 space-y-4">
+            <div className="p-8 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-400 mb-2">Nombre</label>
                 <input
                   type="text"
                   value={formData.nombre}
                   onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-xl text-white focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-2xl text-white focus:outline-none focus:border-cyan-500"
                   placeholder="Nombre completo"
                 />
               </div>
@@ -403,7 +403,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-xl text-white focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-2xl text-white focus:outline-none focus:border-cyan-500"
                   placeholder="correo@empresa.com"
                 />
                 {!isCreating && editingUser?.email !== formData.email && (
@@ -423,7 +423,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                     type="url"
                     value={formData.fotoUrl}
                     onChange={(e) => setFormData({ ...formData, fotoUrl: e.target.value })}
-                    className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-xl text-white focus:outline-none focus:border-cyan-500 text-sm"
+                    className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-2xl text-white focus:outline-none focus:border-cyan-500 text-sm"
                     placeholder="URL de foto de perfil"
                   />
                 </div>
@@ -435,7 +435,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                   type="email"
                   value={formData.googleEmail}
                   onChange={(e) => setFormData({ ...formData, googleEmail: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-xl text-white focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-2xl text-white focus:outline-none focus:border-cyan-500"
                   placeholder="tucuenta@gmail.com"
                 />
                 <p className="text-xs text-slate-500 mt-1">Opcional. Si tu cuenta de Google es diferente al email de login, ponla aqui para que Google Calendar abra con tu cuenta correcta.</p>
@@ -447,7 +447,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                     type="password"
                     value={formData.passwordActual}
                     onChange={(e) => setFormData({ ...formData, passwordActual: e.target.value })}
-                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-xl text-white focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-2xl text-white focus:outline-none focus:border-cyan-500"
                     placeholder="Ingresa tu contraseña actual"
                   />
                   <p className="text-xs text-slate-500 mt-1">Requerida para verificar tu identidad</p>
@@ -460,24 +460,24 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                     type="text"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-xl text-white focus:outline-none focus:border-cyan-500 font-mono"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-300/40 rounded-2xl text-white focus:outline-none focus:border-cyan-500 font-mono"
                     placeholder="Mínimo 6 caracteres"
                   />
                   <p className="text-xs text-slate-500 mt-1">La contraseña será visible para ti como administrador</p>
                 </div>
               )}
               {error && (
-                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm flex items-center gap-2">
+                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-2xl text-red-400 text-sm flex items-center gap-2">
                   <AlertCircle size={16} />
                   {error}
                 </div>
               )}
             </div>
-            <div className="p-6 border-t border-slate-800 flex gap-3">
+            <div className="p-8 border-t border-slate-800 flex gap-3">
               <button
                 onClick={isCreating ? handleCreateUser : handleSaveUser}
                 disabled={creatingInFirebase}
-                className="flex-1 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-xl font-medium hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {creatingInFirebase ? (
                   <>
@@ -490,7 +490,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
               </button>
               <button
                 onClick={() => setShowModal(false)}
-                className="px-6 py-3 bg-slate-800 text-slate-300 rounded-xl font-medium hover:bg-slate-700"
+                className="px-6 py-3 bg-slate-700/50 border border-slate-600/50 text-white hover:bg-slate-600/50 rounded-2xl font-medium"
               >
                 Cancelar
               </button>
@@ -502,8 +502,8 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
       {/* Permisos Modal - Nueva versión con alcance por acción */}
       {showPermisosModal && editingUser && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setShowPermisosModal(false)}>
-          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
-            <div className="p-6 border-b border-slate-800 flex items-center justify-between">
+          <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
+            <div className="p-8 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                 <Shield className="w-5 h-5 text-violet-400" />
                 Permisos de {editingUser.nombre}
@@ -512,7 +512,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                 <X size={20} />
               </button>
             </div>
-            <div className="p-6 space-y-5 overflow-y-auto max-h-[65vh]">
+            <div className="p-8 space-y-5 overflow-y-auto max-h-[65vh]">
 
               {/* Módulos - Pills clickeables */}
               <div>
@@ -536,7 +536,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
               </div>
 
               {/* Leyenda */}
-              <div className="bg-slate-800/30 rounded-xl p-4">
+              <div className="bg-slate-800/30 rounded-2xl p-4">
                 <p className="text-sm text-slate-400 mb-2">Valores de permisos:</p>
                 <div className="flex flex-wrap gap-4 text-xs">
                   <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-emerald-500"></span> Todos = puede con registros de cualquier usuario</span>
@@ -548,7 +548,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
               {/* Permisos por módulo - Nueva tabla con dropdowns */}
               <div>
                 <p className="text-white font-medium mb-3">Permisos detallados</p>
-                <div className="bg-slate-800/30 rounded-xl overflow-hidden">
+                <div className="bg-slate-800/30 rounded-2xl overflow-hidden">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-slate-300/30">
@@ -757,16 +757,16 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                 </button>
               </div>
             </div>
-            <div className="p-6 border-t border-slate-800 flex gap-3">
+            <div className="p-8 border-t border-slate-800 flex gap-3">
               <button
                 onClick={handleSavePermisos}
-                className="flex-1 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-xl font-medium hover:opacity-90"
+                className="flex-1 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90"
               >
                 Guardar Permisos
               </button>
               <button
                 onClick={() => setShowPermisosModal(false)}
-                className="px-6 py-3 bg-slate-800 text-slate-300 rounded-xl font-medium hover:bg-slate-700"
+                className="px-6 py-3 bg-slate-700/50 border border-slate-600/50 text-white hover:bg-slate-600/50 rounded-2xl font-medium"
               >
                 Cancelar
               </button>

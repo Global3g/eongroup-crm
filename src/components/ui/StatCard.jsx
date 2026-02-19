@@ -23,11 +23,11 @@ const StatCard = ({ icon: Icon, title, value, trend = 'neutral', change, color =
   const TrendIcon = t.icon;
 
   return (
-    <div className={`bg-slate-800/40 backdrop-blur-md rounded-xl border border-white/[0.06] ${c.border} p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-500/5 group`}>
+    <div className={`bg-slate-800/40 backdrop-blur-md rounded-2xl border border-white/[0.06] ${c.border} p-7 shadow-lg shadow-slate-950/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-cyan-500/20 group`}>
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-slate-400 uppercase tracking-wider truncate">{title}</p>
-          <p className="text-2xl font-bold text-white mt-2.5">{value}</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-slate-300 truncate">{title}</p>
+          <p className="text-3xl font-bold text-white mt-2.5">{value}</p>
         </div>
         {Icon && (
           <div className={`p-2.5 rounded-xl ${c.bg} group-hover:scale-110 transition-transform duration-300`}>

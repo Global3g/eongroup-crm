@@ -110,13 +110,13 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
+        <h1 className="text-4xl font-black tracking-tight text-white mb-2">Dashboard</h1>
         <p className="text-slate-300">Resumen de tu actividad comercial</p>
       </div>
 
       {/* Mis Tareas y Recordatorios Pendientes */}
       {totalTareasPendientes > 0 && (
-        <div className="bg-gradient-to-r from-violet-500/10 to-cyan-500/10 rounded-2xl p-6 border border-white/[0.08]">
+        <div className="bg-gradient-to-r from-violet-500/10 to-cyan-500/10 rounded-2xl p-8 border border-white/[0.08]">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
               <Clock className="w-5 h-5 text-violet-400" />
@@ -295,7 +295,7 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
 
       {/* Valor Potencial */}
       {valorPotencial > 0 && (
-        <div className="bg-gradient-to-r from-cyan-500/10 via-violet-500/10 to-cyan-500/10 rounded-2xl p-6 border border-white/[0.08]">
+        <div className="bg-gradient-to-r from-cyan-500/10 via-violet-500/10 to-cyan-500/10 rounded-2xl p-8 border border-white/[0.08]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-slate-400 text-sm mb-1">Valor potencial en pipeline</p>
@@ -312,7 +312,7 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Pipeline por Etapa */}
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-xl p-6 border border-white/[0.06]">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.06]">
           <h3 className="text-lg font-semibold text-white mb-4">Pipeline por Etapa</h3>
           {pipeline.length === 0 ? (
             <EmptyState
@@ -343,7 +343,7 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
         </div>
 
         {/* Actividad Reciente - Using Timeline component */}
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-xl p-6 border border-white/[0.06]">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.06]">
           <h3 className="text-lg font-semibold text-white mb-4">Actividad Reciente</h3>
           {actividadesTimeline.length === 0 ? (
             <EmptyState

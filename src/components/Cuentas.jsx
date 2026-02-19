@@ -1067,7 +1067,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
     const timeline = getTimeline(selectedCuenta);
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Detail Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -1130,7 +1130,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
         {/* Panel Resumen Inteligente */}
         {showResumen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
-            <div className="bg-slate-900 border border-violet-500/30 rounded-2xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl shadow-violet-500/10 mx-4 animate-modal-in">
+            <div className="bg-slate-900 border border-violet-500/30 rounded-3xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl shadow-violet-500/10 mx-4 animate-modal-in">
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-violet-500/20">
                 <div className="flex items-center gap-3">
@@ -1195,7 +1195,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${activeTab === tab.id ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-2xl transition-all ${activeTab === tab.id ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shadow-lg shadow-cyan-500/30' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}
               >
                 <Icon size={16} />
                 {tab.name}
@@ -1207,20 +1207,20 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* Form Actividad */}
         {showActividadForm && (
-          <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-xl p-5">
+          <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-2xl p-5">
             <h3 className="text-lg font-semibold text-white mb-4">{editingActividad ? 'Editar Actividad' : 'Nueva Actividad'}</h3>
             <form onSubmit={handleAddActividad} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <select value={actividadForm.tipo} onChange={(e) => setActividadForm({ ...actividadForm, tipo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white">
+                <select value={actividadForm.tipo} onChange={(e) => setActividadForm({ ...actividadForm, tipo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                   {TIPOS_ACTIVIDAD.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>
-                <input type="date" value={actividadForm.fecha} onChange={(e) => setActividadForm({ ...actividadForm, fecha: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white" />
-                <input type="text" placeholder="Titulo *" value={actividadForm.titulo} onChange={(e) => setActividadForm({ ...actividadForm, titulo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500" required />
-                <select value={actividadForm.responsableId} onChange={(e) => setActividadForm({ ...actividadForm, responsableId: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white">
+                <input type="date" value={actividadForm.fecha} onChange={(e) => setActividadForm({ ...actividadForm, fecha: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" />
+                <input type="text" placeholder="Titulo *" value={actividadForm.titulo} onChange={(e) => setActividadForm({ ...actividadForm, titulo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
+                <select value={actividadForm.responsableId} onChange={(e) => setActividadForm({ ...actividadForm, responsableId: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                   <option value="">Asignar a... (yo mismo)</option>
                   {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
                 </select>
-                <textarea placeholder="Descripcion" value={actividadForm.descripcion} onChange={(e) => setActividadForm({ ...actividadForm, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 resize-none" rows="3"></textarea>
+                <textarea placeholder="Descripcion" value={actividadForm.descripcion} onChange={(e) => setActividadForm({ ...actividadForm, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="3"></textarea>
                 <div className="md:col-span-2">
                   <label className="block text-slate-400 text-sm mb-2">Adjuntar archivo (opcional)</label>
                   <div className="border-2 border-dashed border-slate-300/40 rounded-xl p-4 text-center hover:border-violet-500/50 transition-all">
@@ -1297,8 +1297,8 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
               </div>
 
               <div className="flex gap-3 pt-2">
-                <button type="submit" disabled={subiendoActividad} className="flex items-center gap-2 bg-violet-500 text-white px-5 py-3 rounded-xl hover:bg-violet-600 disabled:opacity-50">{subiendoActividad ? <Loader size={18} className="animate-spin" /> : <Save size={18} />} {subiendoActividad ? 'Guardando...' : editingActividad ? 'Guardar Cambios' : 'Guardar'}</button>
-                <button type="button" onClick={() => { setShowActividadForm(false); setActividadArchivo(null); setEditingActividad(null); setTareasNuevas([]); setRecordatoriosNuevos([]); }} className="flex items-center gap-2 bg-slate-800 text-slate-300 px-5 py-3 rounded-xl hover:bg-slate-700"><X size={18} /> Cancelar</button>
+                <button type="submit" disabled={subiendoActividad} className="flex items-center gap-2 bg-violet-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-violet-500/30 hover:bg-violet-600 disabled:opacity-50">{subiendoActividad ? <Loader size={18} className="animate-spin" /> : <Save size={18} />} {subiendoActividad ? 'Guardando...' : editingActividad ? 'Guardar Cambios' : 'Guardar'}</button>
+                <button type="button" onClick={() => { setShowActividadForm(false); setActividadArchivo(null); setEditingActividad(null); setTareasNuevas([]); setRecordatoriosNuevos([]); }} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white px-5 py-3 rounded-2xl hover:bg-slate-600/50"><X size={18} /> Cancelar</button>
               </div>
             </form>
           </div>
@@ -1306,18 +1306,18 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* Form Tarea */}
         {showTareaForm && (
-          <div className="bg-teal-900/15 border border-teal-500/20 rounded-xl p-5">
+          <div className="bg-teal-900/15 border border-teal-500/20 rounded-2xl p-5">
             <h3 className="text-lg font-semibold text-white mb-4">{editingTarea ? 'Editar Tarea' : 'Nueva Tarea'}</h3>
             <form onSubmit={handleAddTareaForm} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" placeholder="Descripcion *" value={tareaFormData.descripcion} onChange={(e) => setTareaFormData({ ...tareaFormData, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500" required />
-              <input type="date" value={tareaFormData.fechaCompromiso} onChange={(e) => setTareaFormData({ ...tareaFormData, fechaCompromiso: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white" required />
-              <input type="time" value={tareaFormData.hora} onChange={(e) => setTareaFormData({ ...tareaFormData, hora: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white" />
-              <select value={tareaFormData.prioridad} onChange={(e) => setTareaFormData({ ...tareaFormData, prioridad: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white"><option value="baja">Baja</option><option value="media">Media</option><option value="alta">Alta</option></select>
-              <select value={tareaFormData.recurrencia || 'ninguna'} onChange={(e) => setTareaFormData({ ...tareaFormData, recurrencia: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white">{RECURRENCIA_OPTIONS.map(opt => <option key={opt.id} value={opt.id}>{opt.label}</option>)}</select>
-              <select value={tareaFormData.responsableId} onChange={(e) => setTareaFormData({ ...tareaFormData, responsableId: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white"><option value="">Asignar a... (yo mismo)</option>{usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}</select>
+              <input type="text" placeholder="Descripcion *" value={tareaFormData.descripcion} onChange={(e) => setTareaFormData({ ...tareaFormData, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
+              <input type="date" value={tareaFormData.fechaCompromiso} onChange={(e) => setTareaFormData({ ...tareaFormData, fechaCompromiso: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" required />
+              <input type="time" value={tareaFormData.hora} onChange={(e) => setTareaFormData({ ...tareaFormData, hora: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" />
+              <select value={tareaFormData.prioridad} onChange={(e) => setTareaFormData({ ...tareaFormData, prioridad: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"><option value="baja">Baja</option><option value="media">Media</option><option value="alta">Alta</option></select>
+              <select value={tareaFormData.recurrencia || 'ninguna'} onChange={(e) => setTareaFormData({ ...tareaFormData, recurrencia: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">{RECURRENCIA_OPTIONS.map(opt => <option key={opt.id} value={opt.id}>{opt.label}</option>)}</select>
+              <select value={tareaFormData.responsableId} onChange={(e) => setTareaFormData({ ...tareaFormData, responsableId: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"><option value="">Asignar a... (yo mismo)</option>{usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}</select>
               <div className="md:col-span-2 flex gap-3">
-                <button type="submit" className="flex items-center gap-2 bg-cyan-500 text-white px-5 py-3 rounded-xl hover:bg-cyan-600"><Save size={18} /> {editingTarea ? 'Guardar Cambios' : 'Guardar'}</button>
-                <button type="button" onClick={() => { setShowTareaForm(false); setEditingTarea(null); }} className="flex items-center gap-2 bg-slate-800 text-slate-300 px-5 py-3 rounded-xl hover:bg-slate-700"><X size={18} /> Cancelar</button>
+                <button type="submit" className="flex items-center gap-2 bg-cyan-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:bg-cyan-600"><Save size={18} /> {editingTarea ? 'Guardar Cambios' : 'Guardar'}</button>
+                <button type="button" onClick={() => { setShowTareaForm(false); setEditingTarea(null); }} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white px-5 py-3 rounded-2xl hover:bg-slate-600/50"><X size={18} /> Cancelar</button>
               </div>
             </form>
           </div>
@@ -1325,20 +1325,20 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* Form Recordatorio */}
         {showRecordatorioForm && (
-          <div className="bg-amber-900/15 border border-amber-500/20 rounded-xl p-5">
+          <div className="bg-amber-900/15 border border-amber-500/20 rounded-2xl p-5">
             <h3 className="text-lg font-semibold text-white mb-4">{editingRecordatorio ? 'Editar Recordatorio' : 'Nuevo Recordatorio'}</h3>
             <form onSubmit={handleAddRecordatorio} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" placeholder="Titulo *" value={recordatorioForm.titulo} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, titulo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500" required />
-              <input type="date" value={recordatorioForm.fecha} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, fecha: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white" required />
-              <input type="time" value={recordatorioForm.hora} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, hora: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white" />
-              <select value={recordatorioForm.responsableId} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, responsableId: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white">
+              <input type="text" placeholder="Titulo *" value={recordatorioForm.titulo} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, titulo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
+              <input type="date" value={recordatorioForm.fecha} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, fecha: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" required />
+              <input type="time" value={recordatorioForm.hora} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, hora: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" />
+              <select value={recordatorioForm.responsableId} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, responsableId: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                 <option value="">Asignar a... (yo mismo)</option>
                 {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
               </select>
-              <textarea placeholder="Descripcion" value={recordatorioForm.descripcion} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 resize-none" rows="2"></textarea>
+              <textarea placeholder="Descripcion" value={recordatorioForm.descripcion} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="2"></textarea>
               <div className="md:col-span-2 flex gap-3">
-                <button type="submit" className="flex items-center gap-2 bg-amber-500 text-white px-5 py-3 rounded-xl hover:bg-amber-600"><Save size={18} /> {editingRecordatorio ? 'Guardar Cambios' : 'Guardar'}</button>
-                <button type="button" onClick={() => { setShowRecordatorioForm(false); setEditingRecordatorio(null); }} className="flex items-center gap-2 bg-slate-800 text-slate-300 px-5 py-3 rounded-xl hover:bg-slate-700"><X size={18} /> Cancelar</button>
+                <button type="submit" className="flex items-center gap-2 bg-amber-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-amber-500/30 hover:bg-amber-600"><Save size={18} /> {editingRecordatorio ? 'Guardar Cambios' : 'Guardar'}</button>
+                <button type="button" onClick={() => { setShowRecordatorioForm(false); setEditingRecordatorio(null); }} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white px-5 py-3 rounded-2xl hover:bg-slate-600/50"><X size={18} /> Cancelar</button>
               </div>
             </form>
           </div>
@@ -1418,14 +1418,14 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
               <form onSubmit={handleAddContacto} className="mb-6 bg-slate-800/50 rounded-xl p-5 border border-cyan-500/20">
                 <h4 className="text-sm font-semibold text-cyan-400 mb-3">{editingContactId ? 'Editar Contacto' : 'Nuevo Contacto'}</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <input type="text" placeholder="Nombre *" value={contactForm.nombre} onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
-                  <input type="text" placeholder="Cargo" value={contactForm.cargo} onChange={(e) => setContactForm({ ...contactForm, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-                  <input type="email" placeholder="Email" value={contactForm.email} onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-                  <input type="tel" placeholder="Telefono" value={contactForm.telefono} onChange={(e) => setContactForm({ ...contactForm, telefono: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+                  <input type="text" placeholder="Nombre *" value={contactForm.nombre} onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
+                  <input type="text" placeholder="Cargo" value={contactForm.cargo} onChange={(e) => setContactForm({ ...contactForm, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+                  <input type="email" placeholder="Email" value={contactForm.email} onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+                  <input type="tel" placeholder="Telefono" value={contactForm.telefono} onChange={(e) => setContactForm({ ...contactForm, telefono: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
                 </div>
                 <div className="flex gap-3 mt-4">
-                  <button type="submit" className="flex items-center gap-2 bg-cyan-500 text-white px-5 py-2.5 rounded-xl hover:bg-cyan-600 text-sm"><Save size={16} /> {editingContactId ? 'Guardar Cambios' : 'Agregar'}</button>
-                  <button type="button" onClick={() => { setShowContactForm(false); setEditingContactId(null); setContactForm({ nombre: '', cargo: '', email: '', telefono: '' }); }} className="flex items-center gap-2 bg-slate-700 text-slate-300 px-5 py-2.5 rounded-xl hover:bg-slate-600 text-sm"><X size={16} /> Cancelar</button>
+                  <button type="submit" className="flex items-center gap-2 bg-cyan-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:bg-cyan-600 text-sm"><Save size={16} /> {editingContactId ? 'Guardar Cambios' : 'Agregar'}</button>
+                  <button type="button" onClick={() => { setShowContactForm(false); setEditingContactId(null); setContactForm({ nombre: '', cargo: '', email: '', telefono: '' }); }} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white px-5 py-3 rounded-2xl hover:bg-slate-600/50 text-sm"><X size={16} /> Cancelar</button>
                 </div>
               </form>
             )}
@@ -1530,7 +1530,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                             key={t.id}
                             type="button"
                             onClick={() => setQuickComm({ ...quickComm, tipo: t.id })}
-                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${quickComm.tipo === t.id ? `${t.color} text-white` : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${quickComm.tipo === t.id ? `${t.color} text-white` : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'}`}
                           >
                             <Icon size={13} /> {t.label}
                           </button>
@@ -1545,13 +1545,13 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                         value={quickComm.nota}
                         onChange={(e) => setQuickComm({ ...quickComm, nota: e.target.value })}
                         onKeyDown={(e) => { if (e.key === 'Enter' && quickComm.nota.trim()) handleQuickComm(); }}
-                        className="flex-1 px-4 py-2.5 bg-slate-800 border border-slate-300/40 rounded-xl text-white text-sm placeholder-slate-500 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20"
+                        className="flex-1 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white text-sm placeholder-slate-500 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20"
                       />
                       <button
                         type="button"
                         onClick={handleQuickComm}
                         disabled={!quickComm.nota.trim()}
-                        className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-2xl text-sm font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                       >
                         <Send size={14} /> Registrar
                       </button>
@@ -1631,7 +1631,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
         {/* Modal Ver Detalle de Actividad */}
         {viewingActividad && (
           <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={() => setViewingActividad(null)}>
-            <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={(e) => e.stopPropagation()}>
               {(() => {
                 const tipo = TIPOS_ACTIVIDAD.find(t => t.id === viewingActividad.tipo);
                 const Icon = tipo?.icon || MessageSquare;
@@ -1650,7 +1650,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                         <button onClick={() => setViewingActividad(null)} className="p-2 hover:bg-white/20 rounded-lg"><X size={24} className="text-white" /></button>
                       </div>
                     </div>
-                    <div className="p-6 space-y-6">
+                    <div className="p-8 space-y-6">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-1">Fecha</p><p className="text-white font-medium">{formatDate(viewingActividad.fecha)}</p></div>
                         <div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-1">Responsable</p><p className={`font-medium ${responsable?.nombre ? getColorUsuario(responsable.nombre) : 'text-white'}`}>{responsable?.nombre || 'No asignado'}</p></div>
@@ -1819,17 +1819,17 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
   // ====== MAIN LIST VIEW ======
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Cuentas</h1>
+          <h1 className="text-4xl font-black tracking-tight text-white mb-2">Cuentas</h1>
           <p className="text-slate-400">{cuentas.length} empresas registradas</p>
         </div>
         {puedeCrear && (
           <button
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-xl hover:opacity-90 transition-all font-medium"
+            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90 transition-all"
           >
             <Plus size={20} /> Nueva Cuenta
           </button>
@@ -1854,21 +1854,21 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
         const contactosTotales = (contactos || []).filter(c => cuentas.some(cu => cu.id === c.cuentaId)).length;
         const dealsAsociados = (pipeline || []).filter(p => cuentas.some(c => c.id === p.clienteId || c.id === p.cuentaId)).length;
         return (
-          <div className="flex gap-4">
-            <div className="bg-slate-800/50 rounded-xl border border-slate-300/40 p-4 text-center flex-1">
-              <div className="text-3xl font-bold text-white">{totalActivas}</div>
+          <div className="flex gap-6">
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
+              <div className="text-3xl font-black text-white">{totalActivas}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Total cuentas activas</div>
             </div>
-            <div className="bg-slate-800/50 rounded-xl border border-slate-300/40 p-4 text-center flex-1">
-              <div className="text-3xl font-bold text-white">{sinContacto14}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
+              <div className="text-3xl font-black text-white">{sinContacto14}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Sin contacto +14 días</div>
             </div>
-            <div className="bg-slate-800/50 rounded-xl border border-slate-300/40 p-4 text-center flex-1">
-              <div className="text-3xl font-bold text-white">{contactosTotales}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
+              <div className="text-3xl font-black text-white">{contactosTotales}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Contactos totales</div>
             </div>
-            <div className="bg-slate-800/50 rounded-xl border border-slate-300/40 p-4 text-center flex-1">
-              <div className="text-3xl font-bold text-white">{dealsAsociados}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
+              <div className="text-3xl font-black text-white">{dealsAsociados}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Deals asociados</div>
             </div>
           </div>
@@ -1884,7 +1884,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
             placeholder="Buscar por empresa, contacto o industria..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-slate-800/40 backdrop-blur-md border border-white/[0.08] rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all"
+            className="w-full pl-12 pr-4 py-3 bg-slate-800/40 backdrop-blur-md border border-white/[0.08] rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all"
           />
         </div>
         <div className="flex rounded-xl border border-slate-300/40 overflow-hidden">
@@ -1914,12 +1914,12 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
         <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
           <h2 className="text-xl font-bold text-white mb-6">{editingId ? 'Editar Cuenta' : 'Nueva Cuenta'}</h2>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" placeholder="Empresa *" value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
+            <input type="text" placeholder="Empresa *" value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
             {/* Industria selector with add new */}
             <div className="relative">
               {!showNewIndustria ? (
                 <div className="flex gap-2">
-                  <select value={form.industria} onChange={(e) => setForm({ ...form, industria: e.target.value })} className="flex-1 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+                  <select value={form.industria} onChange={(e) => setForm({ ...form, industria: e.target.value })} className="flex-1 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
                     <option value="">Seleccionar industria</option>
                     {todasLasIndustrias.map(i => <option key={i} value={i}>{i}</option>)}
                   </select>
@@ -1932,7 +1932,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                 </div>
               ) : (
                 <div className="flex gap-2">
-                  <input type="text" placeholder="Nueva industria..." value={newIndustriaName} onChange={(e) => setNewIndustriaName(e.target.value)} className="flex-1 px-4 py-3 bg-slate-800 border border-cyan-500/50 rounded-xl text-white placeholder-slate-500" autoFocus />
+                  <input type="text" placeholder="Nueva industria..." value={newIndustriaName} onChange={(e) => setNewIndustriaName(e.target.value)} className="flex-1 px-4 py-3 bg-slate-800 border border-cyan-500/50 rounded-2xl text-white placeholder-slate-500" autoFocus />
                   <button type="button" onClick={handleAddIndustria} className="px-3 py-3 bg-cyan-500 hover:bg-cyan-600 text-white rounded-xl transition-all" title="Guardar">
                     <Save size={20} />
                   </button>
@@ -1976,7 +1976,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
             <div className="relative">
               {!showNewServicio ? (
                 <div className="flex gap-2">
-                  <select value={form.servicio} onChange={(e) => setForm({ ...form, servicio: e.target.value })} className="flex-1 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+                  <select value={form.servicio} onChange={(e) => setForm({ ...form, servicio: e.target.value })} className="flex-1 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
                     <option value="">Seleccionar servicio</option>
                     {todosLosServicios.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
@@ -1986,7 +1986,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                 </div>
               ) : (
                 <div className="flex gap-2">
-                  <input type="text" placeholder="Nuevo servicio..." value={newServicioName} onChange={(e) => setNewServicioName(e.target.value)} className="flex-1 px-4 py-3 bg-slate-800 border border-cyan-500/50 rounded-xl text-white placeholder-slate-500" autoFocus />
+                  <input type="text" placeholder="Nuevo servicio..." value={newServicioName} onChange={(e) => setNewServicioName(e.target.value)} className="flex-1 px-4 py-3 bg-slate-800 border border-cyan-500/50 rounded-2xl text-white placeholder-slate-500" autoFocus />
                   <button type="button" onClick={handleAddServicio} className="px-3 py-3 bg-cyan-500 hover:bg-cyan-600 text-white rounded-xl transition-all" title="Guardar">
                     <Save size={20} />
                   </button>
@@ -1996,18 +1996,18 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                 </div>
               )}
             </div>
-            <input type="url" placeholder="Sitio Web" value={form.sitioWeb} onChange={(e) => setForm({ ...form, sitioWeb: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-            <input type="text" placeholder="Direccion" value={form.direccion} onChange={(e) => setForm({ ...form, direccion: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-            <input type="number" placeholder="Numero de empleados" value={form.numeroEmpleados} onChange={(e) => setForm({ ...form, numeroEmpleados: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="url" placeholder="Sitio Web" value={form.sitioWeb} onChange={(e) => setForm({ ...form, sitioWeb: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="text" placeholder="Direccion" value={form.direccion} onChange={(e) => setForm({ ...form, direccion: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="number" placeholder="Numero de empleados" value={form.numeroEmpleados} onChange={(e) => setForm({ ...form, numeroEmpleados: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             {/* Fuente */}
-            <select value={form.fuente || ''} onChange={(e) => setForm({ ...form, fuente: e.target.value, referidoPor: e.target.value !== 'Referido' ? '' : form.referidoPor, esComisionista: e.target.value !== 'Referido' ? false : form.esComisionista })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+            <select value={form.fuente || ''} onChange={(e) => setForm({ ...form, fuente: e.target.value, referidoPor: e.target.value !== 'Referido' ? '' : form.referidoPor, esComisionista: e.target.value !== 'Referido' ? false : form.esComisionista })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
               <option value="">Fuente de la cuenta</option>
               {FUENTES.map(f => <option key={f} value={f}>{f}</option>)}
             </select>
             {/* Referido fields */}
             {form.fuente === 'Referido' && (
               <>
-                <input type="text" placeholder="Nombre de quien refirio *" value={form.referidoPor || ''} onChange={(e) => setForm({ ...form, referidoPor: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+                <input type="text" placeholder="Nombre de quien refirio *" value={form.referidoPor || ''} onChange={(e) => setForm({ ...form, referidoPor: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
                 <label className="flex items-center gap-3 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl cursor-pointer hover:border-cyan-500/50 transition-all">
                   <input type="checkbox" checked={form.esComisionista || false} onChange={(e) => setForm({ ...form, esComisionista: e.target.checked })} className="w-5 h-5 rounded bg-slate-700 border-slate-300/40 text-cyan-500 focus:ring-cyan-500/50" />
                   <span className="text-white">Es comisionista</span>
@@ -2023,7 +2023,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                     key={tag.id}
                     type="button"
                     onClick={() => toggleTag(tag.id)}
-                    className={`px-3 py-1.5 rounded-lg text-sm transition-all ${(form.tags || []).includes(tag.id) ? `${tag.color} text-white` : 'bg-slate-800 text-slate-400 hover:text-white'}`}
+                    className={`px-3 py-1.5 rounded-full text-sm transition-all ${(form.tags || []).includes(tag.id) ? `${tag.color} text-white` : 'bg-slate-800 text-slate-400 hover:text-white'}`}
                   >
                     <Tag size={14} className="inline mr-1" />{tag.name}
                   </button>
@@ -2032,16 +2032,16 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
             </div>
             {/* Assigned to */}
             {esAdmin && (
-              <select value={form.asignadoA || ''} onChange={(e) => setForm({ ...form, asignadoA: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+              <select value={form.asignadoA || ''} onChange={(e) => setForm({ ...form, asignadoA: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
                 <option value="">Asignar responsable... (yo mismo)</option>
                 {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
               </select>
             )}
-            <select value={form.asignadoA2 || ''} onChange={(e) => setForm({ ...form, asignadoA2: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+            <select value={form.asignadoA2 || ''} onChange={(e) => setForm({ ...form, asignadoA2: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
               <option value="">Responsable 2 (opcional)</option>
               {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
             </select>
-            <select value={form.asignadoA3 || ''} onChange={(e) => setForm({ ...form, asignadoA3: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+            <select value={form.asignadoA3 || ''} onChange={(e) => setForm({ ...form, asignadoA3: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
               <option value="">Responsable 3 (opcional)</option>
               {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
             </select>
@@ -2067,26 +2067,26 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                 {subiendoLogo && <span className="text-cyan-400 text-sm flex items-center gap-2"><Loader size={14} className="animate-spin" /> Subiendo...</span>}
               </div>
             </div>
-            <textarea placeholder="Notas" value={form.notas} onChange={(e) => setForm({ ...form, notas: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50 resize-none" rows="2"></textarea>
+            <textarea placeholder="Notas" value={form.notas} onChange={(e) => setForm({ ...form, notas: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50 resize-none" rows="2"></textarea>
 
             {/* Contacto Principal section - only for new cuentas */}
             {!editingId && (
               <div className="md:col-span-2 border-t border-slate-300/30 pt-4 mt-2">
                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2"><UserPlus size={20} className="text-cyan-400" /> Contacto Principal</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input type="text" placeholder="Nombre del contacto" value={contactForm.nombre} onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-                  <input type="text" placeholder="Cargo" value={contactForm.cargo} onChange={(e) => setContactForm({ ...contactForm, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-                  <input type="email" placeholder="Email" value={contactForm.email} onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-                  <input type="tel" placeholder="Telefono" value={contactForm.telefono} onChange={(e) => setContactForm({ ...contactForm, telefono: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+                  <input type="text" placeholder="Nombre del contacto" value={contactForm.nombre} onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+                  <input type="text" placeholder="Cargo" value={contactForm.cargo} onChange={(e) => setContactForm({ ...contactForm, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+                  <input type="email" placeholder="Email" value={contactForm.email} onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+                  <input type="tel" placeholder="Telefono" value={contactForm.telefono} onChange={(e) => setContactForm({ ...contactForm, telefono: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
                 </div>
               </div>
             )}
 
             <div className="md:col-span-2 flex gap-3">
-              <button type="submit" disabled={subiendoLogo} className={`flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-xl hover:opacity-90 transition-all font-medium ${subiendoLogo ? 'opacity-50 cursor-not-allowed' : ''}`}>
+              <button type="submit" disabled={subiendoLogo} className={`flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90 transition-all ${subiendoLogo ? 'opacity-50 cursor-not-allowed' : ''}`}>
                 {subiendoLogo ? <><Loader size={20} className="animate-spin" /> Subiendo logo...</> : <><Save size={20} /> Guardar</>}
               </button>
-              <button type="button" onClick={resetForm} className="flex items-center gap-2 bg-slate-800 text-slate-300 px-5 py-3 rounded-xl hover:bg-slate-700 transition-all font-medium">
+              <button type="button" onClick={resetForm} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white px-5 py-3 rounded-2xl hover:bg-slate-600/50 transition-all font-medium">
                 <X size={20} /> Cancelar
               </button>
             </div>

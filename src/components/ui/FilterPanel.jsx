@@ -93,7 +93,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
   const activeCount = conditions.filter(c => c.value !== '').length;
 
   return (
-    <div className="rounded-xl border border-white/[0.08] bg-slate-800/50 overflow-hidden">
+    <div className="rounded-2xl border border-white/[0.08] bg-slate-800/50 overflow-hidden">
       {/* Header */}
       <button
         onClick={() => setCollapsed(prev => !prev)}
@@ -158,7 +158,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                   <select
                     value={cond.field}
                     onChange={(e) => updateCondition(cond.id, 'field', e.target.value)}
-                    className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-2 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 min-w-[120px]"
+                    className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-2xl px-2.5 py-3 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 min-w-[120px]"
                   >
                     {fields.map(f => (
                       <option key={f.key} value={f.key}>{f.label}</option>
@@ -169,7 +169,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                   <select
                     value={cond.operator}
                     onChange={(e) => updateCondition(cond.id, 'operator', e.target.value)}
-                    className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-2 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 min-w-[110px]"
+                    className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-2xl px-2.5 py-3 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 min-w-[110px]"
                   >
                     {operators.map(op => (
                       <option key={op.value} value={op.value}>{op.label}</option>
@@ -181,7 +181,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                     <select
                       value={cond.value}
                       onChange={(e) => updateCondition(cond.id, 'value', e.target.value)}
-                      className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-2 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 flex-1 min-w-[140px]"
+                      className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-2xl px-2.5 py-3 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 flex-1 min-w-[140px]"
                     >
                       <option value="">Seleccionar...</option>
                       {getFieldOptions(cond.field).map(opt => (
@@ -194,13 +194,13 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                       value={cond.value}
                       onChange={(e) => updateCondition(cond.id, 'value', e.target.value)}
                       placeholder="Valor..."
-                      className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-2 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 flex-1 min-w-[140px] placeholder-slate-500"
+                      className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-2xl px-2.5 py-3 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 flex-1 min-w-[140px] placeholder-slate-500"
                     />
                   )}
 
                   <button
                     onClick={() => removeCondition(cond.id)}
-                    className="p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                    className="p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-2xl transition-colors"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -213,7 +213,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
           <div className="flex items-center gap-2 pt-1">
             <button
               onClick={addCondition}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-cyan-400 bg-cyan-500/10 hover:bg-cyan-500/20 rounded-lg transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-cyan-400 bg-cyan-500/10 hover:bg-cyan-500/20 rounded-2xl transition-colors"
             >
               <Plus className="w-3.5 h-3.5" />
               Agregar condicion
@@ -223,7 +223,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
               <>
                 <button
                   onClick={applyFilters}
-                  className="px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-cyan-500 to-violet-500 rounded-lg hover:opacity-90 transition-opacity"
+                  className="px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-cyan-500 to-violet-500 rounded-2xl hover:opacity-90 transition-opacity"
                 >
                   Aplicar filtros
                 </button>
@@ -245,7 +245,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                     value={viewName}
                     onChange={(e) => setViewName(e.target.value)}
                     placeholder="Nombre de la vista..."
-                    className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-1.5 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 placeholder-slate-500 w-40"
+                    className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-2xl px-2.5 py-3 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 placeholder-slate-500 w-40"
                     onKeyDown={(e) => e.key === 'Enter' && handleSaveView()}
                   />
                   <button onClick={handleSaveView} className="px-2 py-1.5 text-xs text-emerald-400 hover:text-emerald-300">

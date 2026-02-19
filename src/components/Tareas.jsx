@@ -147,11 +147,11 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
   const misTareasPendientes = tareas.filter(t => t.responsableId === currentUser?.id && !t.completada).length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+          <h2 className="text-4xl font-black tracking-tight text-white flex items-center gap-3">
             <Target className="w-7 h-7 text-cyan-400" />
             Tareas y Compromisos
           </h2>
@@ -159,7 +159,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
         </div>
         <button
           onClick={() => { resetForm(); setShowForm(true); }}
-          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-xl font-medium hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-2xl font-medium hover:opacity-90 transition-opacity"
         >
           <Plus size={20} />
           Nueva Tarea
@@ -168,10 +168,10 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-xl p-4 border border-white/[0.08]">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 border border-white/[0.08]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-              <Clock className="w-5 h-5 text-blue-400" />
+            <div className="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center">
+              <Clock className="w-5 h-5 text-blue-300" />
             </div>
             <div>
               <p className="text-2xl font-bold text-white">{totalPendientes}</p>
@@ -179,9 +179,9 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
             </div>
           </div>
         </div>
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-xl p-4 border border-white/[0.08]">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 border border-white/[0.08]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-2xl bg-red-500/20 flex items-center justify-center">
               <AlertCircle className="w-5 h-5 text-red-400" />
             </div>
             <div>
@@ -190,9 +190,9 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
             </div>
           </div>
         </div>
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-xl p-4 border border-white/[0.08]">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 border border-white/[0.08]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-2xl bg-violet-500/20 flex items-center justify-center">
               <User className="w-5 h-5 text-violet-400" />
             </div>
             <div>
@@ -216,9 +216,9 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
           <button
             key={f.id}
             onClick={() => setFiltro(f.id)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+            className={`px-5 py-2.5 rounded-2xl text-sm font-medium transition-all ${
               filtro === f.id
-                ? 'bg-cyan-500 text-white'
+                ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/30 font-semibold'
                 : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
             }`}
           >
@@ -249,7 +249,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
             return (
               <div
                 key={tarea.id}
-                className={`bg-slate-900/50 rounded-xl border p-4 transition-all ${
+                className={`bg-slate-900/50 rounded-2xl border p-4 transition-all ${
                   tarea.completada ? 'border-emerald-500/30 opacity-60' : esVencida ? 'border-red-500/50' : 'border-slate-800'
                 }`}
               >
@@ -257,10 +257,10 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                   {/* Checkbox */}
                   <button
                     onClick={() => toggleCompletada(tarea.id)}
-                    className={`mt-1 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                    className={`mt-1 w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${
                       tarea.completada
                         ? 'bg-emerald-500 border-emerald-500'
-                        : 'border-slate-300/40 hover:border-cyan-500'
+                        : 'border-slate-500/40 hover:border-cyan-500'
                     }`}
                   >
                     {tarea.completada && <CheckCircle size={14} className="text-white" />}
@@ -282,10 +282,10 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                             {esHoy ? 'Hoy' : esVencida ? 'Vencida' : formatDate(tarea.fechaCompromiso)}{tarea.hora ? ` ${tarea.hora}` : ''}
                           </span>
                           {/* Prioridad */}
-                          <span className={`px-2 py-0.5 rounded text-xs ${
-                            tarea.prioridad === 'alta' ? 'bg-red-500/20 text-red-400' :
-                            tarea.prioridad === 'media' ? 'bg-amber-500/20 text-amber-400' :
-                            'bg-blue-500/20 text-blue-400'
+                          <span className={`rounded-full px-3 py-1.5 text-xs ${
+                            tarea.prioridad === 'alta' ? 'bg-red-500/30 text-red-300' :
+                            tarea.prioridad === 'media' ? 'bg-amber-500/35 text-amber-300' :
+                            'bg-indigo-500/30 text-indigo-300'
                           }`}>
                             {tarea.prioridad === 'alta' ? 'Alta' : tarea.prioridad === 'media' ? 'Media' : 'Baja'}
                           </span>
@@ -347,8 +347,8 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
       {/* Modal Form */}
       {showForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-lg animate-modal-in shadow-2xl shadow-black/40">
-            <div className="p-6 border-b border-slate-800">
+          <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-lg animate-modal-in shadow-2xl shadow-black/40">
+            <div className="p-8 border-b border-slate-800">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold text-white">
                   {editingTarea ? 'Editar Tarea' : 'Nueva Tarea'}
@@ -359,15 +359,15 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
               </div>
             </div>
 
-            <div className="p-6 space-y-4">
-              <div className="bg-teal-900/15 border border-teal-500/20 rounded-xl p-5 space-y-4">
+            <div className="p-8 space-y-4">
+              <div className="bg-teal-900/15 border border-teal-500/20 rounded-2xl p-5 space-y-4">
               {/* Descripción */}
               <div>
                 <label className="block text-sm font-medium text-slate-400 mb-2">Descripción *</label>
                 <textarea
                   value={form.descripcion}
                   onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white resize-none"
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white resize-none"
                   rows={3}
                   placeholder="¿Qué hay que hacer?"
                 />
@@ -381,7 +381,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                     type="date"
                     value={form.fechaCompromiso}
                     onChange={(e) => setForm({ ...form, fechaCompromiso: e.target.value })}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"
                   />
                 </div>
 
@@ -392,7 +392,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                     type="time"
                     value={form.hora}
                     onChange={(e) => setForm({ ...form, hora: e.target.value })}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"
                   />
                 </div>
 
@@ -402,7 +402,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                   <select
                     value={form.prioridad}
                     onChange={(e) => setForm({ ...form, prioridad: e.target.value })}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"
                   >
                     <option value="baja">Baja</option>
                     <option value="media">Media</option>
@@ -416,7 +416,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                   <select
                     value={form.recurrencia}
                     onChange={(e) => setForm({ ...form, recurrencia: e.target.value })}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"
                   >
                     {RECURRENCIA_OPTIONS.map(r => (
                       <option key={r.id} value={r.id}>{r.label}</option>
@@ -431,7 +431,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                 <select
                   value={form.responsableId}
                   onChange={(e) => setForm({ ...form, responsableId: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white"
+                  className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"
                 >
                   <option value="">Yo mismo</option>
                   {usuariosActivos.map(u => (
@@ -449,7 +449,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                   <select
                     value={form.cuentaId}
                     onChange={(e) => setForm({ ...form, cuentaId: e.target.value, pipelineId: '' })}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"
                   >
                     <option value="">Sin cuenta</option>
                     {cuentas.map(c => (
@@ -462,7 +462,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                   <select
                     value={form.pipelineId}
                     onChange={(e) => setForm({ ...form, pipelineId: e.target.value, cuentaId: '' })}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white"
+                    className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"
                   >
                     <option value="">Sin prospecto</option>
                     {pipeline.filter(p => !['cerrado', 'perdido'].includes(p.etapa)).map(p => (
@@ -474,16 +474,16 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
               </div>
             </div>
 
-            <div className="p-6 border-t border-slate-800 flex gap-3">
+            <div className="p-8 border-t border-slate-800 flex gap-3">
               <button
                 onClick={handleSubmit}
-                className="flex-1 px-4 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-xl font-medium hover:opacity-90 transition-opacity"
+                className="flex-1 px-4 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90 transition-opacity"
               >
                 {editingTarea ? 'Guardar Cambios' : 'Crear Tarea'}
               </button>
               <button
                 onClick={() => { setShowForm(false); resetForm(); }}
-                className="px-4 py-3 bg-slate-800 text-slate-300 rounded-xl font-medium hover:bg-slate-700 transition-colors"
+                className="px-4 py-3 bg-slate-700/50 border border-slate-600/50 text-white hover:bg-slate-600/50 rounded-2xl font-medium transition-colors"
               >
                 Cancelar
               </button>

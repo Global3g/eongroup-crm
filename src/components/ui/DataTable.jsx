@@ -122,16 +122,16 @@ const DataTable = ({
   const activeFilterCount = Object.values(filters).filter(v => v.size > 0).length;
 
   return (
-    <div className="w-full rounded-xl overflow-hidden border border-white/[0.08] shadow-xl shadow-black/20">
+    <div className="w-full rounded-2xl overflow-hidden border border-white/[0.08] shadow-xl shadow-black/20">
       {/* Active filters bar */}
       {activeFilterCount > 0 && (
-        <div className="flex items-center gap-2 px-4 py-2.5 bg-cyan-900/20 border-b border-slate-300/30 flex-wrap">
+        <div className="flex items-center gap-2 px-4 py-2.5 bg-cyan-900/20 border-b border-cyan-500/30 flex-wrap">
           <Filter className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
           <span className="text-xs text-cyan-300 font-medium flex-shrink-0">Filtros activos:</span>
           {Object.entries(filters).filter(([, v]) => v.size > 0).map(([key, vals]) => {
             const col = columns.find(c => c.key === key);
             return (
-              <span key={key} className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-cyan-500/15 border border-cyan-500/30 text-xs text-cyan-300">
+              <span key={key} className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-xs text-cyan-300">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
                 <span className="font-medium">{col?.label || key}:</span>
                 <span className="text-cyan-200">{vals.size === 1 ? [...vals][0] : `${vals.size} valores`}</span>
@@ -146,7 +146,7 @@ const DataTable = ({
           })}
           <button
             onClick={() => setFilters({})}
-            className="ml-auto text-xs text-slate-400 hover:text-white transition-colors px-2 py-1 rounded-lg hover:bg-slate-700"
+            className="ml-auto text-xs text-slate-400 hover:text-white transition-colors px-2 py-1 rounded-2xl hover:bg-slate-700"
           >
             Limpiar todos
           </button>
@@ -155,21 +155,21 @@ const DataTable = ({
 
       {/* Bulk action bar */}
       {selectable && selected.size > 0 && (
-        <div className="flex items-center gap-3 px-4 py-2.5 bg-cyan-900/30 border-b border-slate-300/30">
+        <div className="flex items-center gap-3 px-4 py-2.5 bg-cyan-900/30 border-b border-cyan-500/30">
           <span className="text-sm text-cyan-300 font-medium">{selected.size} seleccionados</span>
           <div className="flex items-center gap-2 ml-auto">
             {bulkActions.map((action, i) => (
               <button
                 key={i}
                 onClick={() => action.onClick([...selected])}
-                className="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-700 text-white hover:bg-slate-600 transition-colors"
+                className="px-3 py-1.5 text-xs font-medium rounded-2xl bg-slate-700 text-white hover:bg-slate-600 transition-colors"
               >
                 {action.label}
               </button>
             ))}
             <button
               onClick={() => setSelected(new Set())}
-              className="px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition-colors"
+              className="px-3 py-1.5 text-xs font-medium rounded-2xl text-slate-400 hover:text-white transition-colors"
             >
               Deseleccionar
             </button>
@@ -181,7 +181,7 @@ const DataTable = ({
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-slate-800/80 backdrop-blur-sm border-b border-white/[0.06]">
+            <tr className="bg-slate-900/90 backdrop-blur-sm border-b border-white/[0.06]">
               {selectable && (
                 <th className="w-10 px-3 py-3">
                   <input
@@ -200,7 +200,7 @@ const DataTable = ({
                 return (
                   <th
                     key={col.key}
-                    className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-white relative"
+                    className="px-4 py-3 text-left text-sm font-bold text-white relative"
                   >
                     <div className="flex items-center gap-1.5">
                       <span
@@ -336,7 +336,7 @@ const DataTable = ({
                   className={`
                     ${onRowClick ? 'cursor-pointer' : ''}
                     ${idx % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.02]'}
-                    hover:bg-white/[0.05] transition-colors duration-150
+                    hover:bg-white/[0.08] transition-colors duration-150
                   `}
                 >
                   {selectable && (
@@ -350,7 +350,7 @@ const DataTable = ({
                     </td>
                   )}
                   {columns.map(col => (
-                    <td key={col.key} className="px-4 py-3 text-slate-300">
+                    <td key={col.key} className="px-4 py-3 text-slate-100">
                       {col.render ? col.render(row[col.key], row) : (row[col.key] ?? '-')}
                     </td>
                   ))}
@@ -369,7 +369,7 @@ const DataTable = ({
             <select
               value={perPage}
               onChange={(e) => setPerPage(Number(e.target.value))}
-              className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2 py-1 focus:ring-cyan-500/30 focus:border-cyan-500/50"
+              className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-2xl px-2 py-1 focus:ring-cyan-500/30 focus:border-cyan-500/50"
             >
               {[10, 25, 50].map(n => (
                 <option key={n} value={n}>{n} por pagina</option>
@@ -384,14 +384,14 @@ const DataTable = ({
             <button
               onClick={() => setPage(0)}
               disabled={page === 0}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-1.5 rounded-2xl text-slate-400 hover:text-white hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronsLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => setPage(p => Math.max(0, p - 1))}
               disabled={page === 0}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-1.5 rounded-2xl text-slate-400 hover:text-white hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -411,7 +411,7 @@ const DataTable = ({
                 <button
                   key={pageNum}
                   onClick={() => setPage(pageNum)}
-                  className={`w-8 h-8 text-xs rounded-lg font-medium transition-colors ${
+                  className={`w-8 h-8 text-xs rounded-2xl font-medium transition-colors ${
                     page === pageNum
                       ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
                       : 'text-slate-400 hover:text-white hover:bg-slate-700'
@@ -425,14 +425,14 @@ const DataTable = ({
             <button
               onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
               disabled={page >= totalPages - 1}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-1.5 rounded-2xl text-slate-400 hover:text-white hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
             <button
               onClick={() => setPage(totalPages - 1)}
               disabled={page >= totalPages - 1}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-1.5 rounded-2xl text-slate-400 hover:text-white hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronsRight className="w-4 h-4" />
             </button>

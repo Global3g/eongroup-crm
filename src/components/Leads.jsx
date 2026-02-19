@@ -679,10 +679,10 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       sortable: true,
       filterable: true,
       render: (val) => {
-        const colors = { alta: 'bg-red-500/20 text-red-400 border-red-500/30', media: 'bg-amber-500/20 text-amber-400 border-amber-500/30', baja: 'bg-blue-500/20 text-blue-400 border-blue-500/30' };
+        const colors = { alta: 'bg-red-500/30 text-red-300 border-red-500/30', media: 'bg-amber-500/35 text-amber-300 border-amber-500/30', baja: 'bg-indigo-500/30 text-indigo-300 border-indigo-500/30' };
         const labels = { alta: 'Alta', media: 'Media', baja: 'Baja' };
         return (
-          <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium border ${colors[val] || colors.media}`}>
+          <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border ${colors[val] || colors.media}`}>
             {labels[val] || val}
           </span>
         );
@@ -764,7 +764,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Leads</h1>
+          <h1 className="text-4xl font-black tracking-tight text-white mb-2">Leads</h1>
           <p className="text-slate-400">{leads.length} prospectos</p>
         </div>
         <div className="flex items-center gap-3">
@@ -772,13 +772,13 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
           <div className="flex items-center bg-slate-800 rounded-xl p-1 border border-slate-300/40">
             <button
               onClick={() => setViewMode('lista')}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'lista' ? 'bg-cyan-500/20 text-cyan-400' : 'text-slate-400 hover:text-white'}`}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-2xl text-sm font-medium transition-all ${viewMode === 'lista' ? 'bg-cyan-500/20 text-cyan-400 shadow-lg shadow-cyan-500/30' : 'text-slate-400 hover:text-white'}`}
             >
               <List size={16} /> Lista
             </button>
             <button
               onClick={() => setViewMode('tarjetas')}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === 'tarjetas' ? 'bg-cyan-500/20 text-cyan-400' : 'text-slate-400 hover:text-white'}`}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-2xl text-sm font-medium transition-all ${viewMode === 'tarjetas' ? 'bg-cyan-500/20 text-cyan-400 shadow-lg shadow-cyan-500/30' : 'text-slate-400 hover:text-white'}`}
             >
               <LayoutGrid size={16} /> Tarjetas
             </button>
@@ -786,7 +786,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
           {puedeCrear && (
             <button
               onClick={() => setShowForm(true)}
-              className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-xl hover:opacity-90 transition-all font-medium"
+              className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-2xl hover:opacity-90 transition-all font-semibold shadow-lg shadow-cyan-500/30"
             >
               <Plus size={20} /> Nuevo Lead
             </button>
@@ -809,21 +809,21 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
         const scores = leads.map(l => calcularLeadScore(l, actividades, pipeline)?.score || 0);
         const scorePromedio = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
         return (
-          <div className="flex gap-4">
-            <div className="bg-slate-800/50 rounded-xl border border-slate-300/40 p-4 text-center flex-1">
-              <div className="text-3xl font-bold text-white">{totalActivos}</div>
+          <div className="flex gap-6">
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
+              <div className="text-3xl font-black text-white">{totalActivos}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Total leads activos</div>
             </div>
-            <div className="bg-slate-800/50 rounded-xl border border-slate-300/40 p-4 text-center flex-1">
-              <div className="text-3xl font-bold text-white">{listosConvertir}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
+              <div className="text-3xl font-black text-white">{listosConvertir}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Listos para convertir</div>
             </div>
-            <div className="bg-slate-800/50 rounded-xl border border-slate-300/40 p-4 text-center flex-1">
-              <div className="text-3xl font-bold text-white">{leadsEstaSemana}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
+              <div className="text-3xl font-black text-white">{leadsEstaSemana}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Leads esta semana</div>
             </div>
-            <div className="bg-slate-800/50 rounded-xl border border-slate-300/40 p-4 text-center flex-1">
-              <div className="text-3xl font-bold text-white">{scorePromedio}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
+              <div className="text-3xl font-black text-white">{scorePromedio}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Score promedio</div>
             </div>
           </div>
@@ -863,21 +863,21 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       {/* Formulario */}
       {showForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={resetForm}>
-        <div ref={formRef} className="bg-slate-900 rounded-2xl p-6 border border-slate-300/40 w-full max-w-3xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
+        <div ref={formRef} className="bg-slate-900 rounded-3xl p-8 border border-slate-300/40 w-full max-w-3xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
           <h2 className="text-xl font-bold text-white mb-6">{editingId ? 'Editar Lead' : 'Nuevo Lead'}</h2>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" placeholder="Empresa *" value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
-            <input type="text" placeholder="Contacto" value={form.contacto} onChange={(e) => setForm({ ...form, contacto: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-            <input type="text" placeholder="Cargo" value={form.cargo} onChange={(e) => setForm({ ...form, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-            <input type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-            <input type="tel" placeholder="Teléfono" value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-            <input type="url" placeholder="Página Web" value={form.paginaWeb || ''} onChange={(e) => setForm({ ...form, paginaWeb: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-            <input type="number" placeholder="Número de empleados" value={form.numeroEmpleados || ''} onChange={(e) => setForm({ ...form, numeroEmpleados: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="text" placeholder="Empresa *" value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
+            <input type="text" placeholder="Contacto" value={form.contacto} onChange={(e) => setForm({ ...form, contacto: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="text" placeholder="Cargo" value={form.cargo} onChange={(e) => setForm({ ...form, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="tel" placeholder="Teléfono" value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="url" placeholder="Página Web" value={form.paginaWeb || ''} onChange={(e) => setForm({ ...form, paginaWeb: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+            <input type="number" placeholder="Número de empleados" value={form.numeroEmpleados || ''} onChange={(e) => setForm({ ...form, numeroEmpleados: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             {/* Selector de industria con opción de agregar nueva */}
             <div className="relative">
               {!showNewIndustria ? (
                 <div className="flex gap-2">
-                  <select value={form.industria} onChange={(e) => setForm({ ...form, industria: e.target.value })} className="flex-1 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+                  <select value={form.industria} onChange={(e) => setForm({ ...form, industria: e.target.value })} className="flex-1 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
                     <option value="">Seleccionar industria</option>
                     {todasLasIndustrias.map(i => <option key={i} value={i}>{i}</option>)}
                   </select>
@@ -934,7 +934,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
             <div className="relative">
               {!showNewServicio ? (
                 <div className="flex gap-2">
-                  <select value={form.servicio} onChange={(e) => setForm({ ...form, servicio: e.target.value })} className="flex-1 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+                  <select value={form.servicio} onChange={(e) => setForm({ ...form, servicio: e.target.value })} className="flex-1 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
                     <option value="">Seleccionar servicio</option>
                     {todosLosServicios.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
@@ -954,35 +954,35 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                 </div>
               )}
             </div>
-            <select value={form.fuente || ''} onChange={(e) => setForm({ ...form, fuente: e.target.value, referidoPor: e.target.value !== 'Referido' ? '' : form.referidoPor, esComisionista: e.target.value !== 'Referido' ? false : form.esComisionista })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+            <select value={form.fuente || ''} onChange={(e) => setForm({ ...form, fuente: e.target.value, referidoPor: e.target.value !== 'Referido' ? '' : form.referidoPor, esComisionista: e.target.value !== 'Referido' ? false : form.esComisionista })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
               <option value="">Fuente del lead</option>
               {FUENTES.map(f => <option key={f} value={f}>{f}</option>)}
             </select>
             {/* Campos adicionales si es Referido */}
             {form.fuente === 'Referido' && (
               <>
-                <input type="text" placeholder="Nombre de quien refirió *" value={form.referidoPor || ''} onChange={(e) => setForm({ ...form, referidoPor: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
-                <label className="flex items-center gap-3 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl cursor-pointer hover:border-cyan-500/50 transition-all">
+                <input type="text" placeholder="Nombre de quien refirió *" value={form.referidoPor || ''} onChange={(e) => setForm({ ...form, referidoPor: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
+                <label className="flex items-center gap-3 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl cursor-pointer hover:border-cyan-500/50 transition-all">
                   <input type="checkbox" checked={form.esComisionista || false} onChange={(e) => setForm({ ...form, esComisionista: e.target.checked })} className="w-5 h-5 rounded bg-slate-700 border-slate-300/40 text-cyan-500 focus:ring-cyan-500/50" />
                   <span className="text-white">Es comisionista</span>
                 </label>
               </>
             )}
-            <select value={form.prioridad} onChange={(e) => setForm({ ...form, prioridad: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+            <select value={form.prioridad} onChange={(e) => setForm({ ...form, prioridad: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
               {PRIORIDADES.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
             </select>
             {/* Selector de responsable (solo admin) */}
             {esAdmin && (
-              <select value={form.asignadoA || ''} onChange={(e) => setForm({ ...form, asignadoA: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+              <select value={form.asignadoA || ''} onChange={(e) => setForm({ ...form, asignadoA: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
                 <option value="">Asignar responsable... (yo mismo)</option>
                 {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
               </select>
             )}
-            <select value={form.asignadoA2 || ''} onChange={(e) => setForm({ ...form, asignadoA2: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+            <select value={form.asignadoA2 || ''} onChange={(e) => setForm({ ...form, asignadoA2: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
               <option value="">Responsable 2 (opcional)</option>
               {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
             </select>
-            <select value={form.asignadoA3 || ''} onChange={(e) => setForm({ ...form, asignadoA3: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white focus:border-cyan-500/50">
+            <select value={form.asignadoA3 || ''} onChange={(e) => setForm({ ...form, asignadoA3: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
               <option value="">Responsable 3 (opcional)</option>
               {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
             </select>
@@ -1024,12 +1024,12 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                 {subiendoLogo && <span className="text-cyan-400 text-sm flex items-center gap-2"><Loader size={14} className="animate-spin" /> Subiendo...</span>}
               </div>
             </div>
-            <textarea placeholder="Notas" value={form.notas} onChange={(e) => setForm({ ...form, notas: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 focus:border-cyan-500/50 resize-none" rows="2"></textarea>
+            <textarea placeholder="Notas" value={form.notas} onChange={(e) => setForm({ ...form, notas: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50 resize-none" rows="2"></textarea>
             <div className="md:col-span-2 flex gap-3">
-              <button type="submit" disabled={subiendoLogo} className={`flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-xl hover:opacity-90 transition-all font-medium ${subiendoLogo ? 'opacity-50 cursor-not-allowed' : ''}`}>
+              <button type="submit" disabled={subiendoLogo} className={`flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-2xl hover:opacity-90 transition-all font-semibold shadow-lg shadow-cyan-500/30 ${subiendoLogo ? 'opacity-50 cursor-not-allowed' : ''}`}>
                 {subiendoLogo ? <><Loader size={20} className="animate-spin" /> Subiendo logo...</> : <><Save size={20} /> Guardar</>}
               </button>
-              <button type="button" onClick={resetForm} className="flex items-center gap-2 bg-slate-800 text-slate-300 px-5 py-3 rounded-xl hover:bg-slate-700 transition-all font-medium">
+              <button type="button" onClick={resetForm} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white hover:bg-slate-600/50 px-5 py-3 rounded-2xl transition-all font-medium">
                 <X size={20} /> Cancelar
               </button>
             </div>
@@ -1100,7 +1100,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                       <p className="text-white font-semibold truncate">{lead.empresa}</p>
                       <p className="text-slate-400 text-sm truncate">{lead.contacto || '-'}</p>
                     </div>
-                    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium ${prioridad?.id === 'alta' ? 'bg-red-500/20 text-red-400' : prioridad?.id === 'media' ? 'bg-amber-500/20 text-amber-400' : 'bg-blue-500/20 text-blue-400'}`}>
+                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium ${prioridad?.id === 'alta' ? 'bg-red-500/30 text-red-300' : prioridad?.id === 'media' ? 'bg-amber-500/35 text-amber-300' : 'bg-indigo-500/30 text-indigo-300'}`}>
                       {prioridad?.name}
                     </span>
                   </div>
@@ -1181,9 +1181,9 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       {/* Modal de detalle del Lead */}
       {selectedLead && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setSelectedLead(null)}>
-          <div className="bg-slate-900 rounded-2xl border border-white/[0.08] w-full max-w-4xl max-h-[90vh] overflow-hidden animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
+          <div className="bg-slate-900 rounded-3xl border border-white/[0.08] w-full max-w-4xl max-h-[90vh] overflow-hidden animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
             {/* Header del modal */}
-            <div className="p-6 border-b border-slate-300/30">
+            <div className="p-8 border-b border-slate-300/30">
               {/* Fila 1: Título + Score + Cerrar */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4">
@@ -1251,7 +1251,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
             </div>
 
             {/* Tabs */}
-            <div className="flex border-b border-slate-300/30 px-6">
+            <div className="flex border-b border-slate-300/30 px-8">
               {[
                 { id: 'info', name: 'Información', icon: User },
                 { id: 'actividades', name: 'Actividades', icon: PhoneCall },
@@ -1278,13 +1278,13 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
             </div>
 
             {/* Contenido del modal */}
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+            <div className="p-8 overflow-y-auto max-h-[calc(90vh-200px)]">
               {/* Tab: Información */}
               {modalTab === 'info' && (
                 <div className="space-y-6">
                   {/* Datos del lead */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Teléfono</p>
                       <p className="text-white flex items-center gap-2">
                         <Phone size={16} className="text-slate-400" />
@@ -1297,14 +1297,14 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                         )}
                       </p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Email</p>
                       <p className="text-white flex items-center gap-2">
                         <Mail size={16} className="text-slate-400" />
                         {selectedLead.email || '-'}
                       </p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Página Web</p>
                       <p className="text-cyan-400">
                         {selectedLead.paginaWeb ? (
@@ -1314,19 +1314,19 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                         ) : '-'}
                       </p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Industria</p>
                       <p className="text-white">{selectedLead.industria || '-'}</p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Servicio de Interés</p>
                       <p className="text-cyan-400">{selectedLead.servicio || '-'}</p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Fuente</p>
                       <p className="text-white">{selectedLead.fuente || '-'}</p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Prioridad</p>
                       <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-sm ${PRIORIDADES.find(p => p.id === selectedLead.prioridad)?.color} bg-opacity-20 text-white`}>
                         {PRIORIDADES.find(p => p.id === selectedLead.prioridad)?.name}
@@ -1334,7 +1334,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                     </div>
                     {/* Referido */}
                     {selectedLead.fuente === 'Referido' && selectedLead.referidoPor && (
-                      <div className="bg-slate-800/50 rounded-xl p-4">
+                      <div className="bg-slate-800/50 rounded-2xl p-4">
                         <p className="text-slate-500 text-sm mb-1">Referido por</p>
                         <p className="text-white flex items-center gap-2">
                           <User size={16} className="text-violet-400" />
@@ -1346,7 +1346,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                       </div>
                     )}
                     {/* Responsable asignado */}
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Responsable</p>
                       {(() => {
                         const ids = [selectedLead.asignadoA, selectedLead.asignadoA2, selectedLead.asignadoA3].filter(Boolean);
@@ -1362,7 +1362,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                       })()}
                     </div>
                     {/* Fecha de creación */}
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Fecha de registro</p>
                       <p className="text-white">{formatDate(selectedLead.fechaCreacion) || '-'}</p>
                     </div>
@@ -1387,7 +1387,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
 
                   {/* Notas */}
                   {selectedLead.notas && (
-                    <div className="bg-slate-800/50 rounded-xl p-5">
+                    <div className="bg-slate-800/50 rounded-2xl p-5">
                       <p className="text-slate-500 text-sm mb-2">Notas</p>
                       <p className="text-white whitespace-pre-wrap">{selectedLead.notas}</p>
                     </div>
@@ -1397,7 +1397,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                   <div className="pt-4 border-t border-slate-300/30">
                     <button
                       onClick={() => { convertirAPipeline(selectedLead); setSelectedLead(null); }}
-                      className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-6 py-3 rounded-xl hover:opacity-90 transition-all font-medium"
+                      className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-6 py-3 rounded-2xl hover:opacity-90 transition-all font-semibold shadow-lg shadow-cyan-500/30"
                     >
                       <ArrowUpRight size={20} /> Convertir a Pipeline
                     </button>
@@ -1431,7 +1431,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                           const Icon = tipoAct?.icon || PhoneCall;
                           const responsable = usuarios.find(u => u.id === act.responsableId);
                           return (
-                            <div key={act.id} className="bg-slate-800/50 rounded-xl p-4 group">
+                            <div key={act.id} className="bg-slate-800/50 rounded-2xl p-4 group">
                               <div className="flex items-start gap-3">
                                 <div className={`w-10 h-10 rounded-lg ${tipoAct?.color || 'bg-slate-600'} flex items-center justify-center flex-shrink-0`}>
                                   <Icon size={18} className="text-white" />
@@ -1473,7 +1473,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                 <div className="space-y-4">
                   {/* Formulario para crear/editar tarea - solo si puede editar el lead */}
                   {puedeEditarLead(selectedLead) && (
-                    <div className="bg-teal-900/15 border border-teal-500/20 rounded-xl p-5">
+                    <div className="bg-teal-900/15 border border-teal-500/20 rounded-2xl p-5">
                       <div className="flex items-center justify-between mb-3">
                         <p className="text-white font-medium">{editingTarea ? 'Editar Tarea' : 'Nueva Tarea'}</p>
                         {editingTarea && (
@@ -1486,24 +1486,24 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                           placeholder="Descripción *"
                           value={newTarea.descripcion}
                           onChange={(e) => setNewTarea({ ...newTarea, descripcion: e.target.value })}
-                          className="md:col-span-2 px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm placeholder-slate-500"
+                          className="md:col-span-2 px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm placeholder-slate-500"
                         />
                         <input
                           type="date"
                           value={newTarea.fechaCompromiso}
                           onChange={(e) => setNewTarea({ ...newTarea, fechaCompromiso: e.target.value })}
-                          className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm"
+                          className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm"
                         />
                         <input
                           type="time"
                           value={newTarea.hora}
                           onChange={(e) => setNewTarea({ ...newTarea, hora: e.target.value })}
-                          className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm"
+                          className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm"
                         />
                         <select
                           value={newTarea.recurrencia}
                           onChange={(e) => setNewTarea({ ...newTarea, recurrencia: e.target.value })}
-                          className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm"
+                          className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm"
                         >
                           {RECURRENCIA_OPTIONS.map(r => (
                             <option key={r.id} value={r.id}>{r.label}</option>
@@ -1529,7 +1529,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                   ) : (
                     <div className="space-y-3">
                       {leadTareas.sort((a, b) => new Date(a.fechaCompromiso) - new Date(b.fechaCompromiso)).map(tarea => (
-                        <div key={tarea.id} className={`bg-slate-800/50 rounded-xl p-4 flex items-center gap-3 ${tarea.completada ? 'opacity-60' : ''}`}>
+                        <div key={tarea.id} className={`bg-slate-800/50 rounded-2xl p-4 flex items-center gap-3 ${tarea.completada ? 'opacity-60' : ''}`}>
                           <button
                             onClick={() => toggleTarea(tarea.id)}
                             className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${tarea.completada ? 'bg-emerald-500 border-emerald-500' : 'border-slate-300/40 hover:border-emerald-500'}`}
@@ -1540,7 +1540,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                             <p className={`text-white ${tarea.completada ? 'line-through' : ''}`}>{tarea.descripcion}</p>
                             <p className="text-slate-500 text-xs mt-1">Fecha límite: {formatDate(tarea.fechaCompromiso)}{tarea.hora ? ` ${tarea.hora}` : ''}</p>
                           </div>
-                          <span className={`px-2 py-1 rounded text-xs ${tarea.prioridad === 'alta' ? 'bg-red-500/20 text-red-400' : tarea.prioridad === 'media' ? 'bg-amber-500/20 text-amber-400' : 'bg-slate-600/50 text-slate-400'}`}>
+                          <span className={`px-3 py-1.5 rounded-full text-xs ${tarea.prioridad === 'alta' ? 'bg-red-500/30 text-red-300' : tarea.prioridad === 'media' ? 'bg-amber-500/35 text-amber-300' : 'bg-indigo-500/30 text-indigo-300'}`}>
                             {tarea.prioridad}
                           </span>
                           {tarea.recurrencia && tarea.recurrencia !== 'ninguna' && (
@@ -1569,7 +1569,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                 <div className="space-y-4">
                   {/* Formulario para crear/editar recordatorio - solo si puede editar el lead */}
                   {puedeEditarLead(selectedLead) && (
-                    <div className="bg-amber-900/15 border border-amber-500/20 rounded-xl p-5">
+                    <div className="bg-amber-900/15 border border-amber-500/20 rounded-2xl p-5">
                       <div className="flex items-center justify-between mb-3">
                         <p className="text-white font-medium">{editingRecordatorio ? 'Editar Recordatorio' : 'Nuevo Recordatorio'}</p>
                         {editingRecordatorio && (
@@ -1582,19 +1582,19 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                           placeholder="Título *"
                           value={newRecordatorio.titulo}
                           onChange={(e) => setNewRecordatorio({ ...newRecordatorio, titulo: e.target.value })}
-                          className="md:col-span-2 px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm placeholder-slate-500"
+                          className="md:col-span-2 px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm placeholder-slate-500"
                         />
                         <input
                           type="date"
                           value={newRecordatorio.fecha}
                           onChange={(e) => setNewRecordatorio({ ...newRecordatorio, fecha: e.target.value })}
-                          className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm"
+                          className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm"
                         />
                         <input
                           type="time"
                           value={newRecordatorio.hora}
                           onChange={(e) => setNewRecordatorio({ ...newRecordatorio, hora: e.target.value })}
-                          className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm"
+                          className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm"
                         />
                         <button
                           onClick={editingRecordatorio ? guardarEdicionRecordatorio : crearRecordatorioLead}
@@ -1616,7 +1616,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                   ) : (
                     <div className="space-y-3">
                       {leadRecordatorios.sort((a, b) => new Date(a.fecha) - new Date(b.fecha)).map(rec => (
-                        <div key={rec.id} className={`bg-slate-800/50 rounded-xl p-4 flex items-center gap-3 ${rec.completado ? 'opacity-60' : ''}`}>
+                        <div key={rec.id} className={`bg-slate-800/50 rounded-2xl p-4 flex items-center gap-3 ${rec.completado ? 'opacity-60' : ''}`}>
                           <button
                             onClick={() => toggleRecordatorio(rec.id)}
                             className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${rec.completado ? 'bg-emerald-500 border-emerald-500' : 'border-amber-500 hover:bg-amber-500/20'}`}
@@ -1655,22 +1655,22 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       {/* Modal de Nueva/Editar Actividad para Leads */}
       {showActividadForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setShowActividadForm(false)}>
-          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
-            <div className="p-6 border-b border-slate-800 flex items-center justify-between">
+          <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
+            <div className="p-8 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white">{editingActividad ? 'Editar Actividad' : 'Nueva Actividad'}</h3>
               <button onClick={() => setShowActividadForm(false)} className="text-slate-400 hover:text-white"><X size={20} /></button>
             </div>
-            <form onSubmit={handleSaveActividad} className="p-6 space-y-4">
-              <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-xl p-5 space-y-4">
+            <form onSubmit={handleSaveActividad} className="p-8 space-y-4">
+              <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-2xl p-5 space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <select value={actividadForm.tipo} onChange={(e) => setActividadForm({ ...actividadForm, tipo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white">
+                <select value={actividadForm.tipo} onChange={(e) => setActividadForm({ ...actividadForm, tipo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                   {TIPOS_ACTIVIDAD.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>
-                <input type="date" value={actividadForm.fecha} onChange={(e) => setActividadForm({ ...actividadForm, fecha: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white" />
+                <input type="date" value={actividadForm.fecha} onChange={(e) => setActividadForm({ ...actividadForm, fecha: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" />
               </div>
-              <input type="text" placeholder="Título *" value={actividadForm.titulo} onChange={(e) => setActividadForm({ ...actividadForm, titulo: e.target.value })} className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500" required />
-              <textarea placeholder="Descripción" value={actividadForm.descripcion} onChange={(e) => setActividadForm({ ...actividadForm, descripcion: e.target.value })} className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white placeholder-slate-500 resize-none" rows="3"></textarea>
-              <select value={actividadForm.responsableId} onChange={(e) => setActividadForm({ ...actividadForm, responsableId: e.target.value })} className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-xl text-white">
+              <input type="text" placeholder="Título *" value={actividadForm.titulo} onChange={(e) => setActividadForm({ ...actividadForm, titulo: e.target.value })} className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
+              <textarea placeholder="Descripción" value={actividadForm.descripcion} onChange={(e) => setActividadForm({ ...actividadForm, descripcion: e.target.value })} className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="3"></textarea>
+              <select value={actividadForm.responsableId} onChange={(e) => setActividadForm({ ...actividadForm, responsableId: e.target.value })} className="w-full px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                 <option value="">Responsable (yo mismo)</option>
                 {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
               </select>
@@ -1693,10 +1693,10 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
               </div>
               </div>
               <div className="flex gap-3 pt-4 border-t border-slate-800">
-                <button type="submit" disabled={subiendoActividad} className="flex items-center gap-2 bg-violet-500 text-white px-5 py-3 rounded-xl hover:bg-violet-600 disabled:opacity-50">
+                <button type="submit" disabled={subiendoActividad} className="flex items-center gap-2 bg-violet-500 text-white px-5 py-3 rounded-2xl hover:bg-violet-600 disabled:opacity-50 font-semibold shadow-lg shadow-violet-500/30">
                   {subiendoActividad ? <Loader size={18} className="animate-spin" /> : <Save size={18} />} {subiendoActividad ? 'Guardando...' : 'Guardar'}
                 </button>
-                <button type="button" onClick={() => setShowActividadForm(false)} className="flex items-center gap-2 bg-slate-800 text-slate-300 px-5 py-3 rounded-xl hover:bg-slate-700"><X size={18} /> Cancelar</button>
+                <button type="button" onClick={() => setShowActividadForm(false)} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white hover:bg-slate-600/50 px-5 py-3 rounded-2xl transition-all"><X size={18} /> Cancelar</button>
               </div>
             </form>
           </div>

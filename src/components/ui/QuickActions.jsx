@@ -33,7 +33,7 @@ export default function QuickActions({ onNewTarea, onNewLlamada, onNewNota, onOp
             }}
           >
             {/* Label */}
-            <span className="px-3 py-1.5 bg-slate-900 text-white text-xs font-medium rounded-lg shadow-lg border border-slate-700 whitespace-nowrap">
+            <span className="px-3 py-1.5 bg-slate-900 text-white text-xs font-medium rounded-2xl shadow-lg border border-slate-700 whitespace-nowrap">
               {item.label}
             </span>
             {/* Button */}
