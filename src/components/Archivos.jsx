@@ -16,6 +16,7 @@ const CATEGORIAS_ARCHIVOS = [
   { id: 'contratos', name: 'Contratos', color: 'bg-emerald-500' },
   { id: 'presentaciones', name: 'Presentaciones', color: 'bg-amber-500' },
   { id: 'reportes', name: 'Reportes', color: 'bg-rose-500' },
+  { id: 'internos', name: 'Documentos Internos', color: 'bg-indigo-500' },
   { id: 'otros', name: 'Otros', color: 'bg-slate-500' }
 ];
 
