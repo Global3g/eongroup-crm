@@ -844,9 +844,9 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
     const timeline = getTimeline(selectedCliente);
 
     return (
-      <div className="space-y-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <div className="space-y-4 sm:space-y-6 md:space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <button onClick={() => { setSelectedCliente(null); setActiveTab('info'); }} className="p-2 hover:bg-slate-800 rounded-xl transition-all">
               <X size={24} className="text-slate-400" />
             </button>
@@ -873,14 +873,14 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
             </div>
           </div>
           {puedeEditarCliente(cliente) && (
-            <div className="flex gap-2">
-              <button onClick={() => { setEditingActividad(null); setActividadForm({ tipo: 'llamada', titulo: '', descripcion: '', fecha: getFechaLocal(), responsableId: '' }); setTareasNuevas([]); setRecordatoriosNuevos([]); setShowActividadForm(true); }} className="flex items-center gap-2 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 text-violet-400 px-4 py-2 rounded-xl transition-all">
+            <div className="flex flex-wrap gap-2">
+              <button onClick={() => { setEditingActividad(null); setActividadForm({ tipo: 'llamada', titulo: '', descripcion: '', fecha: getFechaLocal(), responsableId: '' }); setTareasNuevas([]); setRecordatoriosNuevos([]); setShowActividadForm(true); }} className="flex items-center gap-2 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 text-violet-400 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl transition-all text-sm">
                 <Plus size={16} /> Actividad
               </button>
-              <button onClick={() => { setEditingTarea(null); setTareaFormData({ descripcion: '', fechaCompromiso: getFechaLocal(), hora: '', prioridad: 'media', responsableId: '' }); setShowTareaForm(true); }} className="flex items-center gap-2 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/30 text-cyan-400 px-4 py-2 rounded-xl transition-all">
+              <button onClick={() => { setEditingTarea(null); setTareaFormData({ descripcion: '', fechaCompromiso: getFechaLocal(), hora: '', prioridad: 'media', responsableId: '' }); setShowTareaForm(true); }} className="flex items-center gap-2 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/30 text-cyan-400 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl transition-all text-sm">
                 <Target size={16} /> Tarea
               </button>
-              <button onClick={() => { setEditingRecordatorio(null); setRecordatorioForm({ titulo: '', fecha: '', hora: '', descripcion: '', responsableId: '' }); setShowRecordatorioForm(true); }} className="flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-400 px-4 py-2 rounded-xl transition-all">
+              <button onClick={() => { setEditingRecordatorio(null); setRecordatorioForm({ titulo: '', fecha: '', hora: '', descripcion: '', responsableId: '' }); setShowRecordatorioForm(true); }} className="flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-400 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl transition-all text-sm">
                 <Bell size={16} /> Recordatorio
               </button>
             </div>
@@ -888,7 +888,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
+        <div className="flex flex-wrap gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
           {[
             { id: 'info', name: 'Información', icon: Building },
             { id: 'actividades', name: 'Actividades', icon: PhoneCall, count: actividadesCliente.length },
@@ -913,7 +913,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
         {/* Form Actividad */}
         {showActividadForm && (
-          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-violet-500/30">
+          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-violet-500/30">
             <h3 className="text-lg font-semibold text-white mb-4">{editingActividad ? 'Editar Actividad' : 'Nueva Actividad'}</h3>
             <form onSubmit={handleAddActividad} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1011,7 +1011,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
         {/* Form Tarea */}
         {showTareaForm && (
-          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-cyan-500/30">
+          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-cyan-500/30">
             <h3 className="text-lg font-semibold text-white mb-4">{editingTarea ? 'Editar Tarea' : 'Nueva Tarea'}</h3>
             <form onSubmit={handleAddTareaForm} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input type="text" placeholder="Descripción *" value={tareaFormData.descripcion} onChange={(e) => setTareaFormData({ ...tareaFormData, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-700 rounded-2xl text-white placeholder-slate-500" required />
@@ -1029,7 +1029,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
         {/* Form Recordatorio */}
         {showRecordatorioForm && (
-          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-amber-500/30">
+          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-amber-500/30">
             <h3 className="text-lg font-semibold text-white mb-4">{editingRecordatorio ? 'Editar Recordatorio' : 'Nuevo Recordatorio'}</h3>
             <form onSubmit={handleAddRecordatorio} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input type="text" placeholder="Título *" value={recordatorioForm.titulo} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, titulo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-2xl text-white placeholder-slate-500" required />
@@ -1051,7 +1051,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
         {/* Tab Content: Info */}
         {activeTab === 'info' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
+            <div className="lg:col-span-2 bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border-2 border-slate-400">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Información de Contacto</h3>
                 {puedeEditarCliente(cliente) && (
@@ -1060,7 +1060,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
                   </button>
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><p className="text-slate-500 text-sm">Contacto Principal</p><p className="text-white">{cliente?.contacto || '-'}</p></div>
                 <div><p className="text-slate-500 text-sm">Cargo</p><p className="text-white">{cliente?.cargo || '-'}</p></div>
                 <div><p className="text-slate-500 text-sm">Email</p><p className="text-cyan-400">{cliente?.email || '-'}</p></div>
@@ -1084,7 +1084,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
               </div>
               {cliente?.notas && (<div className="mt-4 pt-4 border-t border-slate-800"><p className="text-slate-500 text-sm mb-1">Notas</p><p className="text-slate-300">{cliente.notas}</p></div>)}
             </div>
-            <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
+            <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border-2 border-slate-400">
               <h3 className="text-lg font-semibold text-white mb-4">Acciones</h3>
               <div className="space-y-3">
                 {cliente?.telefono && (<a href={`https://wa.me/52${cliente.telefono.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-xl text-emerald-400 transition-all"><Phone size={18} /> WhatsApp</a>)}
@@ -1092,7 +1092,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
                 {puedeEditarCliente(cliente) && (<button onClick={() => { handleEdit(cliente); setSelectedCliente(null); }} className="w-full flex items-center gap-3 p-3 bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-300 transition-all"><Edit size={18} /> Editar Cliente</button>)}
               </div>
             </div>
-            <div className="lg:col-span-3 bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
+            <div className="lg:col-span-3 bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border-2 border-slate-400">
               <h3 className="text-lg font-semibold text-white mb-4">Proyectos en Pipeline</h3>
               {proyectosCliente.length === 0 ? (<p className="text-slate-500 text-center py-8">No hay proyectos registrados</p>) : (
                 <div className="space-y-3">{proyectosCliente.map(p => { const stage = PIPELINE_STAGES.find(s => s.id === p.etapa); return (<div key={p.id} className="flex items-center gap-4 p-4 bg-slate-800/50 rounded-xl"><div className={`w-3 h-3 rounded-full ${stage?.bg}`}></div><div className="flex-1"><p className="text-white font-medium">{p.nombre}</p><p className="text-slate-500 text-sm">{stage?.name}</p></div>{p.valorEstimado && (<span className="text-emerald-400 font-semibold">${parseFloat(p.valorEstimado).toLocaleString('es-MX')}/año</span>)}</div>); })}</div>
@@ -1103,7 +1103,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
         {/* Tab Content: Actividades */}
         {activeTab === 'actividades' && (
-          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
+          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border-2 border-slate-400">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Historial de Actividades</h3>
               {puedeEditarCliente(cliente) && (
@@ -1170,10 +1170,10 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
                         <button onClick={() => setViewingActividad(null)} className="p-2 hover:bg-white/20 rounded-lg"><X size={24} className="text-white" /></button>
                       </div>
                     </div>
-                    <div className="p-8 space-y-6">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-1">Fecha</p><p className="text-white font-medium">{formatDate(viewingActividad.fecha)}</p></div>
-                        <div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-1">Responsable</p><p className={`font-medium ${responsable?.nombre ? getColorUsuario(responsable.nombre) : 'text-white'}`}>{responsable?.nombre || 'No asignado'}</p></div>
+                    <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="bg-slate-800/50 rounded-xl p-3 sm:p-5"><p className="text-slate-500 text-xs mb-1">Fecha</p><p className="text-white font-medium">{formatDate(viewingActividad.fecha)}</p></div>
+                        <div className="bg-slate-800/50 rounded-xl p-3 sm:p-5"><p className="text-slate-500 text-xs mb-1">Responsable</p><p className={`font-medium ${responsable?.nombre ? getColorUsuario(responsable.nombre) : 'text-white'}`}>{responsable?.nombre || 'No asignado'}</p></div>
                       </div>
                       {viewingActividad.tipo === 'email' && viewingActividad.emailDestinatario && (
                         <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-4 space-y-3">
@@ -1205,7 +1205,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
         {/* Tab Content: Tareas */}
         {activeTab === 'tareas' && (
-          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
+          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border-2 border-slate-400">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Tareas y Compromisos</h3>
               {puedeEditarCliente(cliente) && (
@@ -1253,7 +1253,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
         {/* Tab Content: Timeline */}
         {activeTab === 'timeline' && (
-          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
+          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border-2 border-slate-400">
             <h3 className="text-lg font-semibold text-white mb-4">Timeline del Cliente</h3>
             <Timeline
               activities={timeline.map(evento => {
@@ -1273,7 +1273,7 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
         {/* Tab Content: Recordatorios */}
         {activeTab === 'recordatorios' && (
-          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
+          <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border-2 border-slate-400">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Recordatorios</h3>
               {puedeEditarCliente(cliente) && (
@@ -1326,11 +1326,11 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 md:space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-black tracking-tight text-white mb-2">Clientes</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white mb-2">Clientes</h1>
           <p className="text-slate-400">{clientes.length} empresas registradas</p>
         </div>
         {puedeCrear && (
@@ -1379,8 +1379,8 @@ function Clientes({ clientes, setClientes, pipeline, actividades, setActividades
 
       {/* Formulario */}
       {showForm && (
-        <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-400">
-          <h2 className="text-xl font-bold text-white mb-6">{editingId ? 'Editar Cliente' : 'Nuevo Cliente'}</h2>
+        <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border-2 border-slate-400">
+          <h2 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">{editingId ? 'Editar Cliente' : 'Nuevo Cliente'}</h2>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input type="text" placeholder="Empresa *" value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
             <input type="text" placeholder="Contacto Principal" value={form.contacto} onChange={(e) => setForm({ ...form, contacto: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-700 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />

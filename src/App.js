@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   X, ChevronRight, Bell, BellRing, CheckCircle, Loader, LogOut,
-  Target, UserPlus, GitBranch, AlertCircle, MessageSquare, HelpCircle
+  Target, UserPlus, GitBranch, AlertCircle, MessageSquare, HelpCircle, Menu
 } from 'lucide-react';
 import { CRMProvider, useCRM } from './context/CRMContext';
 import { generateId, getFechaLocal, tiempoRelativo } from './utils/helpers';
@@ -186,7 +186,7 @@ function AppContent() {
 
       {/* Notifications Dropdown */}
       {showNotifications && (
-        <div className="fixed top-16 right-4 z-50 w-96 bg-slate-900 border-2 border-slate-400 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="fixed top-16 right-2 sm:right-4 z-50 w-[calc(100vw-16px)] sm:w-96 bg-slate-900 border-2 border-slate-400 rounded-2xl shadow-2xl overflow-hidden">
           <div className="p-4 border-b border-slate-700 flex items-center justify-between bg-gradient-to-r from-slate-800 to-slate-900">
             <h3 className="font-semibold text-white flex items-center gap-2">
               <BellRing size={18} className="text-cyan-400" />
@@ -255,7 +255,7 @@ function AppContent() {
 
       {/* Toast de notificación nueva */}
       {toastNotificacion && (
-        <div className="fixed bottom-6 right-6 z-50 animate-slide-up">
+        <div className="fixed bottom-6 right-3 sm:right-6 z-50 animate-slide-up">
           <div className="bg-slate-900 border-2 border-cyan-500/50 rounded-2xl shadow-2xl p-4 max-w-sm">
             <div className="flex gap-3 items-start">
               <div className={`w-10 h-10 rounded-xl ${TIPOS_NOTIFICACION[toastNotificacion.tipo]?.color || 'bg-blue-500'} flex items-center justify-center flex-shrink-0`}>
@@ -273,8 +273,21 @@ function AppContent() {
         </div>
       )}
 
+      {/* Mobile backdrop overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className={`fixed lg:relative z-40 h-screen transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-20'} bg-slate-900/80 backdrop-blur-xl border-r border-white/5`}>
+      <aside className={`fixed lg:relative z-50 lg:z-40 h-screen transition-all duration-300
+        ${sidebarOpen
+          ? 'translate-x-0 w-64'
+          : '-translate-x-full lg:translate-x-0 lg:w-20'
+        } bg-slate-900/80 backdrop-blur-xl border-r border-white/5`}
+      >
         <div className="p-4 h-full flex flex-col">
           {/* Logo */}
           <div className="flex items-center gap-3 mb-6">
@@ -287,10 +300,10 @@ function AppContent() {
             )}
           </div>
 
-          {/* Toggle */}
+          {/* Toggle - hidden on mobile */}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="absolute -right-3 top-20 w-6 h-6 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700 transition-all"
+            className="absolute -right-3 top-20 w-6 h-6 bg-slate-800 border border-slate-700 rounded-full hidden lg:flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700 transition-all"
           >
             <ChevronRight size={14} className={`transition-transform ${sidebarOpen ? 'rotate-180' : ''}`} />
           </button>
@@ -352,7 +365,11 @@ function AppContent() {
               return (
                 <button
                   key={module.id}
-                  onClick={() => setCurrentModule(module.id)}
+                  onClick={() => {
+                    setCurrentModule(module.id);
+                    // Close sidebar on mobile after selecting a module
+                    if (window.innerWidth < 1024) setSidebarOpen(false);
+                  }}
                   className={`relative w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all ${
                     isActive
                       ? 'bg-gradient-to-r from-cyan-500/30 to-violet-500/30 text-white border border-cyan-500/50 shadow-lg shadow-cyan-500/10 shadow-[inset_0_0_20px_rgba(6,182,212,0.05)]'
@@ -411,19 +428,31 @@ function AppContent() {
       {/* Main Content */}
       <main className="flex-1 relative z-10 overflow-auto">
         {/* Search Bar */}
-        <div className="sticky top-0 z-30 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 px-6 py-3">
-          <SearchBar
-            cuentas={cuentas}
-            leads={leads}
-            pipeline={pipeline}
-            tareas={tareas}
-            onSelect={(tipo, item) => {
-              const moduleMap = { cuenta: 'cuentas', lead: 'leads', pipeline: 'pipeline', tarea: 'tareas' };
-              setCurrentModule(moduleMap[tipo] || 'dashboard');
-            }}
-          />
+        <div className="sticky top-0 z-30 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 px-3 sm:px-4 md:px-6 py-3">
+          <div className="flex items-center gap-3">
+            {/* Hamburger menu - mobile only */}
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-all flex-shrink-0"
+              aria-label="Abrir menú"
+            >
+              <Menu size={22} />
+            </button>
+            <div className="flex-1 min-w-0">
+              <SearchBar
+                cuentas={cuentas}
+                leads={leads}
+                pipeline={pipeline}
+                tareas={tareas}
+                onSelect={(tipo, item) => {
+                  const moduleMap = { cuenta: 'cuentas', lead: 'leads', pipeline: 'pipeline', tarea: 'tareas' };
+                  setCurrentModule(moduleMap[tipo] || 'dashboard');
+                }}
+              />
+            </div>
+          </div>
         </div>
-        <div key={currentModule} className="p-6 lg:p-8 animate-page-in">
+        <div key={currentModule} className="p-3 sm:p-4 md:p-6 lg:p-8 animate-page-in">
           {renderModule()}
         </div>
       </main>

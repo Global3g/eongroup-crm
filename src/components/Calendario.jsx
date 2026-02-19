@@ -307,10 +307,10 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => { setSelectedEvent(null); setEditMode(false); }}>
           <div className="bg-slate-900 rounded-3xl border border-slate-700 w-full max-w-lg shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
             {/* Modal Header */}
-            <div className="p-8 border-b border-slate-800">
+            <div className="p-4 sm:p-6 md:p-8 border-b border-slate-800">
               <div className="flex items-start justify-between">
-                <div className="flex items-center gap-4">
-                  <div className={`p-3 rounded-2xl ${selectedEvent.color}`}>
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className={`p-2 sm:p-3 rounded-2xl ${selectedEvent.color}`}>
                     {(() => {
                       const Icon = selectedEvent.icon;
                       return <Icon className="w-6 h-6 text-white" />;
@@ -332,7 +332,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
 
             {/* Modal Body */}
             {editMode ? (
-              <div className="p-8 space-y-4">
+              <div className="p-4 sm:p-6 md:p-8 space-y-4">
                 {/* Edit Form */}
                 {selectedEvent.tipo === 'recordatorio' && (
                   <div>
@@ -396,7 +396,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                 </div>
               </div>
             ) : (
-              <div className="p-8 space-y-4">
+              <div className="p-4 sm:p-6 md:p-8 space-y-4">
                 {/* Título (para recordatorios y tareas) */}
                 {selectedEvent.titulo && (
                   <div>
@@ -515,7 +515,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
 
             {/* Modal Footer */}
             {editMode ? (
-              <div className="p-8 border-t border-slate-800 flex gap-3">
+              <div className="p-4 sm:p-6 md:p-8 border-t border-slate-800 flex gap-3">
                 <button
                   onClick={handleSaveEdit}
                   className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-medium transition-colors"
@@ -531,7 +531,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                 </button>
               </div>
             ) : (
-              <div className="p-8 border-t border-slate-800 flex gap-3 flex-wrap">
+              <div className="p-4 sm:p-6 md:p-8 border-t border-slate-800 flex gap-3 flex-wrap">
                 {(selectedEvent.tipo === 'tarea' || selectedEvent.tipo === 'recordatorio') && (
                   <button
                     onClick={handleStartEdit}
@@ -591,7 +591,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
           <div className="px-4 pb-3">
             <div className="grid grid-cols-7 mb-1">
               {['D','L','M','M','J','V','S'].map((d,i) => (
-                <div key={i} className="text-center text-sm font-bold uppercase tracking-wider text-slate-300 py-1">{d}</div>
+                <div key={i} className="text-center text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300 py-1">{d}</div>
               ))}
             </div>
             <div className="grid grid-cols-7">
@@ -694,9 +694,9 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
         {/* RIGHT PANEL: Daily Agenda */}
         <div className="flex-1 flex flex-col min-h-0">
           {/* Day Header */}
-          <div className="px-6 py-4 border-b border-slate-300/40 flex items-center justify-between">
+          <div className="px-3 sm:px-6 py-3 sm:py-4 border-b border-slate-300/40 flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-bold text-white capitalize">
+              <h3 className="text-sm sm:text-lg font-bold text-white capitalize">
                 {(() => {
                   const d = new Date(agendaDate + 'T12:00:00');
                   return d.toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
@@ -736,9 +736,9 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
 
           {/* All-day events */}
           {eventosSinHora.length > 0 && (
-            <div className="px-6 py-2.5 border-b border-slate-300/40 bg-slate-800/20">
-              <div className="flex items-center gap-3">
-                <span className="text-[11px] font-semibold text-slate-200 uppercase tracking-wider w-14 text-right flex-shrink-0">Todo el día</span>
+            <div className="px-3 sm:px-6 py-2.5 border-b border-slate-300/40 bg-slate-800/20">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <span className="text-[10px] sm:text-[11px] font-semibold text-slate-200 uppercase tracking-wider w-10 sm:w-14 text-right flex-shrink-0">Todo el día</span>
                 <div className="flex flex-wrap gap-1.5">
                   {eventosSinHora.map((event, idx) => {
                     const Icon = event.icon;
@@ -780,7 +780,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                 style={{ top: `${(horaActual - 8) * 60 + (minutoActual / 60) * 60}px` }}
               >
                 <div className="flex items-center">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500 ml-[58px] -mr-1.5 flex-shrink-0 shadow-lg shadow-red-500/50" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500 ml-[38px] sm:ml-[58px] -mr-1.5 flex-shrink-0 shadow-lg shadow-red-500/50" />
                   <div className="flex-1 h-[2px] bg-red-500 shadow-sm shadow-red-500/50" />
                 </div>
               </div>
@@ -794,7 +794,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
 
               return (
                 <div key={h} className={`flex border-b border-slate-300/35 min-h-[60px] ${esPasada ? 'opacity-40' : ''}`}>
-                  <div className="w-[65px] flex-shrink-0 py-2 pr-3 text-right">
+                  <div className="w-[45px] sm:w-[65px] flex-shrink-0 py-2 pr-2 sm:pr-3 text-right">
                     <span className={`text-[11px] font-medium ${esHoyAgenda && h === horaActual ? 'text-red-400 font-bold' : 'text-slate-200'}`}>
                       {horaStr}
                     </span>
@@ -819,10 +819,10 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
                               </button>
                               <Icon size={15} className="text-white/90 flex-shrink-0" />
                               <div className="flex-1 min-w-0">
-                                <p className={`text-base font-bold text-white truncate ${event.completada || event.completado ? 'line-through opacity-70' : ''}`}>
+                                <p className={`text-sm sm:text-base font-bold text-white truncate ${event.completada || event.completado ? 'line-through opacity-70' : ''}`}>
                                   {event.titulo || event.descripcion?.slice(0,40)}
                                 </p>
-                                <p className="text-xs text-white/60 truncate">
+                                <p className="text-[10px] sm:text-xs text-white/60 truncate">
                                   {event.hora} · {event.nombreEntidad} · {event.tipo === 'tarea' ? 'Tarea' : 'Recordatorio'}
                                 </p>
                               </div>
@@ -843,7 +843,7 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
           </div>
 
           {/* Footer */}
-          <div className="px-6 py-3 border-t border-slate-300/40 flex items-center justify-between bg-slate-900/30">
+          <div className="px-3 sm:px-6 py-2 sm:py-3 border-t border-slate-300/40 flex items-center justify-between bg-slate-900/30">
             <p className="text-sm text-slate-500">
               {agendaEvents.length === 0
                 ? 'Sin eventos para este día'

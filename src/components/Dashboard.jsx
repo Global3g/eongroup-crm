@@ -107,16 +107,16 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 md:space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-4xl font-black tracking-tight text-white mb-2">Dashboard</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white mb-2">Dashboard</h1>
         <p className="text-slate-300">Resumen de tu actividad comercial</p>
       </div>
 
       {/* Mis Tareas y Recordatorios Pendientes */}
       {totalTareasPendientes > 0 && (
-        <div className="bg-gradient-to-r from-violet-500/10 to-cyan-500/10 rounded-2xl p-8 border border-white/[0.08]">
+        <div className="bg-gradient-to-r from-violet-500/10 to-cyan-500/10 rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
               <Clock className="w-5 h-5 text-violet-400" />
@@ -127,7 +127,7 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
             {/* Tareas Pendientes */}
             {misTareasPendientes.length > 0 && (
               <div className="bg-slate-800/40 backdrop-blur-md rounded-xl p-4 border border-white/[0.06]">
@@ -237,7 +237,7 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
       )}
 
       {/* Stats Grid - Using StatCard component */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
         <div className="cursor-pointer" onClick={() => setCurrentModule('cuentas')}>
           <StatCard
             icon={Building}
@@ -295,11 +295,11 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
 
       {/* Valor Potencial */}
       {valorPotencial > 0 && (
-        <div className="bg-gradient-to-r from-cyan-500/10 via-violet-500/10 to-cyan-500/10 rounded-2xl p-8 border border-white/[0.08]">
+        <div className="bg-gradient-to-r from-cyan-500/10 via-violet-500/10 to-cyan-500/10 rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-slate-400 text-sm mb-1">Valor potencial en pipeline</p>
-              <p className="text-4xl font-bold text-white">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
                 ${valorPotencial.toLocaleString('es-MX')} <span className="text-lg text-slate-400">USD/año</span>
               </p>
             </div>
@@ -310,9 +310,9 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         {/* Pipeline por Etapa */}
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.06]">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.06]">
           <h3 className="text-lg font-semibold text-white mb-4">Pipeline por Etapa</h3>
           {pipeline.length === 0 ? (
             <EmptyState
@@ -343,7 +343,7 @@ function Dashboard({ cuentas, leads, pipeline, recordatorios, setRecordatorios, 
         </div>
 
         {/* Actividad Reciente - Using Timeline component */}
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.06]">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.06]">
           <h3 className="text-lg font-semibold text-white mb-4">Actividad Reciente</h3>
           {actividadesTimeline.length === 0 ? (
             <EmptyState

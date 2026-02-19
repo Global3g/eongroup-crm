@@ -303,11 +303,11 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
   const noData = totalOportunidades === 0 && cuentas.length === 0 && leads.length === 0 && actividades.length === 0;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 md:space-y-8">
       {/* ==================== HEADER ==================== */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-black tracking-tight text-white mb-2">Reportes y Analitica</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white mb-2">Reportes y Analitica</h1>
           <p className="text-slate-400">Analisis completo de metricas, pipeline, actividades y equipo</p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -345,7 +345,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-medium transition-all ${
+                  className={`flex items-center gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-2xl text-sm font-medium transition-all ${
                     isActive
                       ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/30 font-semibold'
                       : 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700'
@@ -360,7 +360,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
           {/* ==================== TAB: GENERAL ==================== */}
           {activeTab === 'general' && (
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* 6 KPI StatCards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <StatCard
@@ -409,7 +409,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Resumen General */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Resumen General</h3>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between p-3 bg-slate-800/50 rounded-xl">
@@ -444,7 +444,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
                 </div>
 
                 {/* Donut: Distribucion del Pipeline */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Distribucion del Pipeline</h3>
                   {pipelineDonutSegments.length > 0 ? (
                     <DonutChart
@@ -463,9 +463,9 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
           {/* ==================== TAB: PIPELINE ==================== */}
           {activeTab === 'pipeline' && (
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Sales Funnel */}
-              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                 <h3 className="text-lg font-bold text-white mb-4">Embudo de Ventas</h3>
                 {totalOportunidades > 0 ? (
                   <FunnelChart stages={funnelStages} />
@@ -476,7 +476,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Valor por Mes */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Valor Ganado por Mes</h3>
                   {valorPorMes.some(m => m.value > 0) ? (
                     <SimpleAreaChart
@@ -491,7 +491,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
                 </div>
 
                 {/* Pronostico de Ventas */}
-                <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-8 border-2 border-cyan-500/30" style={{ background: 'linear-gradient(135deg, rgba(15,23,42,0.7) 0%, rgba(6,182,212,0.05) 100%)' }}>
+                <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-cyan-500/30" style={{ background: 'linear-gradient(135deg, rgba(15,23,42,0.7) 0%, rgba(6,182,212,0.05) 100%)' }}>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-xl bg-cyan-500/20">
                       <Zap size={20} className="text-cyan-400" />
@@ -526,7 +526,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
               </div>
 
               {/* Rendimiento */}
-              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                 <h3 className="text-lg font-bold text-white mb-4">Rendimiento</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -561,9 +561,9 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
           {/* ==================== TAB: ACTIVIDADES ==================== */}
           {activeTab === 'actividades' && (
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Activity counts by type */}
-              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                 <h3 className="text-lg font-bold text-white mb-4">Actividades por Tipo</h3>
                 {actividades.length === 0 ? (
                   <p className="text-slate-500 text-center py-8">No hay actividades registradas</p>
@@ -587,7 +587,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Actividades por Mes */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Actividades por Mes</h3>
                   {actividadesPorMes.some(m => m.value > 0) ? (
                     <SimpleLineChart
@@ -601,7 +601,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
                 </div>
 
                 {/* Donut de Actividades */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Distribucion de Actividades</h3>
                   {activityDonutSegments.length > 0 ? (
                     <DonutChart
@@ -617,7 +617,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
               </div>
 
               {/* Actividades Recientes */}
-              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                 <h3 className="text-lg font-bold text-white mb-4">Actividades Recientes</h3>
                 {actividadesRecientes.length === 0 ? (
                   <p className="text-slate-500 text-center py-8">No hay actividades registradas</p>
@@ -660,9 +660,9 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
           {/* ==================== TAB: EQUIPO ==================== */}
           {activeTab === 'equipo' && usuarios && usuarios.length > 1 && (
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Leaderboard Table */}
-              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-2 rounded-xl bg-amber-500/20">
                     <Award size={20} className="text-amber-400" />
@@ -732,7 +732,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Top performers by deal value */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Valor Ganado por Persona</h3>
                   {leaderboard.some(u => u.valorGanado > 0) ? (
                     <HorizontalBarChart
@@ -752,7 +752,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
                 </div>
 
                 {/* Activity comparison */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Actividades por Persona</h3>
                   {leaderboard.some(u => u.actividades > 0) ? (
                     <HorizontalBarChart
@@ -777,7 +777,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
           {/* ==================== TAB: INTELIGENCIA ==================== */}
           {activeTab === 'inteligencia' && (
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* ---- Insights Summary Box ---- */}
               {(() => {
                 const insights = [];
@@ -804,7 +804,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
                 if (insights.length === 0) return null;
 
                 return (
-                  <div className="bg-gradient-to-br from-cyan-500/10 via-violet-500/10 to-cyan-500/5 backdrop-blur-sm rounded-2xl p-8 border-2 border-cyan-500/30">
+                  <div className="bg-gradient-to-br from-cyan-500/10 via-violet-500/10 to-cyan-500/5 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-cyan-500/30">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-2 rounded-xl bg-cyan-500/20">
                         <Sparkles size={20} className="text-cyan-400" />
@@ -825,7 +825,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
               {/* ---- Mejor Mes Highlight Card ---- */}
               {patrones.mejorMes && patrones.mejorMes.valor > 0 && (
-                <div className="bg-gradient-to-r from-amber-500/10 via-yellow-500/10 to-amber-500/5 backdrop-blur-sm rounded-2xl p-8 border-2 border-amber-500/40">
+                <div className="bg-gradient-to-r from-amber-500/10 via-yellow-500/10 to-amber-500/5 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-amber-500/40">
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-2xl bg-amber-500/20">
                       <Trophy size={28} className="text-amber-400" />
@@ -844,7 +844,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* ---- 4a. Industrias con Mayor Conversion ---- */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Industrias con Mayor Conversion</h3>
                   {patrones.industriasMasConversion && patrones.industriasMasConversion.length > 0 ? (
                     <>
@@ -888,7 +888,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
                 </div>
 
                 {/* ---- 4b. Servicios Mas Rentables ---- */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Servicios Mas Rentables</h3>
                   {patrones.serviciosMasRentables && patrones.serviciosMasRentables.length > 0 ? (
                     <>
@@ -920,7 +920,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
                 </div>
 
                 {/* ---- 4c. Fuentes de Leads Mas Efectivas ---- */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <h3 className="text-lg font-bold text-white mb-4">Fuentes de Leads Mas Efectivas</h3>
                   {patrones.fuentesMasEfectivas && patrones.fuentesMasEfectivas.length > 0 ? (
                     <>
@@ -954,7 +954,7 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
                 </div>
 
                 {/* ---- 4d. Cuellos de Botella ---- */}
-                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+                <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
                   <div className="flex items-center gap-3 mb-4">
                     <TrendingDown size={20} className="text-rose-400" />
                     <h3 className="text-lg font-bold text-white">Cuellos de Botella</h3>

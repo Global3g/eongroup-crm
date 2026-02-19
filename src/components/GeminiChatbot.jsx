@@ -388,7 +388,7 @@ Instrucciones:
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center z-50 group"
+        className="fixed bottom-20 sm:bottom-6 right-2 sm:right-6 w-14 h-14 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center z-50 group"
       >
         <Bot className="w-7 h-7 text-white" />
         <span className="absolute -top-10 right-0 bg-slate-900 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-700">
@@ -399,7 +399,7 @@ Instrucciones:
   }
 
   return (
-    <div className={`fixed ${isExpanded ? 'inset-4' : 'bottom-6 right-6 w-96 h-[600px]'} bg-slate-900 rounded-2xl shadow-2xl border border-slate-700 flex flex-col z-50 transition-all duration-300`}>
+    <div className={`fixed ${isExpanded ? 'inset-2 sm:inset-4' : 'bottom-20 sm:bottom-6 right-2 sm:right-6 w-[calc(100vw-16px)] sm:w-96 h-[70vh] sm:h-[600px]'} bg-slate-900 rounded-2xl shadow-2xl border border-slate-700 flex flex-col z-50 transition-all duration-300`}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-slate-700 bg-gradient-to-r from-violet-500/10 to-cyan-500/10 rounded-t-2xl">
         <div className="flex items-center gap-3">
@@ -441,7 +441,7 @@ Instrucciones:
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg, idx) => (
           <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[85%] ${msg.role === 'user' ? 'bg-violet-500/20 border-violet-500/30' : 'bg-slate-800 border-slate-700'} border rounded-2xl p-3`}>
+            <div className={`max-w-[92%] sm:max-w-[85%] ${msg.role === 'user' ? 'bg-violet-500/20 border-violet-500/30' : 'bg-slate-800 border-slate-700'} border rounded-2xl p-3`}>
               <div className="text-white text-sm whitespace-pre-wrap">{renderMarkdown(msg.content)}</div>
               {msg.role === 'assistant' && (
                 <button

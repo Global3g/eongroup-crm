@@ -20,7 +20,7 @@ export default function QuickActions({ onNewTarea, onNewLlamada, onNewNota, onOp
   };
 
   return (
-    <div className="fixed bottom-24 right-6 z-40 flex flex-col items-end gap-3">
+    <div className="fixed bottom-20 sm:bottom-24 right-3 sm:right-6 z-40 flex flex-col items-end gap-2 sm:gap-3">
       {/* Mini action buttons */}
       {open && actions.map((item, index) => {
         const Icon = item.icon;

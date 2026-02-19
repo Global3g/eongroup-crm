@@ -233,12 +233,12 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 md:space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-4xl font-black tracking-tight text-white flex items-center gap-3">
-            <Users className="w-7 h-7 text-cyan-400" />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white flex items-center gap-3">
+            <Users className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
             Equipo
           </h2>
           <p className="text-slate-400 mt-1">Gestiona los miembros de tu equipo y sus permisos</p>
@@ -285,13 +285,13 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
         </div>
         <div className="divide-y divide-slate-800">
           {usuarios.map(user => (
-            <div key={user.id} className="p-5 hover:bg-slate-800/30 transition-colors">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-6">
+            <div key={user.id} className="p-3 sm:p-5 hover:bg-slate-800/30 transition-colors">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-3 sm:gap-6">
                   {user.fotoUrl ? (
-                    <img src={user.fotoUrl} alt={user.nombre} className={`w-14 h-14 rounded-full object-cover border-2 border-cyan-500/30 ${user.activo === false ? 'opacity-50' : ''}`} />
+                    <img src={user.fotoUrl} alt={user.nombre} className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-cyan-500/30 ${user.activo === false ? 'opacity-50' : ''}`} />
                   ) : (
-                    <div className={`w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center text-white font-bold text-lg ${user.activo === false ? 'opacity-50' : ''}`}>
+                    <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center text-white font-bold text-sm sm:text-lg ${user.activo === false ? 'opacity-50' : ''}`}>
                       {user.nombre?.charAt(0).toUpperCase()}
                     </div>
                   )}
@@ -320,7 +320,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                     )}
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 flex-wrap sm:flex-nowrap">
                   {user.activo === false && (
                     <span className="px-3 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400">
                       Inactivo
@@ -378,7 +378,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
       {showModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setShowModal(false)}>
           <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-md shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
-            <div className="p-8 border-b border-slate-800 flex items-center justify-between">
+            <div className="p-4 sm:p-6 md:p-8 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white">
                 {isCreating ? 'Nuevo Usuario' : 'Editar Usuario'}
               </h3>
@@ -386,7 +386,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                 <X size={20} />
               </button>
             </div>
-            <div className="p-8 space-y-4">
+            <div className="p-4 sm:p-6 md:p-8 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-400 mb-2">Nombre</label>
                 <input
@@ -473,7 +473,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                 </div>
               )}
             </div>
-            <div className="p-8 border-t border-slate-800 flex gap-3">
+            <div className="p-4 sm:p-6 md:p-8 border-t border-slate-800 flex gap-3">
               <button
                 onClick={isCreating ? handleCreateUser : handleSaveUser}
                 disabled={creatingInFirebase}
@@ -503,7 +503,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
       {showPermisosModal && editingUser && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setShowPermisosModal(false)}>
           <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
-            <div className="p-8 border-b border-slate-800 flex items-center justify-between">
+            <div className="p-4 sm:p-6 md:p-8 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                 <Shield className="w-5 h-5 text-violet-400" />
                 Permisos de {editingUser.nombre}
@@ -512,7 +512,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                 <X size={20} />
               </button>
             </div>
-            <div className="p-8 space-y-5 overflow-y-auto max-h-[65vh]">
+            <div className="p-4 sm:p-6 md:p-8 space-y-5 overflow-y-auto max-h-[65vh]">
 
               {/* Módulos - Pills clickeables */}
               <div>
@@ -548,8 +548,8 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
               {/* Permisos por módulo - Nueva tabla con dropdowns */}
               <div>
                 <p className="text-white font-medium mb-3">Permisos detallados</p>
-                <div className="bg-slate-800/30 rounded-2xl overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="bg-slate-800/30 rounded-2xl overflow-x-auto">
+                  <table className="w-full text-sm min-w-[500px]">
                     <thead>
                       <tr className="border-b border-slate-300/30">
                         <th className="text-left p-3 text-slate-400 font-medium">Módulo</th>
@@ -757,7 +757,7 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
                 </button>
               </div>
             </div>
-            <div className="p-8 border-t border-slate-800 flex gap-3">
+            <div className="p-4 sm:p-6 md:p-8 border-t border-slate-800 flex gap-3">
               <button
                 onClick={handleSavePermisos}
                 className="flex-1 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90"

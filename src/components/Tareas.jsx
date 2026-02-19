@@ -147,12 +147,12 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
   const misTareasPendientes = tareas.filter(t => t.responsableId === currentUser?.id && !t.completada).length;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 md:space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-4xl font-black tracking-tight text-white flex items-center gap-3">
-            <Target className="w-7 h-7 text-cyan-400" />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white flex items-center gap-3">
+            <Target className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
             Tareas y Compromisos
           </h2>
           <p className="text-slate-400 mt-1">Gestiona las tareas derivadas de tus actividades</p>
@@ -167,7 +167,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 border border-white/[0.08]">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center">
@@ -216,7 +216,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
           <button
             key={f.id}
             onClick={() => setFiltro(f.id)}
-            className={`px-5 py-2.5 rounded-2xl text-sm font-medium transition-all ${
+            className={`px-3 py-2 sm:px-5 sm:py-2.5 rounded-2xl text-sm font-medium transition-all ${
               filtro === f.id
                 ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/30 font-semibold'
                 : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
@@ -348,7 +348,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
       {showForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
           <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-lg animate-modal-in shadow-2xl shadow-black/40">
-            <div className="p-8 border-b border-slate-800">
+            <div className="p-4 sm:p-6 md:p-8 border-b border-slate-800">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold text-white">
                   {editingTarea ? 'Editar Tarea' : 'Nueva Tarea'}
@@ -359,8 +359,8 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
               </div>
             </div>
 
-            <div className="p-8 space-y-4">
-              <div className="bg-teal-900/15 border border-teal-500/20 rounded-2xl p-5 space-y-4">
+            <div className="p-4 sm:p-6 md:p-8 space-y-4">
+              <div className="bg-teal-900/15 border border-teal-500/20 rounded-2xl p-3 sm:p-5 space-y-4">
               {/* Descripción */}
               <div>
                 <label className="block text-sm font-medium text-slate-400 mb-2">Descripción *</label>
@@ -373,7 +373,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Fecha Compromiso */}
                 <div>
                   <label className="block text-sm font-medium text-slate-400 mb-2">Fecha Compromiso *</label>
@@ -443,7 +443,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
               </div>
 
               {/* Cuenta o Prospecto */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-400 mb-2">Cuenta (opcional)</label>
                   <select
@@ -474,7 +474,7 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
               </div>
             </div>
 
-            <div className="p-8 border-t border-slate-800 flex gap-3">
+            <div className="p-4 sm:p-6 md:p-8 border-t border-slate-800 flex gap-3">
               <button
                 onClick={handleSubmit}
                 className="flex-1 px-4 py-3 bg-gradient-to-r from-cyan-500 to-violet-500 text-white rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90 transition-opacity"

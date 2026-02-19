@@ -21,7 +21,7 @@ const CRMContext = createContext(null);
 export function CRMProvider({ children }) {
   // UI state
   const [currentModule, setCurrentModule] = useState('dashboard');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 1024);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 

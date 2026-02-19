@@ -764,7 +764,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-black tracking-tight text-white mb-2">Leads</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white mb-2">Leads</h1>
           <p className="text-slate-400">{leads.length} prospectos</p>
         </div>
         <div className="flex items-center gap-3">
@@ -809,21 +809,21 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
         const scores = leads.map(l => calcularLeadScore(l, actividades, pipeline)?.score || 0);
         const scorePromedio = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
         return (
-          <div className="flex gap-6">
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{totalActivos}</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{totalActivos}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Total leads activos</div>
             </div>
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{listosConvertir}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{listosConvertir}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Listos para convertir</div>
             </div>
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{leadsEstaSemana}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{leadsEstaSemana}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Leads esta semana</div>
             </div>
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{scorePromedio}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{scorePromedio}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Score promedio</div>
             </div>
           </div>
@@ -863,9 +863,9 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       {/* Formulario */}
       {showForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={resetForm}>
-        <div ref={formRef} className="bg-slate-900 rounded-3xl p-8 border border-slate-300/40 w-full max-w-3xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
+        <div ref={formRef} className="bg-slate-900 rounded-3xl p-4 sm:p-6 md:p-8 border border-slate-300/40 w-[calc(100%-16px)] sm:w-full max-w-3xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40 mx-2 sm:mx-4" onClick={e => e.stopPropagation()}>
           <h2 className="text-xl font-bold text-white mb-6">{editingId ? 'Editar Lead' : 'Nuevo Lead'}</h2>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input type="text" placeholder="Empresa *" value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
             <input type="text" placeholder="Contacto" value={form.contacto} onChange={(e) => setForm({ ...form, contacto: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             <input type="text" placeholder="Cargo" value={form.cargo} onChange={(e) => setForm({ ...form, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
@@ -1181,9 +1181,9 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       {/* Modal de detalle del Lead */}
       {selectedLead && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setSelectedLead(null)}>
-          <div className="bg-slate-900 rounded-3xl border border-white/[0.08] w-full max-w-4xl max-h-[90vh] overflow-hidden animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
+          <div className="bg-slate-900 rounded-3xl border border-white/[0.08] w-[calc(100%-16px)] sm:w-full max-w-4xl max-h-[90vh] overflow-hidden animate-modal-in shadow-2xl shadow-black/40 mx-2 sm:mx-4" onClick={e => e.stopPropagation()}>
             {/* Header del modal */}
-            <div className="p-8 border-b border-slate-300/30">
+            <div className="p-4 sm:p-6 md:p-8 border-b border-slate-300/30">
               {/* Fila 1: Título + Score + Cerrar */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4">
@@ -1251,7 +1251,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
             </div>
 
             {/* Tabs */}
-            <div className="flex border-b border-slate-300/30 px-8">
+            <div className="flex flex-wrap border-b border-slate-300/30 px-4 sm:px-6 md:px-8">
               {[
                 { id: 'info', name: 'Información', icon: User },
                 { id: 'actividades', name: 'Actividades', icon: PhoneCall },
@@ -1278,10 +1278,10 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
             </div>
 
             {/* Contenido del modal */}
-            <div className="p-8 overflow-y-auto max-h-[calc(90vh-200px)]">
+            <div className="p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[calc(90vh-200px)]">
               {/* Tab: Información */}
               {modalTab === 'info' && (
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Datos del lead */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-slate-800/50 rounded-2xl p-5">
@@ -1655,14 +1655,14 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       {/* Modal de Nueva/Editar Actividad para Leads */}
       {showActividadForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setShowActividadForm(false)}>
-          <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
-            <div className="p-8 border-b border-slate-800 flex items-center justify-between">
+          <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-[calc(100%-16px)] sm:w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40 mx-2 sm:mx-4" onClick={e => e.stopPropagation()}>
+            <div className="p-4 sm:p-6 md:p-8 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white">{editingActividad ? 'Editar Actividad' : 'Nueva Actividad'}</h3>
               <button onClick={() => setShowActividadForm(false)} className="text-slate-400 hover:text-white"><X size={20} /></button>
             </div>
-            <form onSubmit={handleSaveActividad} className="p-8 space-y-4">
-              <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-2xl p-5 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handleSaveActividad} className="p-4 sm:p-6 md:p-8 space-y-4">
+              <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-2xl p-4 sm:p-5 space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <select value={actividadForm.tipo} onChange={(e) => setActividadForm({ ...actividadForm, tipo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                   {TIPOS_ACTIVIDAD.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>

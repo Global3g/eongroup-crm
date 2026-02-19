@@ -52,14 +52,14 @@ function LoginScreen() {
 
       <div className="relative z-10 w-full max-w-md">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 sm:mb-8">
           <img src="/logo-eon.png" alt="Grupo EÖN" className="w-16 h-16 mx-auto rounded-2xl object-cover mb-4" />
-          <h1 className="text-3xl font-bold text-white">Grupo EÖN CRM</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Grupo EÖN CRM</h1>
           <p className="text-slate-400 mt-2">Gestiona tu equipo de ventas</p>
         </div>
 
         {/* Form Card */}
-        <div className="bg-slate-900/80 backdrop-blur-xl rounded-2xl border-2 border-slate-400 p-8">
+        <div className="bg-slate-900/80 backdrop-blur-xl rounded-2xl border-2 border-slate-400 p-4 sm:p-6 md:p-8">
           <h2 className="text-xl font-semibold text-white mb-6 text-center">
             Iniciar Sesión
           </h2>

@@ -1138,8 +1138,8 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
     const DetailSugIcon = ICON_MAP[detailSugerencia?.icono] || Zap;
 
     return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <button onClick={() => { setSelectedProspecto(null); setActiveTab('info'); }} className="p-2 hover:bg-slate-800 rounded-xl transition-all">
               <X size={24} className="text-slate-400" />
@@ -1167,7 +1167,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
             </div>
           </div>
           {puedeEditarProspecto(prospecto) && (
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <button onClick={() => setShowActividadForm(true)} className="flex items-center gap-2 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 text-violet-400 px-4 py-2 rounded-xl transition-all">
                 <Plus size={16} /> Actividad
               </button>
@@ -1220,7 +1220,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
         )}
 
         {/* Tabs */}
-        <div className="flex gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
+        <div className="flex flex-wrap gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
           {[
             { id: 'info', name: 'Información', icon: GitBranch },
             { id: 'actividades', name: 'Actividades', icon: PhoneCall, count: actividadesProspecto.length },
@@ -1240,10 +1240,10 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
 
         {/* Form Actividad */}
         {showActividadForm && (
-          <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-2xl p-5">
+          <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-2xl p-3 sm:p-4 md:p-5">
             <h3 className="text-lg font-semibold text-white mb-4">{editingActividad ? 'Editar Actividad' : 'Nueva Actividad'}</h3>
             <form onSubmit={handleAddActividad} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <select value={actividadForm.tipo} onChange={(e) => setActividadForm({ ...actividadForm, tipo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                   {TIPOS_ACTIVIDAD.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>
@@ -1253,8 +1253,8 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
                   <option value="">Asignar a... (yo mismo)</option>
                   {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
                 </select>
-                <textarea placeholder="Descripción" value={actividadForm.descripcion} onChange={(e) => setActividadForm({ ...actividadForm, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="2"></textarea>
-                <div className="md:col-span-2">
+                <textarea placeholder="Descripción" value={actividadForm.descripcion} onChange={(e) => setActividadForm({ ...actividadForm, descripcion: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="2"></textarea>
+                <div className="sm:col-span-2">
                   <label className="block text-slate-400 text-sm mb-2">Adjuntar archivo (opcional)</label>
                   <div className="border-2 border-dashed border-slate-300/40 rounded-xl p-4 text-center hover:border-violet-500/50 transition-all">
                     <input type="file" onChange={(e) => setActividadArchivo(e.target.files[0])} className="hidden" id="pipeline-actividad-file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif,.webp" />
@@ -1322,7 +1322,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
                   {mostrarFormTarea && (
                     <div className="bg-slate-800/50 rounded-2xl p-4 mb-3 space-y-3">
                       <input type="text" placeholder="Descripción de la tarea *" value={tareaTemp.descripcion} onChange={(e) => setTareaTemp({ ...tareaTemp, descripcion: e.target.value })} className="w-full px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm placeholder-slate-500" />
-                      <div className="grid grid-cols-5 gap-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
                         <input type="date" value={tareaTemp.fechaCompromiso} onChange={(e) => setTareaTemp({ ...tareaTemp, fechaCompromiso: e.target.value })} className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm" />
                         <input type="time" value={tareaTemp.hora} onChange={(e) => setTareaTemp({ ...tareaTemp, hora: e.target.value })} className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm" />
                         <select value={tareaTemp.prioridad} onChange={(e) => setTareaTemp({ ...tareaTemp, prioridad: e.target.value })} className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm">
@@ -1417,7 +1417,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
                     {mostrarFormRecordatorioNuevo && (
                       <div className="bg-slate-800/50 rounded-2xl p-4 mb-3 space-y-3">
                         <input type="text" placeholder="Título del recordatorio *" value={recordatorioTemp.titulo} onChange={(e) => setRecordatorioTemp({ ...recordatorioTemp, titulo: e.target.value })} className="w-full px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm placeholder-slate-500" />
-                        <div className="grid grid-cols-3 gap-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                           <input type="date" value={recordatorioTemp.fecha} onChange={(e) => setRecordatorioTemp({ ...recordatorioTemp, fecha: e.target.value })} className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm" />
                           <input type="time" value={recordatorioTemp.hora} onChange={(e) => setRecordatorioTemp({ ...recordatorioTemp, hora: e.target.value })} className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm" />
                           <select value={recordatorioTemp.responsableId} onChange={(e) => setRecordatorioTemp({ ...recordatorioTemp, responsableId: e.target.value })} className="px-3 py-3 bg-slate-700 border border-slate-300/40 rounded-2xl text-white text-sm">
@@ -1471,7 +1471,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
         {/* Modal Ver Detalle de Actividad */}
         {viewingActividad && (
           <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={() => setViewingActividad(null)}>
-            <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-[calc(100%-16px)] sm:w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40 mx-2 sm:mx-4" onClick={(e) => e.stopPropagation()}>
               {(() => {
                 const tipo = TIPOS_ACTIVIDAD.find(t => t.id === viewingActividad.tipo);
                 const Icon = tipo?.icon || MessageSquare;
@@ -1483,7 +1483,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
                 return (
                   <>
                     {/* Header */}
-                    <div className={`${tipo?.color} p-8 rounded-t-3xl`}>
+                    <div className={`${tipo?.color} p-4 sm:p-6 md:p-8 rounded-t-3xl`}>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                           <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
@@ -1501,9 +1501,9 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
                     </div>
 
                     {/* Content */}
-                    <div className="p-8 space-y-6">
+                    <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
                       {/* Información Principal */}
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="bg-slate-800/50 rounded-2xl p-5">
                           <p className="text-slate-500 text-xs mb-1">Fecha</p>
                           <p className="text-white font-medium">{formatDate(viewingActividad.fecha)}</p>
@@ -1636,18 +1636,18 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
 
         {/* Form Recordatorio */}
         {showRecordatorioForm && (
-          <div className="bg-amber-900/15 border border-amber-500/20 rounded-2xl p-5">
+          <div className="bg-amber-900/15 border border-amber-500/20 rounded-2xl p-3 sm:p-4 md:p-5">
             <h3 className="text-lg font-semibold text-white mb-4">{editingRecordatorio ? 'Editar Recordatorio' : 'Nuevo Recordatorio'}</h3>
-            <form onSubmit={handleAddRecordatorio} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form onSubmit={handleAddRecordatorio} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input type="text" placeholder="Título *" value={recordatorioForm.titulo} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, titulo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
               <input type="date" value={recordatorioForm.fecha} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, fecha: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" required />
               <input type="time" value={recordatorioForm.hora} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, hora: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" />
-              <select value={recordatorioForm.responsableId} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, responsableId: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
+              <select value={recordatorioForm.responsableId} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, responsableId: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                 <option value="">Asignar a... (yo mismo)</option>
                 {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
               </select>
-              <textarea placeholder="Descripción" value={recordatorioForm.descripcion} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="2"></textarea>
-              <div className="md:col-span-2 flex gap-3">
+              <textarea placeholder="Descripción" value={recordatorioForm.descripcion} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, descripcion: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="2"></textarea>
+              <div className="sm:col-span-2 flex gap-3">
                 <button type="submit" className="flex items-center gap-2 bg-amber-500 text-white px-5 py-3 rounded-2xl hover:bg-amber-600 transition-all font-semibold shadow-lg shadow-amber-500/30"><Save size={18} /> {editingRecordatorio ? 'Guardar Cambios' : 'Guardar'}</button>
                 <button type="button" onClick={() => { setShowRecordatorioForm(false); setEditingRecordatorio(null); }} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white hover:bg-slate-600/50 px-5 py-3 rounded-2xl transition-all"><X size={18} /> Cancelar</button>
               </div>
@@ -1658,7 +1658,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
         {/* Tab: Info */}
         {activeTab === 'info' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+            <div className="lg:col-span-2 bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Información del Proyecto</h3>
                 {puedeEditarProspecto(prospecto) && (
@@ -1667,7 +1667,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
                   </button>
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><p className="text-slate-500 text-sm">Proyecto</p><p className="text-white">{prospecto?.nombre}</p></div>
                 <div><p className="text-slate-500 text-sm">Cliente/Empresa</p><p className="text-cyan-400">{prospecto?.empresa}</p></div>
                 <div><p className="text-slate-500 text-sm">Contacto</p><p className="text-white">{prospecto?.contacto || '-'}</p></div>
@@ -1705,7 +1705,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
               {prospecto?.notas && (<div className="mt-4 pt-4 border-t border-slate-800"><p className="text-slate-500 text-sm mb-1">Notas</p><p className="text-slate-300">{prospecto.notas}</p></div>)}
               {prospecto?.notaRapida && (<div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl"><p className="text-slate-500 text-xs mb-1">Nota Rápida</p><p className="text-amber-200">{prospecto.notaRapida}</p></div>)}
             </div>
-            <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+            <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
               <h3 className="text-lg font-semibold text-white mb-4">Acciones</h3>
               <div className="space-y-3">
                 {(prospecto?.telefono || contacto?.telefono) && (
@@ -1888,7 +1888,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
 
         {/* Tab: Tareas */}
         {activeTab === 'tareas' && (
-          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Tareas y Compromisos</h3>
               <button
@@ -1905,10 +1905,10 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
 
             {/* Form Tarea */}
             {showTareaForm && (
-              <div className="bg-teal-900/15 border border-teal-500/20 rounded-2xl p-5 mb-4">
+              <div className="bg-teal-900/15 border border-teal-500/20 rounded-2xl p-3 sm:p-4 md:p-5 mb-4">
                 <h3 className="text-lg font-semibold text-white mb-4">{editingTarea ? 'Editar Tarea' : 'Nueva Tarea'}</h3>
-                <form onSubmit={handleAddTareaForm} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input type="text" placeholder="Descripción de la tarea *" value={tareaFormData.descripcion} onChange={(e) => setTareaFormData({ ...tareaFormData, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
+                <form onSubmit={handleAddTareaForm} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input type="text" placeholder="Descripción de la tarea *" value={tareaFormData.descripcion} onChange={(e) => setTareaFormData({ ...tareaFormData, descripcion: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
                   <input type="date" value={tareaFormData.fechaCompromiso} onChange={(e) => setTareaFormData({ ...tareaFormData, fechaCompromiso: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" required />
                   <input type="time" value={tareaFormData.hora} onChange={(e) => setTareaFormData({ ...tareaFormData, hora: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" />
                   <select value={tareaFormData.prioridad} onChange={(e) => setTareaFormData({ ...tareaFormData, prioridad: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
@@ -1919,11 +1919,11 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
                   <select value={tareaFormData.recurrencia || 'ninguna'} onChange={(e) => setTareaFormData({ ...tareaFormData, recurrencia: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                     {RECURRENCIA_OPTIONS.map(opt => <option key={opt.id} value={opt.id}>{opt.label}</option>)}
                   </select>
-                  <select value={tareaFormData.responsableId} onChange={(e) => setTareaFormData({ ...tareaFormData, responsableId: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
+                  <select value={tareaFormData.responsableId} onChange={(e) => setTareaFormData({ ...tareaFormData, responsableId: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                     <option value="">Asignar a... (yo mismo)</option>
                     {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
                   </select>
-                  <div className="md:col-span-2 flex gap-3">
+                  <div className="sm:col-span-2 flex gap-3">
                     <button type="submit" className="flex items-center gap-2 bg-cyan-500 text-white px-5 py-3 rounded-2xl hover:bg-cyan-600 transition-all font-semibold shadow-lg shadow-cyan-500/30"><Save size={18} /> {editingTarea ? 'Guardar Cambios' : 'Guardar'}</button>
                     <button type="button" onClick={() => { setShowTareaForm(false); setEditingTarea(null); }} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white hover:bg-slate-600/50 px-5 py-3 rounded-2xl transition-all"><X size={18} /> Cancelar</button>
                   </div>
@@ -2032,11 +2032,11 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-black tracking-tight text-white mb-2">Pipeline</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white mb-2">Pipeline</h1>
           <p className="text-slate-400">{pipelineFiltrado.length} oportunidades{filterConditions.length > 0 ? ` (${pipeline.length} total)` : ''}</p>
         </div>
         <div className="flex items-center gap-3">
@@ -2075,22 +2075,22 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
         const cerrados = pipeline.filter(p => p.etapa === 'cerrado').length;
         const tasaConversion = pipeline.length > 0 ? Math.round((cerrados / pipeline.length) * 100) : 0;
         return (
-          <div className="flex gap-6">
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{totalEnPipeline}</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{totalEnPipeline}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Total en pipeline</div>
             </div>
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">${valorTotal.toLocaleString('es-MX')}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">${valorTotal.toLocaleString('es-MX')}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Valor total USD</div>
             </div>
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{porCerrar}</div>
-              <div className="text-xs text-slate-400 uppercase mt-1">Por cerrar (negociación)</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{porCerrar}</div>
+              <div className="text-xs text-slate-400 uppercase mt-1">Por cerrar (negociacion)</div>
             </div>
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{tasaConversion}%</div>
-              <div className="text-xs text-slate-400 uppercase mt-1">Tasa de conversión</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{tasaConversion}%</div>
+              <div className="text-xs text-slate-400 uppercase mt-1">Tasa de conversion</div>
             </div>
           </div>
         );
@@ -2104,9 +2104,9 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
 
       {/* Formulario */}
       {showForm && (
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-8 border border-white/[0.08]">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border border-white/[0.08]">
           <h2 className="text-xl font-bold text-white mb-6">{editingId ? 'Editar Oportunidad' : 'Nueva Oportunidad'}</h2>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input type="text" placeholder="Empresa / Cliente *" value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
             <input type="text" placeholder="Nombre del contacto" value={form.contacto} onChange={(e) => setForm({ ...form, contacto: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
             <input type="text" placeholder="Cargo" value={form.cargo} onChange={(e) => setForm({ ...form, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
@@ -2177,7 +2177,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
               {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
             </select>
             {/* Logo */}
-            <div className="md:col-span-2">
+            <div className="sm:col-span-2">
               <p className="text-slate-400 text-sm mb-2">Logo de la empresa</p>
               <div className="flex items-center gap-4">
                 {logoPreview ? (
@@ -2198,8 +2198,8 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
                 {subiendoLogo && <span className="text-cyan-400 text-sm flex items-center gap-2"><Loader size={14} className="animate-spin" /> Subiendo...</span>}
               </div>
             </div>
-            <textarea placeholder="Notas" value={form.notas} onChange={(e) => setForm({ ...form, notas: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50 resize-none" rows="2"></textarea>
-            <div className="md:col-span-2 flex gap-3">
+            <textarea placeholder="Notas" value={form.notas} onChange={(e) => setForm({ ...form, notas: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50 resize-none" rows="2"></textarea>
+            <div className="sm:col-span-2 flex gap-3">
               <button type="submit" disabled={subiendoLogo} className={`flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-2xl hover:opacity-90 transition-all font-semibold shadow-lg shadow-cyan-500/30 ${subiendoLogo ? 'opacity-50 cursor-not-allowed' : ''}`}>
                 {subiendoLogo ? <><Loader size={20} className="animate-spin" /> Subiendo logo...</> : <><Save size={20} /> Guardar</>}
               </button>
@@ -2236,8 +2236,8 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
 
       {/* Kanban Board */}
       {vistaActual === 'kanban' && pipelineFiltrado.length > 0 && (
-      <div className="overflow-x-auto pb-4">
-        <div className="flex gap-4 min-w-max">
+      <div className="overflow-x-auto pb-4 -mx-3 sm:mx-0 px-3 sm:px-0">
+        <div className="flex gap-2 sm:gap-3 md:gap-4 min-w-max">
           {PIPELINE_STAGES.map(stage => {
             const items = pipelineFiltrado.filter(p => p.etapa === stage.id);
             return (

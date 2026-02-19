@@ -4,8 +4,8 @@ import { Inbox } from 'lucide-react';
 const EmptyState = ({ icon: Icon = Inbox, title = 'Sin datos', description, actionLabel, onAction }) => {
   return (
     <div className="flex flex-col items-center justify-center py-12 px-6 text-center animate-fade-in">
-      <div className="p-8 rounded-3xl bg-gradient-to-br from-slate-700/70 to-slate-800/70 mb-5 shadow-lg shadow-slate-800/40">
-        <Icon className="w-20 h-20 text-slate-400" />
+      <div className="p-4 sm:p-6 md:p-8 rounded-3xl bg-gradient-to-br from-slate-700/70 to-slate-800/70 mb-5 shadow-lg shadow-slate-800/40">
+        <Icon className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 text-slate-400" />
       </div>
       <h3 className="text-xl font-bold text-white mb-1">{title}</h3>
       {description && (

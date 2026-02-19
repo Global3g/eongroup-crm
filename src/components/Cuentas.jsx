@@ -1067,9 +1067,9 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
     const timeline = getTimeline(selectedCuenta);
 
     return (
-      <div className="space-y-8">
+      <div className="space-y-4 sm:space-y-6 md:space-y-8">
         {/* Detail Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-4">
             <button onClick={() => { setSelectedCuenta(null); setActiveTab('info'); }} className="p-2 hover:bg-slate-800 rounded-xl transition-all">
               <X size={24} className="text-slate-400" />
@@ -1094,16 +1094,16 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
               <p className="text-slate-400">{cuenta?.industria}</p>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {puedeEditarCuenta(cuenta) && (
               <>
-                <button onClick={() => { setEditingActividad(null); setActividadForm({ tipo: 'llamada', titulo: '', descripcion: '', fecha: getFechaLocal(), responsableId: '' }); setTareasNuevas([]); setRecordatoriosNuevos([]); setShowActividadForm(true); }} className="flex items-center gap-2 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 text-violet-400 px-4 py-2 rounded-xl transition-all">
+                <button onClick={() => { setEditingActividad(null); setActividadForm({ tipo: 'llamada', titulo: '', descripcion: '', fecha: getFechaLocal(), responsableId: '' }); setTareasNuevas([]); setRecordatoriosNuevos([]); setShowActividadForm(true); }} className="flex items-center gap-2 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 text-violet-400 px-3 sm:px-4 py-2 rounded-xl transition-all text-sm sm:text-base">
                   <Plus size={16} /> Actividad
                 </button>
-                <button onClick={() => { setEditingTarea(null); setTareaFormData({ descripcion: '', fechaCompromiso: getFechaLocal(), hora: '', prioridad: 'media', responsableId: '' }); setShowTareaForm(true); }} className="flex items-center gap-2 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/30 text-cyan-400 px-4 py-2 rounded-xl transition-all">
+                <button onClick={() => { setEditingTarea(null); setTareaFormData({ descripcion: '', fechaCompromiso: getFechaLocal(), hora: '', prioridad: 'media', responsableId: '' }); setShowTareaForm(true); }} className="flex items-center gap-2 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/30 text-cyan-400 px-3 sm:px-4 py-2 rounded-xl transition-all text-sm sm:text-base">
                   <Target size={16} /> Tarea
                 </button>
-                <button onClick={() => { setEditingRecordatorio(null); setRecordatorioForm({ titulo: '', fecha: '', hora: '', descripcion: '', responsableId: '' }); setShowRecordatorioForm(true); }} className="flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-400 px-4 py-2 rounded-xl transition-all">
+                <button onClick={() => { setEditingRecordatorio(null); setRecordatorioForm({ titulo: '', fecha: '', hora: '', descripcion: '', responsableId: '' }); setShowRecordatorioForm(true); }} className="flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-400 px-3 sm:px-4 py-2 rounded-xl transition-all text-sm sm:text-base">
                   <Bell size={16} /> Recordatorio
                 </button>
               </>
@@ -1130,7 +1130,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
         {/* Panel Resumen Inteligente */}
         {showResumen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
-            <div className="bg-slate-900 border border-violet-500/30 rounded-3xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl shadow-violet-500/10 mx-4 animate-modal-in">
+            <div className="bg-slate-900 border border-violet-500/30 rounded-3xl w-[calc(100%-16px)] sm:w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl shadow-violet-500/10 mx-2 sm:mx-4 animate-modal-in">
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-violet-500/20">
                 <div className="flex items-center gap-3">
@@ -1181,7 +1181,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
         )}
 
         {/* Tabs */}
-        <div className="flex gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
+        <div className="flex flex-wrap gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
           {[
             { id: 'info', name: 'Informacion', icon: Building },
             { id: 'contactos', name: 'Contactos', icon: Users, count: contactosCuenta.length },
@@ -1207,10 +1207,10 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* Form Actividad */}
         {showActividadForm && (
-          <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-2xl p-5">
+          <div className="bg-indigo-900/15 border border-indigo-500/20 rounded-2xl p-3 sm:p-4 md:p-5">
             <h3 className="text-lg font-semibold text-white mb-4">{editingActividad ? 'Editar Actividad' : 'Nueva Actividad'}</h3>
             <form onSubmit={handleAddActividad} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <select value={actividadForm.tipo} onChange={(e) => setActividadForm({ ...actividadForm, tipo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                   {TIPOS_ACTIVIDAD.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>
@@ -1220,8 +1220,8 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                   <option value="">Asignar a... (yo mismo)</option>
                   {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
                 </select>
-                <textarea placeholder="Descripcion" value={actividadForm.descripcion} onChange={(e) => setActividadForm({ ...actividadForm, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="3"></textarea>
-                <div className="md:col-span-2">
+                <textarea placeholder="Descripcion" value={actividadForm.descripcion} onChange={(e) => setActividadForm({ ...actividadForm, descripcion: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="3"></textarea>
+                <div className="sm:col-span-2">
                   <label className="block text-slate-400 text-sm mb-2">Adjuntar archivo (opcional)</label>
                   <div className="border-2 border-dashed border-slate-300/40 rounded-xl p-4 text-center hover:border-violet-500/50 transition-all">
                     <input type="file" onChange={(e) => setActividadArchivo(e.target.files[0])} className="hidden" id="actividad-file-cuenta" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif,.webp" />
@@ -1252,7 +1252,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                 {mostrarFormTarea && (
                   <div className="bg-slate-800/50 rounded-xl p-4 mb-3 space-y-3">
                     <input type="text" placeholder="Descripcion *" value={tareaTemp.descripcion} onChange={(e) => setTareaTemp({ ...tareaTemp, descripcion: e.target.value })} className="w-full px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm" />
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       <input type="date" value={tareaTemp.fechaCompromiso} onChange={(e) => setTareaTemp({ ...tareaTemp, fechaCompromiso: e.target.value })} className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm" />
                       <input type="time" value={tareaTemp.hora} onChange={(e) => setTareaTemp({ ...tareaTemp, hora: e.target.value })} className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm" />
                       <select value={tareaTemp.prioridad} onChange={(e) => setTareaTemp({ ...tareaTemp, prioridad: e.target.value })} className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm"><option value="baja">Baja</option><option value="media">Media</option><option value="alta">Alta</option></select>
@@ -1282,7 +1282,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                 {mostrarFormRecordatorioNuevo && (
                   <div className="bg-slate-800/50 rounded-xl p-4 mb-3 space-y-3">
                     <input type="text" placeholder="Titulo *" value={recordatorioTemp.titulo} onChange={(e) => setRecordatorioTemp({ ...recordatorioTemp, titulo: e.target.value })} className="w-full px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm" />
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       <input type="date" value={recordatorioTemp.fecha} onChange={(e) => setRecordatorioTemp({ ...recordatorioTemp, fecha: e.target.value })} className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm" />
                       <input type="time" value={recordatorioTemp.hora} onChange={(e) => setRecordatorioTemp({ ...recordatorioTemp, hora: e.target.value })} className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm" />
                       <select value={recordatorioTemp.responsableId} onChange={(e) => setRecordatorioTemp({ ...recordatorioTemp, responsableId: e.target.value })} className="px-3 py-2 bg-slate-700 border border-slate-300/40 rounded-lg text-white text-sm"><option value="">Yo mismo</option>{usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}</select>
@@ -1306,16 +1306,16 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* Form Tarea */}
         {showTareaForm && (
-          <div className="bg-teal-900/15 border border-teal-500/20 rounded-2xl p-5">
+          <div className="bg-teal-900/15 border border-teal-500/20 rounded-2xl p-3 sm:p-4 md:p-5">
             <h3 className="text-lg font-semibold text-white mb-4">{editingTarea ? 'Editar Tarea' : 'Nueva Tarea'}</h3>
-            <form onSubmit={handleAddTareaForm} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" placeholder="Descripcion *" value={tareaFormData.descripcion} onChange={(e) => setTareaFormData({ ...tareaFormData, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
+            <form onSubmit={handleAddTareaForm} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input type="text" placeholder="Descripcion *" value={tareaFormData.descripcion} onChange={(e) => setTareaFormData({ ...tareaFormData, descripcion: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
               <input type="date" value={tareaFormData.fechaCompromiso} onChange={(e) => setTareaFormData({ ...tareaFormData, fechaCompromiso: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" required />
               <input type="time" value={tareaFormData.hora} onChange={(e) => setTareaFormData({ ...tareaFormData, hora: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" />
               <select value={tareaFormData.prioridad} onChange={(e) => setTareaFormData({ ...tareaFormData, prioridad: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"><option value="baja">Baja</option><option value="media">Media</option><option value="alta">Alta</option></select>
               <select value={tareaFormData.recurrencia || 'ninguna'} onChange={(e) => setTareaFormData({ ...tareaFormData, recurrencia: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">{RECURRENCIA_OPTIONS.map(opt => <option key={opt.id} value={opt.id}>{opt.label}</option>)}</select>
-              <select value={tareaFormData.responsableId} onChange={(e) => setTareaFormData({ ...tareaFormData, responsableId: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"><option value="">Asignar a... (yo mismo)</option>{usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}</select>
-              <div className="md:col-span-2 flex gap-3">
+              <select value={tareaFormData.responsableId} onChange={(e) => setTareaFormData({ ...tareaFormData, responsableId: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white"><option value="">Asignar a... (yo mismo)</option>{usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}</select>
+              <div className="sm:col-span-2 flex gap-3">
                 <button type="submit" className="flex items-center gap-2 bg-cyan-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:bg-cyan-600"><Save size={18} /> {editingTarea ? 'Guardar Cambios' : 'Guardar'}</button>
                 <button type="button" onClick={() => { setShowTareaForm(false); setEditingTarea(null); }} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white px-5 py-3 rounded-2xl hover:bg-slate-600/50"><X size={18} /> Cancelar</button>
               </div>
@@ -1325,18 +1325,18 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* Form Recordatorio */}
         {showRecordatorioForm && (
-          <div className="bg-amber-900/15 border border-amber-500/20 rounded-2xl p-5">
+          <div className="bg-amber-900/15 border border-amber-500/20 rounded-2xl p-3 sm:p-4 md:p-5">
             <h3 className="text-lg font-semibold text-white mb-4">{editingRecordatorio ? 'Editar Recordatorio' : 'Nuevo Recordatorio'}</h3>
-            <form onSubmit={handleAddRecordatorio} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form onSubmit={handleAddRecordatorio} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input type="text" placeholder="Titulo *" value={recordatorioForm.titulo} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, titulo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500" required />
               <input type="date" value={recordatorioForm.fecha} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, fecha: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" required />
               <input type="time" value={recordatorioForm.hora} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, hora: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white" />
-              <select value={recordatorioForm.responsableId} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, responsableId: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
+              <select value={recordatorioForm.responsableId} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, responsableId: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white">
                 <option value="">Asignar a... (yo mismo)</option>
                 {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
               </select>
-              <textarea placeholder="Descripcion" value={recordatorioForm.descripcion} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, descripcion: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="2"></textarea>
-              <div className="md:col-span-2 flex gap-3">
+              <textarea placeholder="Descripcion" value={recordatorioForm.descripcion} onChange={(e) => setRecordatorioForm({ ...recordatorioForm, descripcion: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 resize-none" rows="2"></textarea>
+              <div className="sm:col-span-2 flex gap-3">
                 <button type="submit" className="flex items-center gap-2 bg-amber-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-amber-500/30 hover:bg-amber-600"><Save size={18} /> {editingRecordatorio ? 'Guardar Cambios' : 'Guardar'}</button>
                 <button type="button" onClick={() => { setShowRecordatorioForm(false); setEditingRecordatorio(null); }} className="flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 text-white px-5 py-3 rounded-2xl hover:bg-slate-600/50"><X size={18} /> Cancelar</button>
               </div>
@@ -1347,7 +1347,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
         {/* ====== TAB: Info ====== */}
         {activeTab === 'info' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+            <div className="lg:col-span-2 bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Informacion de la Cuenta</h3>
                 {puedeEditarCuenta(cuenta) && (
@@ -1356,7 +1356,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                   </button>
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><p className="text-slate-500 text-sm">Contacto Principal</p><p className="text-white">{contactoPrincipal?.nombre || '-'}</p></div>
                 <div><p className="text-slate-500 text-sm">Cargo</p><p className="text-white">{contactoPrincipal?.cargo || '-'}</p></div>
                 <div><p className="text-slate-500 text-sm">Email</p><p className="text-cyan-400">{contactoPrincipal?.email || '-'}</p></div>
@@ -1382,7 +1382,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
               </div>
               {cuenta?.notas && (<div className="mt-4 pt-4 border-t border-slate-800"><p className="text-slate-500 text-sm mb-1">Notas</p><p className="text-slate-300">{cuenta.notas}</p></div>)}
             </div>
-            <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+            <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
               <h3 className="text-lg font-semibold text-white mb-4">Acciones</h3>
               <div className="space-y-3">
                 {contactoPrincipal?.telefono && (
@@ -1400,7 +1400,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* ====== TAB: Contactos ====== */}
         {activeTab === 'contactos' && (
-          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white flex items-center gap-2"><Users size={20} className="text-cyan-400" /> Contactos de la Cuenta</h3>
               {puedeCrearContacto && (
@@ -1415,9 +1415,9 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
             {/* Add/Edit Contact Form */}
             {showContactForm && (
-              <form onSubmit={handleAddContacto} className="mb-6 bg-slate-800/50 rounded-xl p-5 border border-cyan-500/20">
+              <form onSubmit={handleAddContacto} className="mb-6 bg-slate-800/50 rounded-xl p-3 sm:p-4 md:p-5 border border-cyan-500/20">
                 <h4 className="text-sm font-semibold text-cyan-400 mb-3">{editingContactId ? 'Editar Contacto' : 'Nuevo Contacto'}</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <input type="text" placeholder="Nombre *" value={contactForm.nombre} onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
                   <input type="text" placeholder="Cargo" value={contactForm.cargo} onChange={(e) => setContactForm({ ...contactForm, cargo: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
                   <input type="email" placeholder="Email" value={contactForm.email} onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
@@ -1506,7 +1506,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* ====== TAB: Actividades ====== */}
         {activeTab === 'actividades' && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Registro Rapido de Comunicacion */}
             {puedeEditarCuenta(cuenta) && (
               <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-300/40 overflow-hidden">
@@ -1563,7 +1563,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
             {/* Timeline at top */}
             {actividadesCuenta.length > 0 && (
-              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+              <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
                 <h3 className="text-lg font-semibold text-white mb-4">Timeline</h3>
                 <Timeline
                   activities={timeline.map(evento => {
@@ -1582,7 +1582,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
               </div>
             )}
 
-            <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+            <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Historial de Actividades</h3>
                 {puedeEditarCuenta(cuenta) && (
@@ -1631,7 +1631,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
         {/* Modal Ver Detalle de Actividad */}
         {viewingActividad && (
           <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={() => setViewingActividad(null)}>
-            <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-slate-900 rounded-3xl border border-slate-300/40 w-[calc(100%-16px)] sm:w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40 mx-2 sm:mx-0" onClick={(e) => e.stopPropagation()}>
               {(() => {
                 const tipo = TIPOS_ACTIVIDAD.find(t => t.id === viewingActividad.tipo);
                 const Icon = tipo?.icon || MessageSquare;
@@ -1650,8 +1650,8 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                         <button onClick={() => setViewingActividad(null)} className="p-2 hover:bg-white/20 rounded-lg"><X size={24} className="text-white" /></button>
                       </div>
                     </div>
-                    <div className="p-8 space-y-6">
-                      <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-1">Fecha</p><p className="text-white font-medium">{formatDate(viewingActividad.fecha)}</p></div>
                         <div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-1">Responsable</p><p className={`font-medium ${responsable?.nombre ? getColorUsuario(responsable.nombre) : 'text-white'}`}>{responsable?.nombre || 'No asignado'}</p></div>
                       </div>
@@ -1685,7 +1685,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* ====== TAB: Tareas ====== */}
         {activeTab === 'tareas' && (
-          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Tareas y Compromisos</h3>
               {puedeEditarCuenta(cuenta) && (
@@ -1734,7 +1734,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* ====== TAB: Recordatorios ====== */}
         {activeTab === 'recordatorios' && (
-          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Recordatorios</h3>
               {puedeEditarCuenta(cuenta) && (
@@ -1785,7 +1785,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* ====== TAB: Deals ====== */}
         {activeTab === 'deals' && (
-          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+          <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
             <h3 className="text-lg font-semibold text-white mb-4">Proyectos en Pipeline</h3>
             {proyectosCuenta.length === 0 ? (
               <p className="text-slate-500 text-center py-8">No hay proyectos registrados para esta cuenta</p>
@@ -1819,11 +1819,11 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
   // ====== MAIN LIST VIEW ======
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 md:space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-black tracking-tight text-white mb-2">Cuentas</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white mb-2">Cuentas</h1>
           <p className="text-slate-400">{cuentas.length} empresas registradas</p>
         </div>
         {puedeCrear && (
@@ -1854,21 +1854,21 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
         const contactosTotales = (contactos || []).filter(c => cuentas.some(cu => cu.id === c.cuentaId)).length;
         const dealsAsociados = (pipeline || []).filter(p => cuentas.some(c => c.id === p.clienteId || c.id === p.cuentaId)).length;
         return (
-          <div className="flex gap-6">
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{totalActivas}</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{totalActivas}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Total cuentas activas</div>
             </div>
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{sinContacto14}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{sinContacto14}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Sin contacto +14 días</div>
             </div>
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{contactosTotales}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{contactosTotales}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Contactos totales</div>
             </div>
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-6 text-center flex-1">
-              <div className="text-3xl font-black text-white">{dealsAsociados}</div>
+            <div className="bg-slate-800/50 rounded-2xl border border-slate-300/40 p-3 sm:p-4 md:p-6 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-white">{dealsAsociados}</div>
               <div className="text-xs text-slate-400 uppercase mt-1">Deals asociados</div>
             </div>
           </div>
@@ -1911,9 +1911,9 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
       {/* Create/Edit Form Modal */}
       {showForm && (
-        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/[0.08]">
+        <div className="bg-slate-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-5 md:p-6 border border-white/[0.08]">
           <h2 className="text-xl font-bold text-white mb-6">{editingId ? 'Editar Cuenta' : 'Nueva Cuenta'}</h2>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input type="text" placeholder="Empresa *" value={form.empresa} onChange={(e) => setForm({ ...form, empresa: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" required />
             {/* Industria selector with add new */}
             <div className="relative">
@@ -2015,7 +2015,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
               </>
             )}
             {/* Tags */}
-            <div className="md:col-span-2">
+            <div className="sm:col-span-2">
               <p className="text-slate-400 text-sm mb-2">Etiquetas</p>
               <div className="flex flex-wrap gap-2">
                 {TAGS_DISPONIBLES.map(tag => (
@@ -2032,7 +2032,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
             </div>
             {/* Assigned to */}
             {esAdmin && (
-              <select value={form.asignadoA || ''} onChange={(e) => setForm({ ...form, asignadoA: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
+              <select value={form.asignadoA || ''} onChange={(e) => setForm({ ...form, asignadoA: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white focus:border-cyan-500/50">
                 <option value="">Asignar responsable... (yo mismo)</option>
                 {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre} {u.id === currentUser?.id ? '(yo)' : ''}</option>)}
               </select>
@@ -2046,7 +2046,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
               {usuariosActivos.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
             </select>
             {/* Logo */}
-            <div className="md:col-span-2">
+            <div className="sm:col-span-2">
               <p className="text-slate-400 text-sm mb-2">Logo de la empresa</p>
               <div className="flex items-center gap-4">
                 {logoPreview ? (
@@ -2067,11 +2067,11 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                 {subiendoLogo && <span className="text-cyan-400 text-sm flex items-center gap-2"><Loader size={14} className="animate-spin" /> Subiendo...</span>}
               </div>
             </div>
-            <textarea placeholder="Notas" value={form.notas} onChange={(e) => setForm({ ...form, notas: e.target.value })} className="md:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50 resize-none" rows="2"></textarea>
+            <textarea placeholder="Notas" value={form.notas} onChange={(e) => setForm({ ...form, notas: e.target.value })} className="sm:col-span-2 px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50 resize-none" rows="2"></textarea>
 
             {/* Contacto Principal section - only for new cuentas */}
             {!editingId && (
-              <div className="md:col-span-2 border-t border-slate-300/30 pt-4 mt-2">
+              <div className="sm:col-span-2 border-t border-slate-300/30 pt-4 mt-2">
                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2"><UserPlus size={20} className="text-cyan-400" /> Contacto Principal</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <input type="text" placeholder="Nombre del contacto" value={contactForm.nombre} onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })} className="px-4 py-3 bg-slate-800 border border-slate-300/40 rounded-2xl text-white placeholder-slate-500 focus:border-cyan-500/50" />
@@ -2082,7 +2082,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
               </div>
             )}
 
-            <div className="md:col-span-2 flex gap-3">
+            <div className="sm:col-span-2 flex gap-3">
               <button type="submit" disabled={subiendoLogo} className={`flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90 transition-all ${subiendoLogo ? 'opacity-50 cursor-not-allowed' : ''}`}>
                 {subiendoLogo ? <><Loader size={20} className="animate-spin" /> Subiendo logo...</> : <><Save size={20} /> Guardar</>}
               </button>
