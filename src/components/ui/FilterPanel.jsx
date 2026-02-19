@@ -93,7 +93,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
   const activeCount = conditions.filter(c => c.value !== '').length;
 
   return (
-    <div className="rounded-xl border-2 border-slate-400 bg-slate-800/50 overflow-hidden">
+    <div className="rounded-xl border border-white/[0.08] bg-slate-800/50 overflow-hidden">
       {/* Header */}
       <button
         onClick={() => setCollapsed(prev => !prev)}
@@ -158,7 +158,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                   <select
                     value={cond.field}
                     onChange={(e) => updateCondition(cond.id, 'field', e.target.value)}
-                    className="bg-slate-700 border border-slate-600 text-white text-xs rounded-lg px-2.5 py-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 min-w-[120px]"
+                    className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-2 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 min-w-[120px]"
                   >
                     {fields.map(f => (
                       <option key={f.key} value={f.key}>{f.label}</option>
@@ -169,7 +169,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                   <select
                     value={cond.operator}
                     onChange={(e) => updateCondition(cond.id, 'operator', e.target.value)}
-                    className="bg-slate-700 border border-slate-600 text-white text-xs rounded-lg px-2.5 py-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 min-w-[110px]"
+                    className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-2 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 min-w-[110px]"
                   >
                     {operators.map(op => (
                       <option key={op.value} value={op.value}>{op.label}</option>
@@ -181,7 +181,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                     <select
                       value={cond.value}
                       onChange={(e) => updateCondition(cond.id, 'value', e.target.value)}
-                      className="bg-slate-700 border border-slate-600 text-white text-xs rounded-lg px-2.5 py-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 flex-1 min-w-[140px]"
+                      className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-2 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 flex-1 min-w-[140px]"
                     >
                       <option value="">Seleccionar...</option>
                       {getFieldOptions(cond.field).map(opt => (
@@ -194,7 +194,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                       value={cond.value}
                       onChange={(e) => updateCondition(cond.id, 'value', e.target.value)}
                       placeholder="Valor..."
-                      className="bg-slate-700 border border-slate-600 text-white text-xs rounded-lg px-2.5 py-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 flex-1 min-w-[140px] placeholder-slate-500"
+                      className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-2 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 flex-1 min-w-[140px] placeholder-slate-500"
                     />
                   )}
 
@@ -245,7 +245,7 @@ const FilterPanel = ({ fields = [], onFilter, savedViews = [], onSaveView }) => 
                     value={viewName}
                     onChange={(e) => setViewName(e.target.value)}
                     placeholder="Nombre de la vista..."
-                    className="bg-slate-700 border border-slate-600 text-white text-xs rounded-lg px-2.5 py-1.5 focus:ring-cyan-500/30 focus:border-cyan-500/50 placeholder-slate-500 w-40"
+                    className="bg-slate-700 border border-white/[0.08] text-white text-xs rounded-lg px-2.5 py-1.5 focus:border-cyan-500/60 focus:bg-slate-800/70 focus:ring-cyan-500/30 placeholder-slate-500 w-40"
                     onKeyDown={(e) => e.key === 'Enter' && handleSaveView()}
                   />
                   <button onClick={handleSaveView} className="px-2 py-1.5 text-xs text-emerald-400 hover:text-emerald-300">

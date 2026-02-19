@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EON Group CRM - Presentacion Corporativa</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #050a18; color: #e2e8f0; overflow: hidden; height: 100vh; }
+
+  .slide { display: none; width: 100vw; height: 100vh; padding: 0; position: relative; overflow: hidden; }
+  .slide.active { display: flex; flex-direction: column; }
+
+  /* Navigation */
+  .nav { position: fixed; bottom: 24px; right: 32px; z-index: 100; display: flex; gap: 10px; align-items: center; }
+  .nav button { background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; padding: 12px 22px; border-radius: 14px; cursor: pointer; font-size: 15px; font-family: inherit; font-weight: 500; transition: all 0.3s; }
+  .nav button:hover { background: rgba(255,255,255,0.15); color: white; }
+  .nav .counter { color: rgba(255,255,255,0.35); font-size: 14px; font-weight: 600; letter-spacing: 1px; }
+
+  /* Progress bar */
+  .progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #06b6d4, #8b5cf6, #ec4899); transition: width 0.5s ease; z-index: 100; }
+
+  /* Glass card base */
+  .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; }
+
+  /* Slide inner container */
+  .slide-inner { width: 100%; height: 100%; padding: 56px 64px 80px; display: flex; flex-direction: column; }
+
+  /* Typography */
+  .tag { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
+
+  h1 { font-size: 76px; font-weight: 900; line-height: 1.05; letter-spacing: -2px; }
+  h2 { font-size: 56px; font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; }
+  h3 { font-size: 26px; font-weight: 400; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  .gradient-text { background: linear-gradient(135deg, #06b6d4, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .gradient-text-warm { background: linear-gradient(135deg, #f59e0b, #ef4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .gradient-text-green { background: linear-gradient(135deg, #10b981, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .gradient-text-pink { background: linear-gradient(135deg, #ec4899, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* Feature grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; align-content: center; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; flex: 1; align-content: center; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+
+  .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; padding: 32px; position: relative; overflow: hidden; }
+  .card-highlight { border-color: rgba(99,102,241,0.3); background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,212,0.05)); }
+  .card .icon-box { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 26px; }
+  .card h4 { font-size: 22px; font-weight: 700; color: white; margin-bottom: 10px; }
+  .card p { font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+  .card-sm h4 { font-size: 19px; }
+  .card-sm p { font-size: 15px; }
+
+  /* Stat boxes */
+  .stat-row { display: flex; gap: 20px; }
+  .stat-box { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 28px 32px; text-align: center; }
+  .stat-box .number { font-size: 52px; font-weight: 900; letter-spacing: -2px; line-height: 1; margin-bottom: 8px; }
+  .stat-box .label { font-size: 15px; color: rgba(255,255,255,0.4); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Two column */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; flex: 1; align-items: center; }
+
+  /* Check list */
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .check-list li { display: flex; align-items: flex-start; gap: 14px; font-size: 18px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+  .check-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; font-weight: 700; margin-top: 2px; }
+
+  /* Flow */
+  .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .flow-step { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 16px 28px; border-radius: 14px; font-size: 17px; font-weight: 600; color: white; position: relative; }
+  .flow-arrow { color: rgba(255,255,255,0.2); font-size: 24px; }
+
+  /* Role table */
+  .role-table { width: 100%; border-collapse: collapse; }
+  .role-table th { text-align: left; padding: 16px 20px; font-size: 14px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .role-table td { padding: 16px 20px; font-size: 17px; border-bottom: 1px solid rgba(255,255,255,0.04); color: rgba(255,255,255,0.6); }
+  .role-badge { padding: 6px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+
+  /* Badge/pill */
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+
+  /* Cover */
+  .cover-slide { justify-content: center; align-items: center; text-align: center; padding: 64px; }
+  .cover-slide h1 { font-size: 88px; letter-spacing: -3px; }
+
+  /* Accent line on top of cards */
+  .card-accent-top { border-top: 3px solid; }
+
+  /* Animations */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .slide.active .slide-inner > * { animation: fadeInUp 0.6s ease forwards; opacity: 0; }
+  .slide.active .slide-inner > *:nth-child(1) { animation-delay: 0s; }
+  .slide.active .slide-inner > *:nth-child(2) { animation-delay: 0.08s; }
+  .slide.active .slide-inner > *:nth-child(3) { animation-delay: 0.16s; }
+  .slide.active .slide-inner > *:nth-child(4) { animation-delay: 0.24s; }
+  .slide.active .slide-inner > *:nth-child(5) { animation-delay: 0.32s; }
+  .slide.active .cover-content > * { animation: fadeInUp 0.6s ease forwards; opacity: 0; }
+  .slide.active .cover-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .slide.active .cover-content > *:nth-child(2) { animation-delay: 0.25s; }
+  .slide.active .cover-content > *:nth-child(3) { animation-delay: 0.4s; }
+  .slide.active .cover-content > *:nth-child(4) { animation-delay: 0.55s; }
+  .slide.active .cover-content > *:nth-child(5) { animation-delay: 0.7s; }
+
+  /* BG gradient mesh */
+  .bg-mesh { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+  .slide-inner { position: relative; z-index: 1; }
+  .cover-content { position: relative; z-index: 1; }
+
+  .hint { position: fixed; bottom: 28px; left: 32px; color: rgba(255,255,255,0.2); font-size: 12px; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- ============================================ -->
+<!-- SLIDE 1: COVER                               -->
+<!-- ============================================ -->
+<div class="slide cover-slide active" id="slide-1">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 30% 50%, rgba(99,102,241,0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, rgba(6,182,212,0.1) 0%, transparent 60%);"></div>
+  <div class="cover-content" style="display:flex;flex-direction:column;align-items:center;">
+    <div style="font-size:64px;margin-bottom:24px;opacity:0.9;">&#9670;</div>
+    <h1 style="margin-bottom:16px;"><span class="gradient-text">EON Group CRM</span></h1>
+    <h3 style="max-width:700px;margin:0 auto 40px;font-size:28px;">El sistema que transforma tu proceso comercial en una maquina de cerrar negocios</h3>
+    <div style="display:flex;gap:16px;margin-bottom:48px;">
+      <span class="tag" style="background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.2);">&#9679; En Produccion</span>
+      <span class="tag" style="background:rgba(99,102,241,0.12);color:#a5b4fc;border:1px solid rgba(99,102,241,0.2);">v2.0 &mdash; 2026</span>
+    </div>
+    <div style="display:flex;gap:32px;">
+      <div style="text-align:center;"><span style="font-size:44px;font-weight:900;color:white;">10</span><br><span style="font-size:14px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;">Modulos</span></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+      <div style="text-align:center;"><span style="font-size:44px;font-weight:900;color:white;">150+</span><br><span style="font-size:14px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;">Funciones</span></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+      <div style="text-align:center;"><span style="font-size:44px;font-weight:900;color:white;">24/7</span><br><span style="font-size:14px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;">Disponible</span></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+      <div style="text-align:center;"><span style="font-size:44px;font-weight:900;color:white;">IA</span><br><span style="font-size:14px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;">Integrada</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 2: EL PROBLEMA                         -->
+<!-- ============================================ -->
+<div class="slide" id="slide-2">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 20% 80%, rgba(239,68,68,0.08) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <span class="tag" style="background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2);margin-bottom:20px;width:fit-content;">El Problema</span>
+    <h2 style="margin-bottom:12px;">Sin un CRM, tu equipo<br><span style="color:#f87171;">pierde negocios todos los dias</span></h2>
+    <h3 style="margin-bottom:36px;">Estos son los problemas mas comunes en equipos comerciales sin sistema</h3>
+    <div class="grid-3">
+      <div class="card" style="border-top:3px solid #ef4444;">
+        <div style="font-size:48px;margin-bottom:16px;">&#128561;</div>
+        <h4>Leads que se pierden</h4>
+        <p>Prospectos en hojas de calculo, libretas o correos. Sin seguimiento, sin prioridad, sin historial.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #f59e0b;">
+        <div style="font-size:48px;margin-bottom:16px;">&#128566;</div>
+        <h4>Cero visibilidad</h4>
+        <p>No sabes en que etapa esta cada negocio, quien lo atiende, ni cuando fue el ultimo contacto.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #ef4444;">
+        <div style="font-size:48px;margin-bottom:16px;">&#128164;</div>
+        <h4>Seguimientos olvidados</h4>
+        <p>Tareas que nadie recuerda, reuniones sin notas, compromisos que se quedan en el aire.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #f59e0b;">
+        <div style="font-size:48px;margin-bottom:16px;">&#128200;</div>
+        <h4>Sin metricas</h4>
+        <p>No puedes medir conversion, ticket promedio, ni rendimiento del equipo. Decides a ciegas.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #ef4444;">
+        <div style="font-size:48px;margin-bottom:16px;">&#128274;</div>
+        <h4>Sin control</h4>
+        <p>Todos tienen acceso a todo. No hay permisos, no hay auditoria, no hay responsables claros.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #f59e0b;">
+        <div style="font-size:48px;margin-bottom:16px;">&#128172;</div>
+        <h4>Comunicacion dispersa</h4>
+        <p>WhatsApp personal, correos sueltos, llamadas sin registro. Nada queda documentado.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 3: LA SOLUCION                         -->
+<!-- ============================================ -->
+<div class="slide" id="slide-3">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.1) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.08) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <span class="tag" style="background:rgba(6,182,212,0.12);color:#22d3ee;border:1px solid rgba(6,182,212,0.2);margin-bottom:20px;width:fit-content;">La Solucion</span>
+    <h2 style="margin-bottom:12px;">Todo tu proceso comercial<br><span class="gradient-text">en un solo lugar</span></h2>
+    <h3 style="margin-bottom:36px;">10 modulos integrados que cubren desde la captacion hasta la postventa</h3>
+    <div class="grid-4" style="flex:1;align-content:center;">
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#128200;</div>
+        <h4>Dashboard</h4>
+        <p>Centro de mando con KPIs en tiempo real</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#127919;</div>
+        <h4>Leads</h4>
+        <p>Captura y califica prospectos con IA</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#128202;</div>
+        <h4>Pipeline</h4>
+        <p>Embudo visual con drag &amp; drop</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#128188;</div>
+        <h4>Cuentas</h4>
+        <p>Gestion completa de clientes activos</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#9745;</div>
+        <h4>Tareas</h4>
+        <p>Organizacion con recurrencia y calendario</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#128276;</div>
+        <h4>Recordatorios</h4>
+        <p>Alertas con fecha, hora y Google Cal</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#128197;</div>
+        <h4>Calendario</h4>
+        <p>Vista mensual de todo el equipo</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#128172;</div>
+        <h4>Comunicacion</h4>
+        <p>WhatsApp, email y llamadas integrados</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#128202;</div>
+        <h4>Reportes</h4>
+        <p>5 vistas analiticas con graficas SVG</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#129302;</div>
+        <h4>IA + Chatbot</h4>
+        <p>Scoring, sugerencias y asistente</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#128101;</div>
+        <h4>Equipo</h4>
+        <p>Roles y permisos granulares</p>
+      </div>
+      <div class="card card-sm" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">&#128270;</div>
+        <h4>Auditoria</h4>
+        <p>Historial completo de cada accion</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 4: DASHBOARD                           -->
+<!-- ============================================ -->
+<div class="slide" id="slide-4">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 10% 50%, rgba(6,182,212,0.1) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(6,182,212,0.12);color:#22d3ee;border:1px solid rgba(6,182,212,0.2);">Modulo 01</span>
+    </div>
+    <h2 style="margin-bottom:8px;"><span class="gradient-text">Dashboard</span></h2>
+    <h3 style="margin-bottom:32px;">Tu centro de mando. Todo lo importante en una sola pantalla.</h3>
+    <div class="stat-row" style="margin-bottom:24px;">
+      <div class="stat-box">
+        <div class="number gradient-text">KPIs</div>
+        <div class="label">Tiempo real</div>
+      </div>
+      <div class="stat-box">
+        <div class="number gradient-text-green">Alertas</div>
+        <div class="label">Automaticas</div>
+      </div>
+      <div class="stat-box">
+        <div class="number gradient-text-warm">Tareas</div>
+        <div class="label">Pendientes</div>
+      </div>
+      <div class="stat-box">
+        <div class="number gradient-text-pink">Pipeline</div>
+        <div class="label">Por etapa</div>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="card card-sm">
+        <h4 style="color:#22d3ee;">&#128200; Metricas en Vivo</h4>
+        <p>Cuentas activas, leads nuevos, pipeline abierto, cerrados ganados, tendencias mes a mes.</p>
+      </div>
+      <div class="card card-sm">
+        <h4 style="color:#f87171;">&#128680; Alertas Inteligentes</h4>
+        <p>Deals estancados +7 dias, tareas vencidas, recordatorios atrasados. Todo resaltado automaticamente.</p>
+      </div>
+      <div class="card card-sm">
+        <h4 style="color:#34d399;">&#9745; Mis Pendientes</h4>
+        <p>Tareas y recordatorios asignados a ti, con prioridad, fecha y boton directo a Google Calendar.</p>
+      </div>
+      <div class="card card-sm">
+        <h4 style="color:#fbbf24;">&#128176; Valor Potencial</h4>
+        <p>Suma total del pipeline activo en USD. Ve cuanto dinero tienes en juego en cada etapa.</p>
+      </div>
+      <div class="card card-sm">
+        <h4 style="color:#a78bfa;">&#128202; Pipeline por Etapa</h4>
+        <p>Distribucion visual de cuantos prospectos hay en cada columna del embudo de ventas.</p>
+      </div>
+      <div class="card card-sm">
+        <h4 style="color:#f472b6;">&#128337; Actividad Reciente</h4>
+        <p>Ultimas 10 actividades del equipo: llamadas, emails, reuniones, con fecha y responsable.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 5: LEADS                               -->
+<!-- ============================================ -->
+<div class="slide" id="slide-5">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 80% 30%, rgba(139,92,246,0.1) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(139,92,246,0.12);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">Modulo 02</span>
+    </div>
+    <h2 style="margin-bottom:8px;">Gestion de <span class="gradient-text-pink">Leads</span></h2>
+    <h3 style="margin-bottom:32px;">Captura, califica y convierte prospectos con inteligencia artificial</h3>
+    <div class="two-col">
+      <div>
+        <div class="card" style="margin-bottom:20px;border-left:3px solid #a78bfa;">
+          <h4>&#127919; Lead Scoring con IA (0-100)</h4>
+          <p>Calificacion automatica basada en: datos completos, engagement, tamaño de empresa, frecuencia de actividad y antiguedad.</p>
+          <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
+            <span class="pill" style="background:rgba(239,68,68,0.12);color:#f87171;">0-20 Nuevo</span>
+            <span class="pill" style="background:rgba(245,158,11,0.12);color:#fbbf24;">21-40 Bajo</span>
+            <span class="pill" style="background:rgba(96,165,250,0.12);color:#60a5fa;">41-60 Medio</span>
+            <span class="pill" style="background:rgba(52,211,153,0.12);color:#34d399;">61-80 Alto</span>
+            <span class="pill" style="background:rgba(16,185,129,0.12);color:#10b981;">81+ Muy Alto</span>
+          </div>
+        </div>
+        <div class="card" style="border-left:3px solid #a78bfa;">
+          <h4>&#128257; Conversion a Pipeline</h4>
+          <p>Con un clic, convierte un lead calificado en prospecto del pipeline conservando todo el historial, contactos y actividades.</p>
+        </div>
+      </div>
+      <div>
+        <div class="card card-highlight" style="margin-bottom:20px;">
+          <h4 style="color:#a78bfa;margin-bottom:16px;">Dentro de cada Lead</h4>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:center;gap:12px;"><span class="check-icon" style="background:rgba(6,182,212,0.15);color:#22d3ee;">&#10003;</span><span style="font-size:17px;color:rgba(255,255,255,0.7);"><strong style="color:white;">Informacion</strong> &mdash; Empresa, contacto, industria, etiquetas, responsables</span></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="check-icon" style="background:rgba(139,92,246,0.15);color:#a78bfa;">&#10003;</span><span style="font-size:17px;color:rgba(255,255,255,0.7);"><strong style="color:white;">Actividades</strong> &mdash; Llamadas, emails, reuniones con archivos</span></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="check-icon" style="background:rgba(16,185,129,0.15);color:#34d399;">&#10003;</span><span style="font-size:17px;color:rgba(255,255,255,0.7);"><strong style="color:white;">Tareas</strong> &mdash; Crear, editar, recurrencia, Google Calendar</span></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="check-icon" style="background:rgba(245,158,11,0.15);color:#fbbf24;">&#10003;</span><span style="font-size:17px;color:rgba(255,255,255,0.7);"><strong style="color:white;">Recordatorios</strong> &mdash; Fecha, hora y alerta automatica</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h4>Vistas disponibles</h4>
+          <div style="display:flex;gap:12px;margin-top:12px;">
+            <span class="pill" style="background:rgba(6,182,212,0.12);color:#22d3ee;">&#9783; Tabla</span>
+            <span class="pill" style="background:rgba(139,92,246,0.12);color:#a78bfa;">&#9638; Tarjetas</span>
+            <span class="pill" style="background:rgba(16,185,129,0.12);color:#34d399;">&#128269; Filtros avanzados</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 6: PIPELINE                            -->
+<!-- ============================================ -->
+<div class="slide" id="slide-6">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 50% 80%, rgba(99,102,241,0.08) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(99,102,241,0.12);color:#818cf8;border:1px solid rgba(99,102,241,0.2);">Modulo 03</span>
+    </div>
+    <h2 style="margin-bottom:8px;">Pipeline de <span class="gradient-text">Ventas</span></h2>
+    <h3 style="margin-bottom:28px;">Visualiza y controla tu embudo de ventas completo</h3>
+    <div class="flow" style="margin-bottom:28px;">
+      <div class="flow-step" style="border-color:#6366f1;background:rgba(99,102,241,0.1);">&#9679; Prospecto</div>
+      <span class="flow-arrow">&#10132;</span>
+      <div class="flow-step" style="border-color:#06b6d4;background:rgba(6,182,212,0.08);">&#9679; Contacto Inicial</div>
+      <span class="flow-arrow">&#10132;</span>
+      <div class="flow-step" style="border-color:#f59e0b;background:rgba(245,158,11,0.08);">&#9679; Diagnostico</div>
+      <span class="flow-arrow">&#10132;</span>
+      <div class="flow-step" style="border-color:#8b5cf6;background:rgba(139,92,246,0.08);">&#9679; Piloto</div>
+      <span class="flow-arrow">&#10132;</span>
+      <div class="flow-step" style="border-color:#ec4899;background:rgba(236,72,153,0.08);">&#9679; Negociacion</div>
+      <span class="flow-arrow">&#10132;</span>
+      <div class="flow-step" style="border-color:#10b981;background:rgba(16,185,129,0.15);color:#34d399;">&#10003; Cerrado Ganado</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h4>&#128203; Tablero Kanban</h4>
+        <p>Arrastra y suelta prospectos entre etapas. Vista visual con conteos y valores por columna. Filtros por responsable, servicio e industria.</p>
+      </div>
+      <div class="card">
+        <h4>&#129504; Deal Scoring + Sugerencias IA</h4>
+        <p>Score automatico de probabilidad de cierre. La IA sugiere la siguiente accion: "Agendar reunion", "Enviar propuesta", etc.</p>
+      </div>
+      <div class="card">
+        <h4>&#128260; Automatizaciones</h4>
+        <p>Al mover de etapa se crean tareas automaticas. Al cerrar ganado, se crea la cuenta del cliente automaticamente con todo el historial.</p>
+      </div>
+      <div class="card">
+        <h4>&#128222; Comunicacion Directa</h4>
+        <p>Botones de WhatsApp, llamada y email desde cada deal. Indicador visual de ultimo contacto con colores de urgencia.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 7: CUENTAS                             -->
+<!-- ============================================ -->
+<div class="slide" id="slide-7">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 80% 50%, rgba(16,185,129,0.08) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.2);">Modulo 04</span>
+    </div>
+    <h2 style="margin-bottom:8px;">Cuentas <span class="gradient-text-green">(Clientes)</span></h2>
+    <h3 style="margin-bottom:32px;">Gestion completa de tus clientes activos y su historial</h3>
+    <div class="two-col">
+      <div>
+        <ul class="check-list">
+          <li><span class="check-icon" style="background:rgba(16,185,129,0.15);color:#34d399;">&#10003;</span><span><strong style="color:white;">Ficha completa</strong> &mdash; Empresa, industria, direccion, web, empleados, servicios</span></li>
+          <li><span class="check-icon" style="background:rgba(6,182,212,0.15);color:#22d3ee;">&#10003;</span><span><strong style="color:white;">Contactos multiples</strong> &mdash; Varios contactos por cuenta con cargo, email, telefono</span></li>
+          <li><span class="check-icon" style="background:rgba(139,92,246,0.15);color:#a78bfa;">&#10003;</span><span><strong style="color:white;">Historial de actividades</strong> &mdash; Llamadas, emails, reuniones, WhatsApp</span></li>
+          <li><span class="check-icon" style="background:rgba(245,158,11,0.15);color:#fbbf24;">&#10003;</span><span><strong style="color:white;">Tareas y recordatorios</strong> &mdash; Con prioridad, recurrencia y Google Calendar</span></li>
+          <li><span class="check-icon" style="background:rgba(236,72,153,0.15);color:#f472b6;">&#10003;</span><span><strong style="color:white;">Deals asociados</strong> &mdash; Todos los negocios del pipeline vinculados</span></li>
+          <li><span class="check-icon" style="background:rgba(99,102,241,0.15);color:#818cf8;">&#10003;</span><span><strong style="color:white;">Resumen IA</strong> &mdash; Genera un ejecutivo inteligente de toda la cuenta</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="card card-highlight" style="margin-bottom:20px;">
+          <h4 style="color:#34d399;margin-bottom:16px;">&#128260; Creacion Automatica</h4>
+          <p style="font-size:18px;margin-bottom:16px;">Cuando un deal pasa a <strong style="color:white;">"Cerrado Ganado"</strong> en el pipeline, automaticamente se crea la cuenta con todos los datos, contactos e historial.</p>
+          <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15);border-radius:12px;padding:16px;font-size:16px;color:#34d399;font-weight:600;text-align:center;">
+            Pipeline &#10132; Cerrado Ganado &#10132; Cuenta creada &#10003;
+          </div>
+        </div>
+        <div class="card">
+          <h4>6 Pestanas del detalle</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+            <span class="pill" style="background:rgba(6,182,212,0.1);color:#22d3ee;">Info</span>
+            <span class="pill" style="background:rgba(139,92,246,0.1);color:#a78bfa;">Contactos</span>
+            <span class="pill" style="background:rgba(16,185,129,0.1);color:#34d399;">Actividades</span>
+            <span class="pill" style="background:rgba(245,158,11,0.1);color:#fbbf24;">Tareas</span>
+            <span class="pill" style="background:rgba(236,72,153,0.1);color:#f472b6;">Recordatorios</span>
+            <span class="pill" style="background:rgba(99,102,241,0.1);color:#818cf8;">Deals</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 8: TAREAS Y CALENDARIO                 -->
+<!-- ============================================ -->
+<div class="slide" id="slide-8">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 30% 30%, rgba(245,158,11,0.08) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(245,158,11,0.12);color:#fbbf24;border:1px solid rgba(245,158,11,0.2);">Modulos 05, 06 y 07</span>
+    </div>
+    <h2 style="margin-bottom:8px;">Tareas, Recordatorios <span class="gradient-text-warm">y Calendario</span></h2>
+    <h3 style="margin-bottom:32px;">Organiza el trabajo diario de todo tu equipo comercial</h3>
+    <div class="grid-3">
+      <div class="card" style="border-top:3px solid #22d3ee;">
+        <div style="font-size:40px;margin-bottom:16px;">&#9745;</div>
+        <h4>Tareas</h4>
+        <p>Descripcion, fecha, hora, prioridad y responsable. Vinculalas a cuentas, leads o pipeline.</p>
+        <div style="margin-top:16px;padding:14px;background:rgba(6,182,212,0.08);border-radius:10px;border:1px solid rgba(6,182,212,0.12);">
+          <p style="font-size:14px;color:#22d3ee;font-weight:700;margin-bottom:4px;">TAREAS RECURRENTES</p>
+          <p style="font-size:14px;color:rgba(255,255,255,0.5);">Diario, semanal, quincenal o mensual. Al completar se crea la siguiente automaticamente.</p>
+        </div>
+      </div>
+      <div class="card" style="border-top:3px solid #fbbf24;">
+        <div style="font-size:40px;margin-bottom:16px;">&#128276;</div>
+        <h4>Recordatorios</h4>
+        <p>Alertas con titulo, fecha, hora y descripcion. Aparecen en el dashboard cuando estan vencidos o son de hoy.</p>
+        <div style="margin-top:16px;padding:14px;background:rgba(245,158,11,0.08);border-radius:10px;border:1px solid rgba(245,158,11,0.12);">
+          <p style="font-size:14px;color:#fbbf24;font-weight:700;margin-bottom:4px;">GOOGLE CALENDAR</p>
+          <p style="font-size:14px;color:rgba(255,255,255,0.5);">Un clic para agregar cualquier tarea o recordatorio directo a tu calendario de Google.</p>
+        </div>
+      </div>
+      <div class="card" style="border-top:3px solid #a78bfa;">
+        <div style="font-size:40px;margin-bottom:16px;">&#128197;</div>
+        <h4>Calendario</h4>
+        <p>Vista mensual con todas las tareas y recordatorios. Los admins ven los eventos de todo el equipo.</p>
+        <div style="margin-top:16px;padding:14px;background:rgba(139,92,246,0.08);border-radius:10px;border:1px solid rgba(139,92,246,0.12);">
+          <p style="font-size:14px;color:#a78bfa;font-weight:700;margin-bottom:4px;">FILTROS RAPIDOS</p>
+          <p style="font-size:14px;color:rgba(255,255,255,0.5);">Todas, Mis Tareas, Pendientes, Vencidas, Esta Semana, Completadas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 9: COMUNICACION                        -->
+<!-- ============================================ -->
+<div class="slide" id="slide-9">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 60% 70%, rgba(16,185,129,0.08) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.2);">Comunicacion</span>
+    </div>
+    <h2 style="margin-bottom:8px;">Comunicacion <span class="gradient-text-green">Omnicanal</span></h2>
+    <h3 style="margin-bottom:32px;">Contacta a tus clientes por cualquier canal sin salir del CRM</h3>
+    <div class="grid-2">
+      <div class="card" style="border-left:4px solid #25d366;">
+        <div style="font-size:40px;margin-bottom:16px;">&#128172;</div>
+        <h4>WhatsApp</h4>
+        <p>Links de WhatsApp con mensaje pre-cargado. Disponible en leads, pipeline y cuentas. Un clic abre la conversacion directamente.</p>
+      </div>
+      <div class="card" style="border-left:4px solid #10b981;">
+        <div style="font-size:40px;margin-bottom:16px;">&#128222;</div>
+        <h4>Llamadas</h4>
+        <p>Botones de llamada directa desde cualquier registro. La llamada se registra como actividad automaticamente en el historial.</p>
+      </div>
+      <div class="card" style="border-left:4px solid #06b6d4;">
+        <div style="font-size:40px;margin-bottom:16px;">&#9993;</div>
+        <h4>Email</h4>
+        <p>Compositor de email integrado con plantillas inteligentes segun la etapa del pipeline: seguimiento, propuesta, agradecimiento.</p>
+      </div>
+      <div class="card" style="border-left:4px solid #f59e0b;">
+        <div style="font-size:40px;margin-bottom:16px;">&#128340;</div>
+        <h4>Indicador de Ultimo Contacto</h4>
+        <p>Cuantos dias llevas sin contactar a cada cliente. Colores: verde (reciente), amarillo, naranja y rojo (urgente).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 10: REPORTES                           -->
+<!-- ============================================ -->
+<div class="slide" id="slide-10">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 20% 30%, rgba(139,92,246,0.08) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(139,92,246,0.12);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">Modulo 08</span>
+    </div>
+    <h2 style="margin-bottom:8px;"><span class="gradient-text-pink">Reportes</span> y Analitica</h2>
+    <h3 style="margin-bottom:32px;">5 pestanas de analisis con graficas interactivas SVG</h3>
+    <div class="grid-3" style="margin-bottom:20px;">
+      <div class="card" style="border-top:3px solid #22d3ee;">
+        <h4 style="color:#22d3ee;">General</h4>
+        <p>Oportunidades totales, ganadas, perdidas, en progreso, tasa de conversion y ticket promedio.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #a78bfa;">
+        <h4 style="color:#a78bfa;">Pipeline</h4>
+        <p>Embudo de ventas (funnel), valor por mes, distribucion por etapa, forecast y probabilidades.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #34d399;">
+        <h4 style="color:#34d399;">Actividades</h4>
+        <p>Conteo por tipo (llamadas, emails, reuniones), tendencias mensuales y picos de actividad.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #fbbf24;">
+        <h4 style="color:#fbbf24;">Equipo</h4>
+        <p>Leaderboard de vendedores, comparacion de rendimiento, deals y actividades por usuario.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #f472b6;">
+        <h4 style="color:#f472b6;">Inteligencia</h4>
+        <p>Patrones IA: industrias con mas conversion, servicios rentables, fuentes efectivas, cuellos de botella.</p>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+        <h4 style="margin-bottom:16px;">Tipos de Graficas</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
+          <span class="pill" style="background:rgba(6,182,212,0.1);color:#22d3ee;">Funnel</span>
+          <span class="pill" style="background:rgba(139,92,246,0.1);color:#a78bfa;">Lineas</span>
+          <span class="pill" style="background:rgba(16,185,129,0.1);color:#34d399;">Donut</span>
+          <span class="pill" style="background:rgba(245,158,11,0.1);color:#fbbf24;">Barras</span>
+          <span class="pill" style="background:rgba(236,72,153,0.1);color:#f472b6;">Area</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 11: IA INTEGRADA                       -->
+<!-- ============================================ -->
+<div class="slide" id="slide-11">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 50% 40%, rgba(245,158,11,0.06) 0%, transparent 50%), radial-gradient(ellipse at 20% 70%, rgba(239,68,68,0.05) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(245,158,11,0.12);color:#fbbf24;border:1px solid rgba(245,158,11,0.2);">Inteligencia Artificial</span>
+    </div>
+    <h2 style="margin-bottom:8px;">IA integrada <span class="gradient-text-warm">en todo el CRM</span></h2>
+    <h3 style="margin-bottom:32px;">Algoritmos que trabajan para ti en segundo plano, sin costo adicional</h3>
+    <div class="grid-3">
+      <div class="card">
+        <div style="font-size:40px;margin-bottom:16px;">&#127919;</div>
+        <h4>Lead Scoring (0-100)</h4>
+        <p>Califica cada lead automaticamente: datos, engagement, tamaño de empresa, actividad y antiguedad.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:40px;margin-bottom:16px;">&#128202;</div>
+        <h4>Deal Scoring</h4>
+        <p>Probabilidad de cierre de cada negocio basado en etapa, valor, engagement y actividad reciente.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:40px;margin-bottom:16px;">&#128161;</div>
+        <h4>Sugerencias de Accion</h4>
+        <p>La IA sugiere la proxima accion: "Hacer seguimiento", "Enviar propuesta", "Agendar reunion".</p>
+      </div>
+      <div class="card">
+        <div style="font-size:40px;margin-bottom:16px;">&#129504;</div>
+        <h4>Resumen de Cuenta</h4>
+        <p>Genera resumen ejecutivo de cualquier cuenta: historial, oportunidades y recomendaciones.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:40px;margin-bottom:16px;">&#128270;</div>
+        <h4>Deteccion de Patrones</h4>
+        <p>Analiza datos historicos: industrias con mas conversion, servicios rentables, fuentes efectivas.</p>
+      </div>
+      <div class="card card-highlight">
+        <div style="font-size:40px;margin-bottom:16px;">&#129302;</div>
+        <h4>Chatbot IA</h4>
+        <p>Asistente conversacional con acceso a toda la data del CRM. Hazle cualquier pregunta.</p>
+        <div style="margin-top:12px;"><span class="pill" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">Ver siguiente slide &#10132;</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 12: CHATBOT IA (DETALLE)               -->
+<!-- ============================================ -->
+<div class="slide" id="slide-12">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 70% 40%, rgba(139,92,246,0.1) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(139,92,246,0.12);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">Asistente Inteligente</span>
+    </div>
+    <h2 style="margin-bottom:8px;"><span class="gradient-text">Chatbot IA</span></h2>
+    <h3 style="margin-bottom:32px;">Tu copiloto con acceso en vivo a toda la data del CRM</h3>
+    <div class="two-col">
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="card" style="border-left:3px solid #a78bfa;">
+          <h4>&#129302; Consulta en Tiempo Real</h4>
+          <p>Preguntale sobre clientes, prospectos, tareas pendientes y actividades. Tiene acceso a toda la data en vivo.</p>
+        </div>
+        <div class="card" style="border-left:3px solid #22d3ee;">
+          <h4>&#9998; Asistente para Actividades</h4>
+          <p>Te ayuda a llenar actividades: sugiere el texto para llamadas, reuniones y seguimientos. Analiza lo que escribiste y lo mejora con tono profesional.</p>
+        </div>
+        <div class="card" style="border-left:3px solid #34d399;">
+          <h4>&#128221; Redaccion y Analisis de Texto</h4>
+          <p>Pegale cualquier texto y te lo corrige, resume o reformula. Ideal para correos, propuestas y descripciones.</p>
+        </div>
+        <div class="card" style="border-left:3px solid #fbbf24;">
+          <h4>&#128200; Analisis de Datos e Insights</h4>
+          <p>Analiza patrones en tu pipeline, identifica oportunidades y genera reportes de cualquier cuenta o prospecto.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="card card-highlight" style="flex:1;">
+          <h4 style="color:#a78bfa;margin-bottom:20px;font-size:24px;">Acciones Rapidas</h4>
+          <p style="margin-bottom:20px;font-size:16px;color:rgba(255,255,255,0.5);">5 botones predefinidos para las consultas mas comunes:</p>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:center;gap:14px;"><span style="background:rgba(6,182,212,0.15);color:#22d3ee;padding:8px 18px;border-radius:10px;font-size:15px;font-weight:700;white-space:nowrap;">Info completa CRM</span> <span style="color:rgba(255,255,255,0.5);font-size:16px;">Resumen general de toda la data</span></div>
+            <div style="display:flex;align-items:center;gap:14px;"><span style="background:rgba(245,158,11,0.15);color:#fbbf24;padding:8px 18px;border-radius:10px;font-size:15px;font-weight:700;white-space:nowrap;">Mis pendientes</span> <span style="color:rgba(255,255,255,0.5);font-size:16px;">Tareas y recordatorios por fecha</span></div>
+            <div style="display:flex;align-items:center;gap:14px;"><span style="background:rgba(16,185,129,0.15);color:#34d399;padding:8px 18px;border-radius:10px;font-size:15px;font-weight:700;white-space:nowrap;">Redactar actividad</span> <span style="color:rgba(255,255,255,0.5);font-size:16px;">Genera registro profesional de llamadas</span></div>
+            <div style="display:flex;align-items:center;gap:14px;"><span style="background:rgba(139,92,246,0.15);color:#a78bfa;padding:8px 18px;border-radius:10px;font-size:15px;font-weight:700;white-space:nowrap;">Escribir correo</span> <span style="color:rgba(255,255,255,0.5);font-size:16px;">Emails de seguimiento y propuestas</span></div>
+            <div style="display:flex;align-items:center;gap:14px;"><span style="background:rgba(236,72,153,0.15);color:#f472b6;padding:8px 18px;border-radius:10px;font-size:15px;font-weight:700;white-space:nowrap;">Nota de reunion</span> <span style="color:rgba(255,255,255,0.5);font-size:16px;">Minutas estructuradas con action items</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h4>Motor de IA</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">
+            <span class="pill" style="background:rgba(6,182,212,0.1);color:#22d3ee;">Llama 3.3 70B</span>
+            <span class="pill" style="background:rgba(139,92,246,0.1);color:#a78bfa;">100% en Espanol</span>
+            <span class="pill" style="background:rgba(16,185,129,0.1);color:#34d399;">Pantalla completa</span>
+            <span class="pill" style="background:rgba(245,158,11,0.1);color:#fbbf24;">Copiar respuestas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 13: EQUIPO Y PERMISOS                  -->
+<!-- ============================================ -->
+<div class="slide" id="slide-13">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 40% 60%, rgba(99,102,241,0.06) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(99,102,241,0.12);color:#818cf8;border:1px solid rgba(99,102,241,0.2);">Modulo 09</span>
+    </div>
+    <h2 style="margin-bottom:8px;">Equipo y <span class="gradient-text">Permisos</span></h2>
+    <h3 style="margin-bottom:32px;">Control total sobre quien accede a que. Seguridad a nivel de cada accion.</h3>
+    <div class="two-col" style="gap:40px;">
+      <div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table class="role-table">
+            <thead>
+              <tr><th>Rol</th><th>Ver</th><th>Crear</th><th>Editar</th><th>Eliminar</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="role-badge" style="background:rgba(139,92,246,0.15);color:#a78bfa;">Admin</span></td>
+                <td style="color:#34d399;">Todo</td><td style="color:#34d399;">Todo</td><td style="color:#34d399;">Todo</td><td style="color:#34d399;">Todo</td>
+              </tr>
+              <tr>
+                <td><span class="role-badge" style="background:rgba(6,182,212,0.15);color:#22d3ee;">Gerente</span></td>
+                <td style="color:#34d399;">Todo</td><td style="color:#34d399;">Si</td><td style="color:#34d399;">Todo</td><td style="color:#f87171;">No</td>
+              </tr>
+              <tr>
+                <td><span class="role-badge" style="background:rgba(16,185,129,0.15);color:#34d399;">Vendedor</span></td>
+                <td style="color:#34d399;">Todo</td><td style="color:#34d399;">Si</td><td style="color:#fbbf24;">Propios</td><td style="color:#f87171;">No</td>
+              </tr>
+              <tr>
+                <td><span class="role-badge" style="background:rgba(245,158,11,0.15);color:#fbbf24;">Soporte</span></td>
+                <td style="color:#fbbf24;">Cuentas</td><td style="color:#fbbf24;">Limitado</td><td style="color:#fbbf24;">Propios</td><td style="color:#f87171;">No</td>
+              </tr>
+              <tr>
+                <td><span class="role-badge" style="background:rgba(100,116,139,0.2);color:#94a3b8;">Solo Lectura</span></td>
+                <td style="color:#34d399;">Todo</td><td style="color:#f87171;">No</td><td style="color:#f87171;">No</td><td style="color:#f87171;">No</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="card">
+          <h4>&#128273; Permisos Granulares</h4>
+          <p>Cada usuario tiene permisos independientes por modulo. Controla exactamente que secciones ve, que puede crear, editar y eliminar.</p>
+        </div>
+        <div class="card">
+          <h4>&#128101; Gestion de Usuarios</h4>
+          <p>Crear usuarios, cambiar passwords, activar o desactivar cuentas, editar permisos de forma individual.</p>
+        </div>
+        <div class="card">
+          <h4>&#128270; Auditoria Completa</h4>
+          <p>Registro de TODAS las acciones: quien creo, edito o elimino cada registro, con fecha, hora y detalles exactos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 14: STACK TECNOLOGICO                  -->
+<!-- ============================================ -->
+<div class="slide" id="slide-14">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.06) 0%, transparent 50%);"></div>
+  <div class="slide-inner">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <span class="tag" style="background:rgba(6,182,212,0.12);color:#22d3ee;border:1px solid rgba(6,182,212,0.2);">Arquitectura</span>
+    </div>
+    <h2 style="margin-bottom:8px;">Stack <span class="gradient-text">Tecnologico</span></h2>
+    <h3 style="margin-bottom:36px;">Construido con tecnologia moderna, rapida y escalable</h3>
+    <div class="grid-3">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:52px;margin-bottom:16px;">&#9883;</div>
+        <h4>React 19</h4>
+        <p>La version mas reciente. Interfaz rapida, reactiva y modular.</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:52px;margin-bottom:16px;">&#128293;</div>
+        <h4>Firebase</h4>
+        <p>Base de datos en tiempo real, autenticacion y storage en la nube de Google.</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:52px;margin-bottom:16px;">&#9889;</div>
+        <h4>Vercel</h4>
+        <p>Hosting global con CDN. Despliegues automaticos e instantaneos.</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:52px;margin-bottom:16px;">&#127912;</div>
+        <h4>Tailwind CSS</h4>
+        <p>Diseño moderno, responsive y consistente en todos los dispositivos.</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:52px;margin-bottom:16px;">&#129302;</div>
+        <h4>IA (Llama 3.3 70B)</h4>
+        <p>Chatbot inteligente y scoring automatico sin costos extras de API.</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:52px;margin-bottom:16px;">&#128241;</div>
+        <h4>PWA Ready</h4>
+        <p>Instalable en celular como app nativa. Funciona con cache inteligente.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 15: CIERRE                             -->
+<!-- ============================================ -->
+<div class="slide cover-slide" id="slide-15">
+  <div class="bg-mesh" style="background: radial-gradient(ellipse at 30% 50%, rgba(99,102,241,0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, rgba(6,182,212,0.1) 0%, transparent 60%);"></div>
+  <div class="cover-content" style="display:flex;flex-direction:column;align-items:center;">
+    <div style="font-size:64px;margin-bottom:24px;">&#9670;</div>
+    <h1 style="margin-bottom:16px;"><span class="gradient-text">Listo para usar</span></h1>
+    <h3 style="max-width:700px;margin:0 auto 48px;font-size:26px;">El CRM ya esta en produccion y disponible para todo el equipo de ventas</h3>
+    <div style="display:flex;gap:24px;margin-bottom:56px;">
+      <div class="card" style="text-align:center;padding:28px 40px;min-width:200px;">
+        <div style="font-size:32px;margin-bottom:8px;">&#127760;</div>
+        <h4 style="color:#22d3ee;margin-bottom:4px;">Acceso Web</h4>
+        <p style="font-size:16px;">eongroup-crm.vercel.app</p>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 40px;min-width:200px;">
+        <div style="font-size:32px;margin-bottom:8px;">&#128241;</div>
+        <h4 style="color:#a78bfa;margin-bottom:4px;">App Movil</h4>
+        <p style="font-size:16px;">Instalar como PWA</p>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 40px;min-width:200px;">
+        <div style="font-size:32px;margin-bottom:8px;">&#127891;</div>
+        <h4 style="color:#34d399;margin-bottom:4px;">Capacitacion</h4>
+        <p style="font-size:16px;">Incluida para el equipo</p>
+      </div>
+    </div>
+    <h2 style="font-size:24px;color:rgba(255,255,255,0.3);font-weight:400;">EON Group &copy; 2026</h2>
+  </div>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">&#8592; Anterior</button>
+  <span class="counter" id="counter">1 / 15</span>
+  <button onclick="nextSlide()">Siguiente &#8594;</button>
+</div>
+<div class="hint">&#8592; &#8594; o Espacio para navegar &nbsp;&bull;&nbsp; F11 pantalla completa</div>
+
+<script>
+  let current = 1;
+  const total = 15;
+
+  function showSlide(n) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.getElementById('slide-' + n).classList.add('active');
+    document.getElementById('counter').textContent = n + ' / ' + total;
+    document.getElementById('progress').style.width = ((n / total) * 100) + '%';
+  }
+
+  function nextSlide() { if (current < total) { current++; showSlide(current); } }
+  function prevSlide() { if (current > 1) { current--; showSlide(current); } }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  });
+
+  showSlide(1);
+</script>
+</body>
+</html>
