@@ -1129,7 +1129,7 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* Panel Resumen Inteligente */}
         {showResumen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
             <div className="bg-slate-900 border border-violet-500/30 rounded-2xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl shadow-violet-500/10 mx-4 animate-modal-in">
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-violet-500/20">
@@ -1630,8 +1630,8 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
 
         {/* Modal Ver Detalle de Actividad */}
         {viewingActividad && (
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setViewingActividad(null)}>
-            <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in" onClick={(e) => e.stopPropagation()}>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={() => setViewingActividad(null)}>
+            <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={(e) => e.stopPropagation()}>
               {(() => {
                 const tipo = TIPOS_ACTIVIDAD.find(t => t.id === viewingActividad.tipo);
                 const Icon = tipo?.icon || MessageSquare;
@@ -1652,8 +1652,8 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                     </div>
                     <div className="p-6 space-y-6">
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-slate-800/50 rounded-xl p-4"><p className="text-slate-500 text-xs mb-1">Fecha</p><p className="text-white font-medium">{formatDate(viewingActividad.fecha)}</p></div>
-                        <div className="bg-slate-800/50 rounded-xl p-4"><p className="text-slate-500 text-xs mb-1">Responsable</p><p className={`font-medium ${responsable?.nombre ? getColorUsuario(responsable.nombre) : 'text-white'}`}>{responsable?.nombre || 'No asignado'}</p></div>
+                        <div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-1">Fecha</p><p className="text-white font-medium">{formatDate(viewingActividad.fecha)}</p></div>
+                        <div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-1">Responsable</p><p className={`font-medium ${responsable?.nombre ? getColorUsuario(responsable.nombre) : 'text-white'}`}>{responsable?.nombre || 'No asignado'}</p></div>
                       </div>
                       {viewingActividad.tipo === 'email' && viewingActividad.emailDestinatario && (
                         <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-4 space-y-3">
@@ -1665,8 +1665,8 @@ function Cuentas({ cuentas, setCuentas, contactos, setContactos, pipeline, activ
                           </div>
                         </div>
                       )}
-                      {viewingActividad.tipo !== 'email' && viewingActividad.descripcion && (<div className="bg-slate-800/50 rounded-xl p-4"><p className="text-slate-500 text-xs mb-2">Descripcion</p><p className="text-white whitespace-pre-wrap">{viewingActividad.descripcion}</p></div>)}
-                      {viewingActividad.archivo && (<div className="bg-slate-800/50 rounded-xl p-4"><p className="text-slate-500 text-xs mb-2">Archivo</p><a href={viewingActividad.archivo.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 px-4 py-3 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 rounded-xl text-violet-300"><Download size={20} /><div><p className="font-medium">{viewingActividad.archivo.nombre}</p><p className="text-violet-400/60 text-xs">{(viewingActividad.archivo.tamano / 1024).toFixed(1)} KB</p></div></a></div>)}
+                      {viewingActividad.tipo !== 'email' && viewingActividad.descripcion && (<div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-2">Descripcion</p><p className="text-white whitespace-pre-wrap">{viewingActividad.descripcion}</p></div>)}
+                      {viewingActividad.archivo && (<div className="bg-slate-800/50 rounded-xl p-5"><p className="text-slate-500 text-xs mb-2">Archivo</p><a href={viewingActividad.archivo.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 px-4 py-3 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 rounded-xl text-violet-300"><Download size={20} /><div><p className="font-medium">{viewingActividad.archivo.nombre}</p><p className="text-violet-400/60 text-xs">{(viewingActividad.archivo.tamano / 1024).toFixed(1)} KB</p></div></a></div>)}
                       {tareasDerivadas.length > 0 && (<div className="bg-slate-800/50 rounded-xl p-4"><p className="text-cyan-400 text-sm font-medium mb-3 flex items-center gap-2"><Target size={16} /> Tareas ({tareasDerivadas.length})</p><div className="space-y-2">{tareasDerivadas.map(t => (<div key={t.id} className={`flex items-center justify-between p-3 rounded-lg ${t.completada ? 'bg-emerald-500/10' : 'bg-slate-700/50'}`}><div className="flex items-center gap-3">{t.completada ? <CheckCircle size={16} className="text-emerald-400" /> : <Clock size={16} className="text-slate-400" />}<div><p className={`text-sm ${t.completada ? 'text-emerald-300 line-through' : 'text-white'}`}>{t.descripcion}</p><p className="text-slate-500 text-xs">{formatDate(t.fechaCompromiso)}</p></div></div><span className={`text-xs px-2 py-1 rounded ${t.prioridad === 'alta' ? 'bg-red-500/20 text-red-400' : t.prioridad === 'media' ? 'bg-amber-500/20 text-amber-400' : 'bg-slate-600 text-slate-400'}`}>{t.prioridad}</span>{t.recurrencia && t.recurrencia !== 'ninguna' && <span className="text-xs text-cyan-400 ml-1">&#8635;</span>}</div>))}</div></div>)}
                       {recordatoriosDerivados.length > 0 && (<div className="bg-slate-800/50 rounded-xl p-4"><p className="text-amber-400 text-sm font-medium mb-3 flex items-center gap-2"><Bell size={16} /> Recordatorios ({recordatoriosDerivados.length})</p><div className="space-y-2">{recordatoriosDerivados.map(r => (<div key={r.id} className={`flex items-center justify-between p-3 rounded-lg ${r.completado ? 'bg-emerald-500/10' : 'bg-slate-700/50'}`}><div className="flex items-center gap-3">{r.completado ? <CheckCircle size={16} className="text-emerald-400" /> : <Bell size={16} className="text-amber-400" />}<div><p className={`text-sm ${r.completado ? 'text-emerald-300 line-through' : 'text-white'}`}>{r.titulo}</p><p className="text-slate-500 text-xs">{formatDate(r.fecha)}</p></div></div></div>))}</div></div>)}
                       <div className="border-t border-slate-300/30 pt-4 flex items-center justify-between text-xs text-slate-500"><span>Creado por: {creador?.nombre || 'Sistema'}</span><span>{viewingActividad.fechaCreacion ? new Date(viewingActividad.fechaCreacion).toLocaleString('es-MX') : '-'}</span></div>

@@ -346,8 +346,8 @@ function Tareas({ tareas, setTareas, cuentas, pipeline, leads, actividades, usua
 
       {/* Modal Form */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-lg animate-modal-in">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-lg animate-modal-in shadow-2xl shadow-black/40">
             <div className="p-6 border-b border-slate-800">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold text-white">

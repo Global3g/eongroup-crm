@@ -1263,7 +1263,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                   <button
                     key={tab.id}
                     onClick={() => setModalTab(tab.id)}
-                    className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-all ${modalTab === tab.id ? 'border-cyan-500 text-cyan-400' : 'border-transparent text-slate-400 hover:text-white'}`}
+                    className={`flex items-center gap-2 px-4 py-3 border-b-[3px] transition-all ${modalTab === tab.id ? 'border-cyan-500 text-cyan-400' : 'border-transparent text-slate-400 hover:text-white'}`}
                   >
                     <Icon size={16} /> {tab.name}
                     {tab.id === 'tareas' && leadTareas.length > 0 && (
@@ -1284,7 +1284,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                 <div className="space-y-6">
                   {/* Datos del lead */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Teléfono</p>
                       <p className="text-white flex items-center gap-2">
                         <Phone size={16} className="text-slate-400" />
@@ -1297,14 +1297,14 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                         )}
                       </p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Email</p>
                       <p className="text-white flex items-center gap-2">
                         <Mail size={16} className="text-slate-400" />
                         {selectedLead.email || '-'}
                       </p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Página Web</p>
                       <p className="text-cyan-400">
                         {selectedLead.paginaWeb ? (
@@ -1314,19 +1314,19 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                         ) : '-'}
                       </p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Industria</p>
                       <p className="text-white">{selectedLead.industria || '-'}</p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Servicio de Interés</p>
                       <p className="text-cyan-400">{selectedLead.servicio || '-'}</p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Fuente</p>
                       <p className="text-white">{selectedLead.fuente || '-'}</p>
                     </div>
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Prioridad</p>
                       <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-sm ${PRIORIDADES.find(p => p.id === selectedLead.prioridad)?.color} bg-opacity-20 text-white`}>
                         {PRIORIDADES.find(p => p.id === selectedLead.prioridad)?.name}
@@ -1346,7 +1346,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                       </div>
                     )}
                     {/* Responsable asignado */}
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Responsable</p>
                       {(() => {
                         const ids = [selectedLead.asignadoA, selectedLead.asignadoA2, selectedLead.asignadoA3].filter(Boolean);
@@ -1362,7 +1362,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
                       })()}
                     </div>
                     {/* Fecha de creación */}
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-1">Fecha de registro</p>
                       <p className="text-white">{formatDate(selectedLead.fechaCreacion) || '-'}</p>
                     </div>
@@ -1387,7 +1387,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
 
                   {/* Notas */}
                   {selectedLead.notas && (
-                    <div className="bg-slate-800/50 rounded-xl p-4">
+                    <div className="bg-slate-800/50 rounded-xl p-5">
                       <p className="text-slate-500 text-sm mb-2">Notas</p>
                       <p className="text-white whitespace-pre-wrap">{selectedLead.notas}</p>
                     </div>
@@ -1655,7 +1655,7 @@ function Leads({ leads, setLeads, pipeline, setPipeline, todasLasIndustrias, add
       {/* Modal de Nueva/Editar Actividad para Leads */}
       {showActividadForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setShowActividadForm(false)}>
-          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in" onClick={e => e.stopPropagation()}>
+          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
             <div className="p-6 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white">{editingActividad ? 'Editar Actividad' : 'Nueva Actividad'}</h3>
               <button onClick={() => setShowActividadForm(false)} className="text-slate-400 hover:text-white"><X size={20} /></button>

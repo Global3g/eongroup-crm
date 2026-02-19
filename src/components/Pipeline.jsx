@@ -1470,8 +1470,8 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
 
         {/* Modal Ver Detalle de Actividad */}
         {viewingActividad && (
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setViewingActividad(null)}>
-            <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in" onClick={(e) => e.stopPropagation()}>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={() => setViewingActividad(null)}>
+            <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-in shadow-2xl shadow-black/40" onClick={(e) => e.stopPropagation()}>
               {(() => {
                 const tipo = TIPOS_ACTIVIDAD.find(t => t.id === viewingActividad.tipo);
                 const Icon = tipo?.icon || MessageSquare;
@@ -1504,11 +1504,11 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
                     <div className="p-6 space-y-6">
                       {/* Información Principal */}
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-slate-800/50 rounded-xl p-4">
+                        <div className="bg-slate-800/50 rounded-xl p-5">
                           <p className="text-slate-500 text-xs mb-1">Fecha</p>
                           <p className="text-white font-medium">{formatDate(viewingActividad.fecha)}</p>
                         </div>
-                        <div className="bg-slate-800/50 rounded-xl p-4">
+                        <div className="bg-slate-800/50 rounded-xl p-5">
                           <p className="text-slate-500 text-xs mb-1">Responsable</p>
                           <p className={`font-medium ${responsable?.nombre ? getColorUsuario(responsable.nombre) : 'text-white'}`}>{responsable?.nombre || 'No asignado'}</p>
                         </div>
@@ -1528,7 +1528,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
 
                       {/* Descripción */}
                       {viewingActividad.tipo !== 'email' && viewingActividad.descripcion && (
-                        <div className="bg-slate-800/50 rounded-xl p-4">
+                        <div className="bg-slate-800/50 rounded-xl p-5">
                           <p className="text-slate-500 text-xs mb-2">Descripción / Resumen</p>
                           <p className="text-white whitespace-pre-wrap">{viewingActividad.descripcion}</p>
                         </div>
@@ -1536,7 +1536,7 @@ function Pipeline({ pipeline, setPipeline, cuentas, setCuentas, contactos, setCo
 
                       {/* Archivo adjunto */}
                       {viewingActividad.archivo && (
-                        <div className="bg-slate-800/50 rounded-xl p-4">
+                        <div className="bg-slate-800/50 rounded-xl p-5">
                           <p className="text-slate-500 text-xs mb-2">Archivo Adjunto</p>
                           <a href={viewingActividad.archivo.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 px-4 py-3 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 rounded-xl text-violet-300 transition-all">
                             <Download size={20} />

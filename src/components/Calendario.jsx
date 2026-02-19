@@ -304,8 +304,8 @@ function Calendario({ actividades, recordatorios, setRecordatorios, tareas, setT
     <div className="h-[calc(100vh-140px)] flex flex-col">
       {/* Event Detail Modal */}
       {selectedEvent && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => { setSelectedEvent(null); setEditMode(false); }}>
-          <div className="bg-slate-900 rounded-2xl border border-slate-700 w-full max-w-lg" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => { setSelectedEvent(null); setEditMode(false); }}>
+          <div className="bg-slate-900 rounded-2xl border border-slate-700 w-full max-w-lg shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
             {/* Modal Header */}
             <div className="p-6 border-b border-slate-800">
               <div className="flex items-start justify-between">

@@ -376,8 +376,8 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
 
       {/* Create/Edit User Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowModal(false)}>
-          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-md" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setShowModal(false)}>
+          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-md shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
             <div className="p-6 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white">
                 {isCreating ? 'Nuevo Usuario' : 'Editar Usuario'}
@@ -501,8 +501,8 @@ function Equipo({ usuarios, setUsuarios, currentUser }) {
 
       {/* Permisos Modal - Nueva versión con alcance por acción */}
       {showPermisosModal && editingUser && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowPermisosModal(false)}>
-          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-4xl max-h-[90vh] overflow-hidden" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={() => setShowPermisosModal(false)}>
+          <div className="bg-slate-900 rounded-2xl border border-slate-300/40 w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl shadow-black/40" onClick={e => e.stopPropagation()}>
             <div className="p-6 border-b border-slate-800 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                 <Shield className="w-5 h-5 text-violet-400" />
