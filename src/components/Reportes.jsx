@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import {
   Building, UserPlus, GitBranch, CheckCircle, Clock,
-  TrendingUp, XCircle, FileSpreadsheet, PhoneCall, BarChart3,
+  TrendingUp, XCircle, FileSpreadsheet, FileDown, PhoneCall, BarChart3,
   DollarSign, Award, Users, Activity, Percent,
   Calendar, Zap, Trophy, Medal, Crown,
   Sparkles, Lightbulb, TrendingDown
 } from 'lucide-react';
 import { PIPELINE_STAGES, TIPOS_ACTIVIDAD } from '../utils/constants';
+import { exportarPDFCuentas, exportarPDFLeads, exportarPDFPipeline } from '../utils/pdfExport';
 import { detectarPatrones } from '../utils/scoring';
 import StatCard from './ui/StatCard';
 import EmptyState from './ui/EmptyState';
@@ -310,16 +311,31 @@ function Reportes({ cuentas, leads, pipeline, actividades, usuarios }) {
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white mb-2">Reportes y Analitica</h1>
           <p className="text-slate-400">Analisis completo de metricas, pipeline, actividades y equipo</p>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <button onClick={() => exportarCSV('cuentas')} className="flex items-center gap-2 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/30 text-cyan-400 px-4 py-2 rounded-xl transition-all text-sm">
-            <FileSpreadsheet size={16} /> Cuentas
-          </button>
-          <button onClick={() => exportarCSV('leads')} className="flex items-center gap-2 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 text-violet-400 px-4 py-2 rounded-xl transition-all text-sm">
-            <FileSpreadsheet size={16} /> Leads
-          </button>
-          <button onClick={() => exportarCSV('pipeline')} className="flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-400 px-4 py-2 rounded-xl transition-all text-sm">
-            <FileSpreadsheet size={16} /> Pipeline
-          </button>
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-wrap gap-2">
+            <span className="flex items-center text-xs text-slate-500 font-medium mr-1">CSV</span>
+            <button onClick={() => exportarCSV('cuentas')} className="flex items-center gap-2 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/30 text-cyan-400 px-4 py-2 rounded-xl transition-all text-sm">
+              <FileSpreadsheet size={16} /> Cuentas
+            </button>
+            <button onClick={() => exportarCSV('leads')} className="flex items-center gap-2 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 text-violet-400 px-4 py-2 rounded-xl transition-all text-sm">
+              <FileSpreadsheet size={16} /> Leads
+            </button>
+            <button onClick={() => exportarCSV('pipeline')} className="flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-400 px-4 py-2 rounded-xl transition-all text-sm">
+              <FileSpreadsheet size={16} /> Pipeline
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <span className="flex items-center text-xs text-slate-500 font-medium mr-1">PDF</span>
+            <button onClick={() => exportarPDFCuentas(cuentas, 'Grupo EÖN CRM')} className="flex items-center gap-2 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 text-cyan-300 px-4 py-2 rounded-xl transition-all text-sm">
+              <FileDown size={16} /> Cuentas
+            </button>
+            <button onClick={() => exportarPDFLeads(leads, 'Grupo EÖN CRM')} className="flex items-center gap-2 bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/20 text-violet-300 px-4 py-2 rounded-xl transition-all text-sm">
+              <FileDown size={16} /> Leads
+            </button>
+            <button onClick={() => exportarPDFPipeline(pipeline, 'Grupo EÖN CRM')} className="flex items-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-300 px-4 py-2 rounded-xl transition-all text-sm">
+              <FileDown size={16} /> Pipeline
+            </button>
+          </div>
         </div>
       </div>
 
